@@ -43,9 +43,23 @@ tamano_texto_identificacion =4.5
 
 precision_identificacion = 60  #incialmente en 70 ----> si es neceario colocarlo en 0
 
-modelo_entrenado = "Modelos/modelo_10082025222647.joblib"
+modelo_entrenado = "Modelos/modelo_11082025171808.joblib"
 
+#nombre Carpeta Participante
+participante="AlmagroI"
+    
+#NoControlado
+#Controlado
+ruta_video = "Participantes/"+participante+"/Controlado/Lateral/3.mp4" 
 
+#estado para contar los VP -> Verdaderos Positivos
+VP = {"contador": 0}
+#estado para contar los FP -> Falsos Positivos
+FP = {"contador": 0}
+#estado para contrar los PI -> precision_identificacion
+PI = {"contador": 0}
+
+#VP["contador"] += 1
 #--------------------------------------------------------------------------------------------------------------------
 
 #suavizar el fecto de distorcion
@@ -150,6 +164,7 @@ def visualizar_todo(video_path):
     vector_distancia_32_24 =[]
 
     persona_identificada = "No identificada"
+    persona_identificada2 = "No identificada"
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -363,6 +378,27 @@ def visualizar_todo(video_path):
 
                     if probabilidad_predicha >= precision_identificacion: 
                         persona_identificada = f"{prediccion} - {probabilidad_predicha}%"
+                        persona_identificada2 = prediccion
+                        print(f"Persona identificada > {precision_identificacion} >: {prediccion}")
+                        #Calcular el PI    
+                        #if prediccion == participante:
+                            #PI["contador"] += 1
+                            #print(f"(PI)=+1")
+                    
+                    #Calcular el PI    
+                    if persona_identificada2 == participante:
+                        PI["contador"] += 1
+                        print(f"Se mantiene el (PI)=+1")
+
+                    #Calcular los VP, FP    
+                    if prediccion == participante:
+                        VP["contador"] += 1
+                        #PI["contador"] += 1
+                        print(f"(VP)=+1")
+                        #print(f"(PI)=+1")
+                    else:
+                        FP["contador"] += 1
+                        print(f"(FP)=+1")
 
                     #limpiar los vectores
                     vector_distancia_32_31.clear()
@@ -442,12 +478,16 @@ def predecir_persona_desde_vectores(vectores_distancia: dict):
 
 
 if __name__ == "__main__":
-
-    #nombre Carpeta Participante
-    participante="JoseA"
-    
-    #NoControlado
-    #Controlado
-    ruta_video = "Participantes/"+participante+"/Controlado/Lateral/3.mp4" 
     visualizar_todo(ruta_video)
+    #mostrar los resultados en base los VP y FP
+    print(f"\nResultados de la predicción:--------------------------------------------------------------")
+    print(f"Resultados Verdaderos Positivos (VP)= {VP['contador']}")
+    print(f"Resultados Falsos Positivos (FP)= {FP['contador']}")
+    print(f"Resultados de Precisión de Identificación (PI)= {PI['contador']}")
+    suma = PI['contador'] + VP['contador']
+    print(f"Resultados de Precisión de Identificación (PI) + (VP)= {suma}")
+    print("----------------------------------------------------------------------------------------------")
+    print(f"PC-> {VP['contador'] / (VP['contador'] + FP['contador']) * 100:.2f}%")
+    print("-----CON PI-------")
+    print(f"PC_I-> {suma / (suma + FP['contador']) * 100:.2f}%")
 
