@@ -43,11 +43,11 @@ delay =1
 
 
 #nombre Carpeta Participante
-participante="AdrianJ2"
+participante="AlexanderG"
     
 #NoControlado
 #Controlado
-ruta_video = "Participantes/"+participante+"/Controlado/Frontal/3.mp4" 
+ruta_video = "Participantes/"+participante+"/Controlado/Lateral/1.mp4" 
 
 
 #-----------------------------------------------[FUNCIONES]---------------------------------------------------
@@ -142,6 +142,22 @@ def mejorar_frame(frame):
     # 5. Devuelve el frame reducido y mejorado (NO vuelvas a tamaño original)
     return small, scale_factor
 
+def mostrar_resultados_consola(promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15):
+    print(f"Resultados:")
+    print(f"Distancia 32->31: Promedio = {promedio_32_31}, Desviación = {desviacion_32_31}")
+    print(f"Distancia 28->27: Promedio = {promedio_28_27}, Desviación = {desviacion_28_27}")
+    print(f"Distancia 26->25: Promedio = {promedio_26_25}, Desviación = {desviacion_26_25}")
+    print(f"Distancia 31->23: Promedio = {promedio_31_23}, Desviación = {desviacion_31_23}")
+    print(f"Distancia 32->24: Promedio = {promedio_32_24}, Desviación = {desviacion_32_24}")
+    print(f"Distancia 16->12: Promedio = {promedio_16_12}, Desviación = {desviacion_16_12}")
+    print(f"Distancia 15->11: Promedio = {promedio_15_11}, Desviación = {desviacion_15_11}")
+    print(f"Distancia 32->16: Promedio = {promedio_32_16}, Desviación = {desviacion_32_16}")
+    print(f"Distancia 31->15: Promedio = {promedio_31_15}, Desviación = {desviacion_31_15}")
+
+
+
+
+
 #-----------------------------------------------------------[FUNCION PRINCIPAL]-------------------------------
 #verdadera funcion:
 def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
@@ -155,6 +171,11 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
     vector_distancia_26_25 =[]
     vector_distancia_31_23 =[]
     vector_distancia_32_24 =[]
+    #nuevos vectores 
+    vector_distancia_16_12 =[]
+    vector_distancia_15_11 =[]
+    vector_distancia_32_16 =[]
+    vector_distancia_31_15 =[]
     #tomar muestras cada 25 frames
     while cap.isOpened():
         ret, frame = cap.read()
@@ -164,7 +185,8 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
         frame = cv2.resize(frame, (ANCHO, ALTO))
 
         #Mejorar el frame y rescalar para optimizacion
-        frame_mejorado, scale  = mejorar_frame(frame)
+        #frame_mejorado, scale  = mejorar_frame(frame)
+        frame_mejorado=frame
 
         #image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         image_rgb = cv2.cvtColor(frame_mejorado, cv2.COLOR_BGR2RGB)
@@ -172,6 +194,7 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
         results = pose.process(image_rgb)
        
         if results.pose_landmarks:
+
             #h, w, _ = frame.shape
             h, w, _ = frame_mejorado.shape
 
@@ -289,6 +312,47 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
             distancia_32_24 =0
             distancia_32_24 =distancia_euclidiana(x1_32,x1_24,y1_32,y1_24)
             vector_distancia_32_24.append(distancia_32_24)
+
+            #nuevos puntos 
+            #16_12
+            x1_12 = obtener_escala_x(min_x,escala_x,xs[12])
+            y1_12 = obtener_escala_y(min_y,escala_y,ys[12])
+            x1_16 = obtener_escala_x(min_x,escala_x,xs[16])
+            y1_16 = obtener_escala_y(min_y,escala_y,ys[16])
+
+            distancia_16_12 = 0
+            distancia_16_12 = distancia_euclidiana(x1_16,x1_12,y1_16,y1_12)
+            vector_distancia_16_12.append(distancia_16_12)
+
+            #15_11
+            x1_11 = obtener_escala_x(min_x,escala_x,xs[11])
+            y1_11 = obtener_escala_y(min_y,escala_y,ys[11])
+            x1_15 = obtener_escala_x(min_x,escala_x,xs[15])
+            y1_15 = obtener_escala_y(min_y,escala_y,ys[15])
+
+            distancia_15_11 = 0
+            distancia_15_11 = distancia_euclidiana(x1_15,x1_11,y1_15,y1_11)
+            vector_distancia_15_11.append(distancia_15_11)
+
+            #32_16
+            x1_16 = obtener_escala_x(min_x,escala_x,xs[16])
+            y1_16 = obtener_escala_y(min_y,escala_y,ys[16])
+            x1_32 = obtener_escala_x(min_x,escala_x,xs[32])
+            y1_32 = obtener_escala_y(min_y,escala_y,ys[32])
+            distancia_32_16 = 0
+            distancia_32_16 = distancia_euclidiana(x1_32,x1_16,y1_32,y1_16)
+            vector_distancia_32_16.append(distancia_32_16)
+
+            #31_15
+            x1_15 = obtener_escala_x(min_x,escala_x,xs[15])
+            y1_15 = obtener_escala_y(min_y,escala_y,ys[15])
+            x1_31 = obtener_escala_x(min_x,escala_x,xs[31])
+            y1_31 = obtener_escala_y(min_y,escala_y,ys[31])
+
+            distancia_31_15 = 0
+            distancia_31_15 = distancia_euclidiana(x1_31,x1_15,y1_31,y1_15)
+            vector_distancia_31_15.append(distancia_31_15)
+
             #--------------------------------------------------------------------------------------------------
 
             #si la los puntos p32 o p31 se pasan de cierta coordenada entonces resetear el contador a 0 y dejar de tomar datos
@@ -296,7 +360,7 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
             pie_xd_2 = int((ys[31] - min_y) * escala_y)
 
             #si un pie se pasa de la linea entonces no realizar mas calculos
-            if pie_xd >= 540 or pie_xd_2>=540:
+            if pie_xd >= 560 or pie_xd_2>=560:  #540 inicialmente
                 #print(f"no se realizan calculos")
                 cv2.putText(fondo_negro, f'marcha fuera de rango', (10, 550),
                         cv2.FONT_HERSHEY_SIMPLEX, 1.3, (255, 255, 255), 2)
@@ -315,11 +379,19 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
                     desviacion_31_23 = obtener_desviacion(vector_distancia_31_23)
                     promedio_32_24 = obtener_promedio(vector_distancia_32_24)
                     desviacion_32_24 = obtener_desviacion(vector_distancia_32_24)
-                    
+                    # NUEVOS PUNTOS PARA REALIZAR MAS PRUEBAS
+                    promedio_16_12 = obtener_promedio(vector_distancia_16_12)
+                    desviacion_16_12 = obtener_desviacion(vector_distancia_16_12)
+                    promedio_15_11 = obtener_promedio(vector_distancia_15_11)
+                    desviacion_15_11 = obtener_desviacion(vector_distancia_15_11)
+                    promedio_32_16 = obtener_promedio(vector_distancia_32_16)
+                    desviacion_32_16 = obtener_desviacion(vector_distancia_32_16)
+                    promedio_31_15 = obtener_promedio(vector_distancia_31_15)
+                    desviacion_31_15 = obtener_desviacion(vector_distancia_31_15)
 
                     #ahora en lugar de guardarlo en un json ahora se debe guardar en la base de datos
                     #registrar_puntos_muestra(videoid,muestraid,promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24)
- 
+                    mostrar_resultados_consola(promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15)
 
                     contador=0
                     #sumar el contador del video
@@ -366,7 +438,7 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
             cv2.line(fondo_negro, (0, nueva_h // 2), (nueva_w, nueva_h // 2), (255, 0, 0), 2)
 
             #linea limite para los pies, si se pasa de esta linea entonces no tomar datos
-            y_linea = int(nueva_h * 0.9)
+            y_linea = int(nueva_h * 0.96) # estaba en 0.9 pero se amplio la zona de reconocimiento
             cv2.line(fondo_negro, (0, y_linea), (nueva_w, y_linea), (255, 0, 0), 2)
 
             #contador ++ para el eye X

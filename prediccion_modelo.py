@@ -43,10 +43,10 @@ tamano_texto_identificacion =4.5
 
 precision_identificacion = 60  #incialmente en 70 ----> si es neceario colocarlo en 0
 
-modelo_entrenado = "Modelos/modelo_11082025171808.joblib"
+modelo_entrenado = "Modelos/modelo_12082025175740.joblib"
 
 #nombre Carpeta Participante
-participante="AlmagroI"
+participante="AdrianJ2"
     
 #NoControlado
 #Controlado
@@ -119,7 +119,7 @@ def mejorar_frame_solo_filtro(frame):
 #mejorar el frame pero con rescalador
 def mejorar_frame(frame):
     # 1. Reducir tamaño para acelerar filtrado y detección
-    scale_factor = 0.6  # ajustar (0.5 = mitad tamaño)
+    scale_factor = 0.8  # ajustar (0.5 = mitad tamaño)
     small = cv2.resize(frame, (0, 0), fx=scale_factor, fy=scale_factor)
 
     # 2. Reducción de ruido rápida
@@ -162,6 +162,11 @@ def visualizar_todo(video_path):
     vector_distancia_26_25 =[]
     vector_distancia_31_23 =[]
     vector_distancia_32_24 =[]
+    #nuevos vectores 
+    vector_distancia_16_12 =[]
+    vector_distancia_15_11 =[]
+    vector_distancia_32_16 =[]
+    vector_distancia_31_15 =[]
 
     persona_identificada = "No identificada"
     persona_identificada2 = "No identificada"
@@ -310,6 +315,47 @@ def visualizar_todo(video_path):
             distancia_32_24 =0
             distancia_32_24 =distancia_euclidiana(x1_32,x1_24,y1_32,y1_24)
             vector_distancia_32_24.append(distancia_32_24)
+
+            #nuevos puntos 
+            #16_12
+            x1_12 = obtener_escala_x(min_x,escala_x,xs[12])
+            y1_12 = obtener_escala_y(min_y,escala_y,ys[12])
+            x1_16 = obtener_escala_x(min_x,escala_x,xs[16])
+            y1_16 = obtener_escala_y(min_y,escala_y,ys[16])
+
+            distancia_16_12 = 0
+            distancia_16_12 = distancia_euclidiana(x1_16,x1_12,y1_16,y1_12)
+            vector_distancia_16_12.append(distancia_16_12)
+
+            #15_11
+            x1_11 = obtener_escala_x(min_x,escala_x,xs[11])
+            y1_11 = obtener_escala_y(min_y,escala_y,ys[11])
+            x1_15 = obtener_escala_x(min_x,escala_x,xs[15])
+            y1_15 = obtener_escala_y(min_y,escala_y,ys[15])
+
+            distancia_15_11 = 0
+            distancia_15_11 = distancia_euclidiana(x1_15,x1_11,y1_15,y1_11)
+            vector_distancia_15_11.append(distancia_15_11)
+
+            #32_16
+            x1_16 = obtener_escala_x(min_x,escala_x,xs[16])
+            y1_16 = obtener_escala_y(min_y,escala_y,ys[16])
+            x1_32 = obtener_escala_x(min_x,escala_x,xs[32])
+            y1_32 = obtener_escala_y(min_y,escala_y,ys[32])
+            distancia_32_16 = 0
+            distancia_32_16 = distancia_euclidiana(x1_32,x1_16,y1_32,y1_16)
+            vector_distancia_32_16.append(distancia_32_16)
+
+            #31_15
+            x1_15 = obtener_escala_x(min_x,escala_x,xs[15])
+            y1_15 = obtener_escala_y(min_y,escala_y,ys[15])
+            x1_31 = obtener_escala_x(min_x,escala_x,xs[31])
+            y1_31 = obtener_escala_y(min_y,escala_y,ys[31])
+
+            distancia_31_15 = 0
+            distancia_31_15 = distancia_euclidiana(x1_31,x1_15,y1_31,y1_15)
+            vector_distancia_31_15.append(distancia_31_15)
+
             #--------------------------------------------------------------------------------------------------
 
             
@@ -317,7 +363,7 @@ def visualizar_todo(video_path):
             pie_xd = int((ys[32] - min_y) * escala_y)
             pie_xd_2 = int((ys[31] - min_y) * escala_y)
 
-            if pie_xd >= 540 or pie_xd_2>=540:
+            if pie_xd >= 560 or pie_xd_2>=560:
                 #print(f"no se realizan calculos")
                 contador=0
                 vector_distancia_32_31.clear()
@@ -370,7 +416,11 @@ def visualizar_todo(video_path):
                         "28_27": vector_distancia_28_27,
                         "31_23": vector_distancia_31_23,
                         "32_24": vector_distancia_32_24,
-                        "32_31": vector_distancia_32_31
+                        "32_31": vector_distancia_32_31,
+                        "16_12": vector_distancia_16_12,
+                        "15_11": vector_distancia_15_11,
+                        "32_16": vector_distancia_32_16,
+                        "31_15": vector_distancia_31_15
                     }
                     prediccion,probabilidad_predicha, probabilidades = predecir_persona_desde_vectores(vectores)
                     #print(f"prediccion=>{prediccion}")
