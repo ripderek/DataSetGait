@@ -43,11 +43,11 @@ delay =1
 
 
 #nombre Carpeta Participante
-participante="AlexanderG"
+participante="JosselynV"
     
 #NoControlado
 #Controlado
-ruta_video = "Participantes/"+participante+"/Controlado/Lateral/1.mp4" 
+ruta_video = "Participantes/"+participante+"/Controlado/Lateral/1.mov" 
 
 
 #-----------------------------------------------[FUNCIONES]---------------------------------------------------
@@ -177,6 +177,13 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
     vector_distancia_32_16 =[]
     vector_distancia_31_15 =[]
     #tomar muestras cada 25 frames
+
+    #cruce de rodillas 
+    cruce_rodillas_indicador = False
+    orientacion=1 #por defecto se inicia frontal
+    #orientacion 1= frontal, 2= espalda, 3= lateral
+
+    
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -355,6 +362,36 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
 
             #--------------------------------------------------------------------------------------------------
 
+            #nuevo
+            #deteccion de la orientacion de la persona Frontal, Espalda, Lateral
+            mano_izquierda= int((xs[16] - min_x) * escala_x)
+            mano_derecha = int((xs[15] - min_x) * escala_x)
+            print(f"mano izquierda: {mano_izquierda} - mano derecha: {mano_derecha}")
+
+            # si la persona al menos cruzo las rodillas una vez entonces esta en lateral evaluar de nuevo cuando pasen los 25 fotogramas
+                        #orientacion = "Lateral" if (cruce_caderas or cruce_hombros or cruce_rodillas or cruce_rodillas_2 or
+                                        #(diff_caderas < 20 and diff_hombros < 20)) else "Frente o Espalda"
+            
+            
+            #en los primeros 10 fotogramas se evalua la orientacion si esque el cruce de rodillas es false
+            if contador<=10 and cruce_rodillas_indicador == False:
+                #evaluar la orientacion
+                #300 es el punto central
+                #si la mano izquierda es menor que 300 y la mano derecha es mayor a 300 entonces esta de frente
+                #sino de espaldas
+                #if mano_izquierda < 300 and mano_derecha > 300:
+                #orientacion = "Frontal" if (mano_izquierda < 300 and mano_derecha > 300) else "Espalda"
+                orientacion = 1 if (mano_izquierda < 300 and mano_derecha > 300) else 2
+
+            # en caso de que no se ha detectado cruce de rodillas entonces evaluarlo
+            if cruce_rodillas_indicador == False:
+                #si esta en false es porque no se ha evaluado la orientacion en lateral
+                 if (cruce_caderas or cruce_hombros or cruce_rodillas or cruce_rodillas_2 or (diff_caderas < 20 and diff_hombros < 20)):
+                     #orientacion = "Lateral"
+                     orientacion = 3
+                     cruce_rodillas_indicador= True
+
+
             #si la los puntos p32 o p31 se pasan de cierta coordenada entonces resetear el contador a 0 y dejar de tomar datos
             pie_xd = int((ys[32] - min_y) * escala_y)
             pie_xd_2 = int((ys[31] - min_y) * escala_y)
@@ -367,7 +404,7 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
 
             else:
                 #reiniciar contadores
-                if (contador==25):
+                if (contador>=25):
                     #calcular la desviacion y el promedio para poder guardar como muestra    
                     promedio_32_31 = obtener_promedio(vector_distancia_32_31)
                     desviacion_32_31 = obtener_desviacion(vector_distancia_32_31)
@@ -394,15 +431,18 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
                     mostrar_resultados_consola(promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15)
 
                     contador=0
+                    cruce_rodillas_indicador= False
                     #sumar el contador del video
-                    contador_video += 1
+                    #contador_video += 1
           
 
             #calcular la orientacion de la persona si esta de frente o lateral 
-            orientacion = "Lateral" if (cruce_caderas or cruce_hombros or cruce_rodillas or cruce_rodillas_2 or
-                                        (diff_caderas < 20 and diff_hombros < 20)) else "Frente o Espalda"
+            #orientacion = "Lateral" if (cruce_caderas or cruce_hombros or cruce_rodillas or cruce_rodillas_2 or
+                                        #(diff_caderas < 20 and diff_hombros < 20)) else "Frente o Espalda"
 
             cv2.putText(fondo_negro, f'Orientacion: {orientacion}', (10, 20),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
+            cv2.putText(fondo_negro, f'Contador: {contador}', (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
             cv2.putText(fondo_negro, f'diff_caderas: {diff_caderas:.1f}', (10, 40),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.3, (255, 255, 255), 1)
@@ -443,8 +483,9 @@ def obtener_marcha(video_path,nombre_persona, muestraid,videoid):
 
             #contador ++ para el eye X
             contador += 1
-            cv2.putText(fondo_negro, f'contador: {contador}', (700, 500),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2) 
+            print(f'contador: {contador}')
+            #cv2.putText(fondo_negro, f'contador: {contador}', (700, 500),
+                        #cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2) 
             
 
             #comentar para que trabaje en segundo plano

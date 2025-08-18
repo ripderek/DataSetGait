@@ -2,13 +2,14 @@ import os
 import cv2
 import mediapipe as mp
 import pandas as pd
-from saveBD import CrearGuardarNuevaEv,RegistrarParticipanteEv,InsertarResultadosVideos
 from collections import defaultdict, deque
 import math
 import numpy as np
 from joblib import load
-from sklearn.ensemble import RandomForestClassifier
+#nuevo con tensorflow
+import tensorflow as tf
 from joblib import load
+from saveBD import CrearGuardarNuevaEv,RegistrarParticipanteEv,InsertarResultadosVideos
 
 # Inicializar MediaPipe
 mp_pose = mp.solutions.pose
@@ -45,12 +46,10 @@ tamano_texto_identificacion =4.5
 
 precision_identificacion = 60  #incialmente en 70 ----> si es neceario colocarlo en 0
 
-#modelo_entrenado = "Modelos/modelo_12082025175740.joblib"
 
 #estado para contar los VP -> Verdaderos Positivos
 VP = {"contador": 0}
-#estado para contar los FP -> Falso
-# Positivos
+#estado para contar los FP -> Falsos Positivos
 FP = {"contador": 0}
 #estado para contrar los PI -> precision_identificacion
 PI = {"contador": 0}
@@ -246,13 +245,17 @@ def visualizar_todo(video_path,participante):
             x_25, x_26 = xs[25] * escala_x, xs[26] * escala_x
             centro_horizontal = escala_x // 2
 
+            diff_caderas = abs(x_23 - x_24)
+            diff_hombros = abs(x_11 - x_12)
+            centro_horizontal = escala_x // 2
+
             cruce_caderas = (x_23 < centro_horizontal < x_24) or (x_24 < centro_horizontal < x_23)
             cruce_hombros = (x_11 < centro_horizontal < x_12) or (x_12 < centro_horizontal < x_11)
             cruce_rodillas = (x_25 < centro_horizontal < x_26) or (x_26 < centro_horizontal < x_25)
-            cruce_rodillas_2 = abs(x_25 - x_26) < 5
 
-            diff_caderas = abs(x_23 - x_24)
-            diff_hombros = abs(x_11 - x_12)
+            # Umbral para considerar "la misma coordenada"
+            umbral = 5  #  nivel de precisión deseado
+            cruce_rodillas_2 = abs(x_25 - x_26) < umbral 
 
             #orientacion = "Lateral" if (cruce_caderas or cruce_hombros or cruce_rodillas or cruce_rodillas_2 or
                                         #(diff_caderas < 20 and diff_hombros < 20)) else "Frente o Espalda"
@@ -359,10 +362,11 @@ def visualizar_todo(video_path,participante):
             vector_distancia_31_15.append(distancia_31_15)
 
             #--------------------------------------------------------------------------------------------------
+
             #deteccion de la orientacion de la persona Frontal, Espalda, Lateral
             mano_izquierda= int((xs[16] - min_x) * escala_x)
             mano_derecha = int((xs[15] - min_x) * escala_x)
-            #print(f"mano izquierda: {mano_izquierda} - mano derecha: {mano_derecha}")
+            print(f"mano izquierda: {mano_izquierda} - mano derecha: {mano_derecha}")
 
             #en los primeros 10 fotogramas se evalua la orientacion si esque el cruce de rodillas es false
             if contador<=10 and cruce_rodillas_indicador == False:
@@ -374,8 +378,8 @@ def visualizar_todo(video_path,participante):
                 if (cruce_caderas or cruce_hombros or cruce_rodillas or cruce_rodillas_2 or (diff_caderas < 20 and diff_hombros < 20)):
                     #orientacion = "Lateral"
                     orientacion = 3
-                    cruce_rodillas_indicador= True
-            
+                    cruce_rodillas_indicador= True            
+
             #si la los puntos p32 o p31 se pasan de cierta coordenada entonces resetear el contador a 0 y dejar de tomar datos
             pie_xd = int((ys[32] - min_y) * escala_y)
             pie_xd_2 = int((ys[31] - min_y) * escala_y)
@@ -439,7 +443,8 @@ def visualizar_todo(video_path,participante):
                         "32_16": vector_distancia_32_16,
                         "31_15": vector_distancia_31_15
                     }
-                    prediccion,probabilidad_predicha, probabilidades = predecir_persona_desde_vectores(vectores,orientacion)
+                    #prediccion,probabilidad_predicha, probabilidades = predecir_persona_desde_vectores(vectores)
+                    prediccion,probabilidad_predicha, probabilidades = predecir_persona_desde_vectores_tf(vectores,orientacion)
                     #print(f"prediccion=>{prediccion}")
                     #si la probabilidad es igual o mas alta que la precision de probabilidad entonces alli si afirmar a la persona identificada
 
@@ -480,7 +485,7 @@ def visualizar_todo(video_path,participante):
             contador += 1
             cv2.putText(frame_mejorado, f'Orientacion: {orientacion}', (10, 20),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
-            cv2.putText(frame_mejorado, f'contador: {contador}', (10, 40),
+            cv2.putText(frame_mejorado, f'contador: {contador}', (10, 32),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2) 
 
             # Mostrar imagen final directamente
@@ -510,15 +515,23 @@ def obtener_desviacion(vector_distancia):
     desviacion = math.sqrt(varianza)
     return desviacion
 
-def predecir_persona_desde_vectores(vectores_distancia: dict, orientacion):
+def predecir_persona_desde_vectores_tf(vectores_distancia: dict, orientacion):
     """
+    Realiza una predicción de persona usando el modelo entrenado en TensorFlow.
+
     vectores_distancia: diccionario con claves tipo "32_31" y valores tipo lista con las 25 distancias
     """
-    from joblib import load
 
-    # Cargar modelo
-    #modelo = load(modelo_entrenado)
-    modelo = load(f"Modelos/RF/modelo_{orientacion}.joblib")
+    # Rutas de los modelos
+    model_path =   f"MODELOS/MLP/mlp_model_{orientacion}.h5"
+    encoder_path = f"MODELOS/MLP/label_encoder_{orientacion}.joblib"
+    
+    if not os.path.exists(model_path) or not os.path.exists(encoder_path):
+        raise FileNotFoundError("No se encontró el modelo o el encoder. Entrena el modelo primero.")
+
+    # Cargar modelo y encoder
+    modelo = tf.keras.models.load_model(model_path)
+    label_encoder = load(encoder_path)
 
     # Construir el vector de entrada ordenadamente
     vector = []
@@ -526,24 +539,32 @@ def predecir_persona_desde_vectores(vectores_distancia: dict, orientacion):
         distancias = vectores_distancia[clave]
         promedio = obtener_promedio(distancias)
         desviacion = obtener_desviacion(distancias)
-        #print(f"{clave} => {promedio}, {desviacion}")
         vector.extend([promedio, desviacion])
 
+    # Convertir a forma que TensorFlow entienda
+    vector = np.array(vector, dtype="float32").reshape(1, -1)
+
     # Realizar la predicción
-    prediccion = modelo.predict([vector])[0]
-    probabilidades = modelo.predict_proba([vector])[0]
+    probabilidades = modelo.predict(vector)[0]
+
+    # Índice con mayor probabilidad
+    indice_predicho = np.argmax(probabilidades)
+    prediccion = label_encoder.inverse_transform([indice_predicho])[0]
+
+    # Probabilidad asociada a la predicción
+    probabilidad_predicha = round(probabilidades[indice_predicho] * 100, 2)
+
+    # Diccionario con todas las probabilidades
+    probabilidades_dict = dict(zip(label_encoder.classes_, [round(p * 100, 2) for p in probabilidades]))
 
     # Mostrar resultados
-    print(f"\n Persona predicha: {prediccion}")
-    print(" Probabilidades:")
-    for persona, prob in zip(modelo.classes_, probabilidades):
-        print(f"- {persona}: {prob * 100:.2f}%")
+    print(f"\nPersona predicha: {prediccion} ({probabilidad_predicha}%)")
+    print("Probabilidades:")
+    for persona, prob in probabilidades_dict.items():
+        print(f"- {persona}: {prob:.2f}%")
 
-    # Obtener la probabilidad correspondiente a la persona predicha
-    indice = list(modelo.classes_).index(prediccion)
-    probabilidad_predicha = round(probabilidades[indice] * 100, 2)
+    return prediccion, probabilidad_predicha, probabilidades_dict
 
-    return prediccion, probabilidad_predicha, dict(zip(modelo.classes_, [round(p * 100, 2) for p in probabilidades]))
 
 
 #primero guardar en la base de datos y luego guardar en un archivo txt para visualizacion
@@ -656,12 +677,4 @@ if __name__ == "__main__":
                 print (f"participanteID -> {participanteID}")
                 GuardarResultados(p,escenario,j+1,x,participanteID,evaluacionID)
     print (f"PROCESO FINALIZADO REVISAR LAS CONSULTAS DE LA BD CON evaluacionID -> {evaluacionID}")
-
-
-
-
-
-
-
-
 

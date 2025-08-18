@@ -1,0 +1,2030 @@
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Frontal
+(VP)= 20
+(FP)= 5
+(PI)= 25
+Resultados de Precisión de Identificación (PI) + (VP)= 45
+PC-> 80.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Frontal
+(VP)= 19
+(FP)= 1
+(PI)= 18
+Resultados de Precisión de Identificación (PI) + (VP)= 37
+PC-> 95.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Frontal
+(VP)= 30
+(FP)= 1
+(PI)= 29
+Resultados de Precisión de Identificación (PI) + (VP)= 59
+PC-> 96.77%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Frontal
+(VP)= 38
+(FP)= 1
+(PI)= 37
+Resultados de Precisión de Identificación (PI) + (VP)= 75
+PC-> 97.44%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Espalda
+(VP)= 20
+(FP)= 0
+(PI)= 20
+Resultados de Precisión de Identificación (PI) + (VP)= 40
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Espalda
+(VP)= 33
+(FP)= 0
+(PI)= 33
+Resultados de Precisión de Identificación (PI) + (VP)= 66
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Espalda
+(VP)= 40
+(FP)= 1
+(PI)= 39
+Resultados de Precisión de Identificación (PI) + (VP)= 79
+PC-> 97.56%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Lateral
+(VP)= 20
+(FP)= 4
+(PI)= 22
+Resultados de Precisión de Identificación (PI) + (VP)= 42
+PC-> 83.33%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Lateral
+(VP)= 33
+(FP)= 9
+(PI)= 38
+Resultados de Precisión de Identificación (PI) + (VP)= 71
+PC-> 78.57%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Lateral
+(VP)= 42
+(FP)= 12
+(PI)= 48
+Resultados de Precisión de Identificación (PI) + (VP)= 90
+PC-> 77.78%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Frontal
+(VP)= 19
+(FP)= 0
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 38
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Frontal
+(VP)= 33
+(FP)= 0
+(PI)= 33
+Resultados de Precisión de Identificación (PI) + (VP)= 66
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Frontal
+(VP)= 38
+(FP)= 3
+(PI)= 41
+Resultados de Precisión de Identificación (PI) + (VP)= 79
+PC-> 92.68%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Espalda
+(VP)= 19
+(FP)= 6
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 38
+PC-> 76.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Espalda
+(VP)= 32
+(FP)= 10
+(PI)= 33
+Resultados de Precisión de Identificación (PI) + (VP)= 65
+PC-> 76.19%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Espalda
+(VP)= 38
+(FP)= 16
+(PI)= 41
+Resultados de Precisión de Identificación (PI) + (VP)= 79
+PC-> 70.37%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Lateral
+(VP)= 17
+(FP)= 13
+(PI)= 26
+Resultados de Precisión de Identificación (PI) + (VP)= 43
+PC-> 56.67%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Lateral
+(VP)= 20
+(FP)= 14
+(PI)= 29
+Resultados de Precisión de Identificación (PI) + (VP)= 49
+PC-> 58.82%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Lateral
+(VP)= 30
+(FP)= 17
+(PI)= 42
+Resultados de Precisión de Identificación (PI) + (VP)= 72
+PC-> 63.83%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Frontal
+(VP)= 4
+(FP)= 2
+(PI)= 3
+Resultados de Precisión de Identificación (PI) + (VP)= 7
+PC-> 66.67%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Frontal
+(VP)= 11
+(FP)= 8
+(PI)= 12
+Resultados de Precisión de Identificación (PI) + (VP)= 23
+PC-> 57.89%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Frontal
+(VP)= 20
+(FP)= 8
+(PI)= 21
+Resultados de Precisión de Identificación (PI) + (VP)= 41
+PC-> 71.43%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Espalda
+(VP)= 5
+(FP)= 1
+(PI)= 6
+Resultados de Precisión de Identificación (PI) + (VP)= 11
+PC-> 83.33%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Espalda
+(VP)= 12
+(FP)= 2
+(PI)= 14
+Resultados de Precisión de Identificación (PI) + (VP)= 26
+PC-> 85.71%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Espalda
+(VP)= 23
+(FP)= 5
+(PI)= 28
+Resultados de Precisión de Identificación (PI) + (VP)= 51
+PC-> 82.14%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Lateral
+(VP)= 5
+(FP)= 6
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 16
+PC-> 45.45%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Lateral
+(VP)= 15
+(FP)= 13
+(PI)= 26
+Resultados de Precisión de Identificación (PI) + (VP)= 41
+PC-> 53.57%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Lateral
+(VP)= 29
+(FP)= 25
+(PI)= 49
+Resultados de Precisión de Identificación (PI) + (VP)= 78
+PC-> 53.70%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Frontal
+(VP)= 19
+(FP)= 6
+(PI)= 25
+Resultados de Precisión de Identificación (PI) + (VP)= 44
+PC-> 76.00%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Frontal
+(VP)= 26
+(FP)= 12
+(PI)= 35
+Resultados de Precisión de Identificación (PI) + (VP)= 61
+PC-> 68.42%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Frontal
+(VP)= 29
+(FP)= 15
+(PI)= 38
+Resultados de Precisión de Identificación (PI) + (VP)= 67
+PC-> 65.91%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Espalda
+(VP)= 21
+(FP)= 7
+(PI)= 20
+Resultados de Precisión de Identificación (PI) + (VP)= 41
+PC-> 75.00%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Espalda
+(VP)= 44
+(FP)= 8
+(PI)= 44
+Resultados de Precisión de Identificación (PI) + (VP)= 88
+PC-> 84.62%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Espalda
+(VP)= 62
+(FP)= 11
+(PI)= 64
+Resultados de Precisión de Identificación (PI) + (VP)= 126
+PC-> 84.93%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Lateral
+(VP)= 18
+(FP)= 9
+(PI)= 18
+Resultados de Precisión de Identificación (PI) + (VP)= 36
+PC-> 66.67%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Lateral
+(VP)= 38
+(FP)= 13
+(PI)= 37
+Resultados de Precisión de Identificación (PI) + (VP)= 75
+PC-> 74.51%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Lateral
+(VP)= 52
+(FP)= 19
+(PI)= 50
+Resultados de Precisión de Identificación (PI) + (VP)= 102
+PC-> 73.24%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Frontal
+(VP)= 10
+(FP)= 0
+(PI)= 9
+Resultados de Precisión de Identificación (PI) + (VP)= 19
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Frontal
+(VP)= 19
+(FP)= 0
+(PI)= 18
+Resultados de Precisión de Identificación (PI) + (VP)= 37
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Frontal
+(VP)= 26
+(FP)= 1
+(PI)= 26
+Resultados de Precisión de Identificación (PI) + (VP)= 52
+PC-> 96.30%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Espalda
+(VP)= 1
+(FP)= 7
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 12.50%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Espalda
+(VP)= 1
+(FP)= 15
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 6.25%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Espalda
+(VP)= 2
+(FP)= 23
+(PI)= 1
+Resultados de Precisión de Identificación (PI) + (VP)= 3
+PC-> 8.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Lateral
+(VP)= 3
+(FP)= 8
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 14
+PC-> 27.27%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Lateral
+(VP)= 9
+(FP)= 12
+(PI)= 21
+Resultados de Precisión de Identificación (PI) + (VP)= 30
+PC-> 42.86%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Lateral
+(VP)= 14
+(FP)= 16
+(PI)= 30
+Resultados de Precisión de Identificación (PI) + (VP)= 44
+PC-> 46.67%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Frontal
+(VP)= 5
+(FP)= 1
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 83.33%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Frontal
+(VP)= 14
+(FP)= 1
+(PI)= 13
+Resultados de Precisión de Identificación (PI) + (VP)= 27
+PC-> 93.33%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Frontal
+(VP)= 20
+(FP)= 1
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 39
+PC-> 95.24%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Espalda
+(VP)= 1
+(FP)= 7
+(PI)= 8
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 12.50%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Espalda
+(VP)= 2
+(FP)= 15
+(PI)= 10
+Resultados de Precisión de Identificación (PI) + (VP)= 12
+PC-> 11.76%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Espalda
+(VP)= 3
+(FP)= 21
+(PI)= 10
+Resultados de Precisión de Identificación (PI) + (VP)= 13
+PC-> 12.50%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Lateral
+(VP)= 2
+(FP)= 2
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 6
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Lateral
+(VP)= 7
+(FP)= 5
+(PI)= 12
+Resultados de Precisión de Identificación (PI) + (VP)= 19
+PC-> 58.33%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Lateral
+(VP)= 10
+(FP)= 9
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 29
+PC-> 52.63%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Frontal
+(VP)= 20
+(FP)= 0
+(PI)= 20
+Resultados de Precisión de Identificación (PI) + (VP)= 40
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Frontal
+(VP)= 31
+(FP)= 0
+(PI)= 31
+Resultados de Precisión de Identificación (PI) + (VP)= 62
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Frontal
+(VP)= 39
+(FP)= 0
+(PI)= 39
+Resultados de Precisión de Identificación (PI) + (VP)= 78
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Espalda
+(VP)= 19
+(FP)= 1
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 38
+PC-> 95.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Espalda
+(VP)= 32
+(FP)= 1
+(PI)= 32
+Resultados de Precisión de Identificación (PI) + (VP)= 64
+PC-> 96.97%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Espalda
+(VP)= 39
+(FP)= 2
+(PI)= 39
+Resultados de Precisión de Identificación (PI) + (VP)= 78
+PC-> 95.12%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Lateral
+(VP)= 8
+(FP)= 16
+(PI)= 8
+Resultados de Precisión de Identificación (PI) + (VP)= 16
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Lateral
+(VP)= 14
+(FP)= 28
+(PI)= 14
+Resultados de Precisión de Identificación (PI) + (VP)= 28
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Lateral
+(VP)= 20
+(FP)= 34
+(PI)= 21
+Resultados de Precisión de Identificación (PI) + (VP)= 41
+PC-> 37.04%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Frontal
+(VP)= 16
+(FP)= 3
+(PI)= 16
+Resultados de Precisión de Identificación (PI) + (VP)= 32
+PC-> 84.21%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Frontal
+(VP)= 29
+(FP)= 4
+(PI)= 29
+Resultados de Precisión de Identificación (PI) + (VP)= 58
+PC-> 87.88%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Frontal
+(VP)= 34
+(FP)= 7
+(PI)= 34
+Resultados de Precisión de Identificación (PI) + (VP)= 68
+PC-> 82.93%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Espalda
+(VP)= 25
+(FP)= 0
+(PI)= 25
+Resultados de Precisión de Identificación (PI) + (VP)= 50
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Espalda
+(VP)= 42
+(FP)= 0
+(PI)= 42
+Resultados de Precisión de Identificación (PI) + (VP)= 84
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Espalda
+(VP)= 53
+(FP)= 1
+(PI)= 54
+Resultados de Precisión de Identificación (PI) + (VP)= 107
+PC-> 98.15%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Lateral
+(VP)= 21
+(FP)= 9
+(PI)= 21
+Resultados de Precisión de Identificación (PI) + (VP)= 42
+PC-> 70.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Lateral
+(VP)= 24
+(FP)= 10
+(PI)= 24
+Resultados de Precisión de Identificación (PI) + (VP)= 48
+PC-> 70.59%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Lateral
+(VP)= 32
+(FP)= 15
+(PI)= 32
+Resultados de Precisión de Identificación (PI) + (VP)= 64
+PC-> 68.09%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Frontal
+(VP)= 4
+(FP)= 2
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 8
+PC-> 66.67%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Frontal
+(VP)= 7
+(FP)= 12
+(PI)= 6
+Resultados de Precisión de Identificación (PI) + (VP)= 13
+PC-> 36.84%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Frontal
+(VP)= 15
+(FP)= 13
+(PI)= 14
+Resultados de Precisión de Identificación (PI) + (VP)= 29
+PC-> 53.57%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Espalda
+(VP)= 2
+(FP)= 4
+(PI)= 2
+Resultados de Precisión de Identificación (PI) + (VP)= 4
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Espalda
+(VP)= 7
+(FP)= 7
+(PI)= 7
+Resultados de Precisión de Identificación (PI) + (VP)= 14
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Espalda
+(VP)= 10
+(FP)= 18
+(PI)= 10
+Resultados de Precisión de Identificación (PI) + (VP)= 20
+PC-> 35.71%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Lateral
+(VP)= 3
+(FP)= 8
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 7
+PC-> 27.27%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Lateral
+(VP)= 11
+(FP)= 17
+(PI)= 13
+Resultados de Precisión de Identificación (PI) + (VP)= 24
+PC-> 39.29%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Lateral
+(VP)= 18
+(FP)= 36
+(PI)= 23
+Resultados de Precisión de Identificación (PI) + (VP)= 41
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Frontal
+(VP)= 2
+(FP)= 23
+(PI)= 2
+Resultados de Precisión de Identificación (PI) + (VP)= 4
+PC-> 8.00%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Frontal
+(VP)= 7
+(FP)= 31
+(PI)= 5
+Resultados de Precisión de Identificación (PI) + (VP)= 12
+PC-> 18.42%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Frontal
+(VP)= 10
+(FP)= 34
+(PI)= 9
+Resultados de Precisión de Identificación (PI) + (VP)= 19
+PC-> 22.73%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Espalda
+(VP)= 17
+(FP)= 11
+(PI)= 18
+Resultados de Precisión de Identificación (PI) + (VP)= 35
+PC-> 60.71%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Espalda
+(VP)= 29
+(FP)= 23
+(PI)= 32
+Resultados de Precisión de Identificación (PI) + (VP)= 61
+PC-> 55.77%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Espalda
+(VP)= 33
+(FP)= 40
+(PI)= 35
+Resultados de Precisión de Identificación (PI) + (VP)= 68
+PC-> 45.21%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Lateral
+(VP)= 6
+(FP)= 21
+(PI)= 6
+Resultados de Precisión de Identificación (PI) + (VP)= 12
+PC-> 22.22%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Lateral
+(VP)= 14
+(FP)= 37
+(PI)= 14
+Resultados de Precisión de Identificación (PI) + (VP)= 28
+PC-> 27.45%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Lateral
+(VP)= 22
+(FP)= 49
+(PI)= 23
+Resultados de Precisión de Identificación (PI) + (VP)= 45
+PC-> 30.99%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Frontal
+(VP)= 2
+(FP)= 8
+(PI)= 2
+Resultados de Precisión de Identificación (PI) + (VP)= 4
+PC-> 20.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Frontal
+(VP)= 5
+(FP)= 14
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 26.32%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Frontal
+(VP)= 8
+(FP)= 19
+(PI)= 8
+Resultados de Precisión de Identificación (PI) + (VP)= 16
+PC-> 29.63%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Espalda
+(VP)= 0
+(FP)= 8
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Espalda
+(VP)= 0
+(FP)= 16
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Espalda
+(VP)= 0
+(FP)= 25
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Lateral
+(VP)= 5
+(FP)= 6
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 45.45%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Lateral
+(VP)= 11
+(FP)= 10
+(PI)= 10
+Resultados de Precisión de Identificación (PI) + (VP)= 21
+PC-> 52.38%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Lateral
+(VP)= 15
+(FP)= 15
+(PI)= 13
+Resultados de Precisión de Identificación (PI) + (VP)= 28
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Frontal
+(VP)= 3
+(FP)= 3
+(PI)= 2
+Resultados de Precisión de Identificación (PI) + (VP)= 5
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Frontal
+(VP)= 11
+(FP)= 4
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 22
+PC-> 73.33%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Frontal
+(VP)= 11
+(FP)= 10
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 22
+PC-> 52.38%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Espalda
+(VP)= 0
+(FP)= 8
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Espalda
+(VP)= 5
+(FP)= 12
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 29.41%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Espalda
+(VP)= 5
+(FP)= 19
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 20.83%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Lateral
+(VP)= 2
+(FP)= 2
+(PI)= 1
+Resultados de Precisión de Identificación (PI) + (VP)= 3
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Lateral
+(VP)= 7
+(FP)= 5
+(PI)= 5
+Resultados de Precisión de Identificación (PI) + (VP)= 12
+PC-> 58.33%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Lateral
+(VP)= 8
+(FP)= 11
+(PI)= 5
+Resultados de Precisión de Identificación (PI) + (VP)= 13
+PC-> 42.11%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 1, orientación Frontal
+(VP)= 15
+(FP)= 5
+(PI)= 20
+Resultados de Precisión de Identificación (PI) + (VP)= 35
+PC-> 75.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 1, orientación Frontal
+(VP)= 15
+(FP)= 5
+(PI)= 20
+Resultados de Precisión de Identificación (PI) + (VP)= 35
+PC-> 75.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 2, orientación Frontal
+(VP)= 25
+(FP)= 9
+(PI)= 34
+Resultados de Precisión de Identificación (PI) + (VP)= 59
+PC-> 73.53%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 3, orientación Frontal
+(VP)= 31
+(FP)= 12
+(PI)= 43
+Resultados de Precisión de Identificación (PI) + (VP)= 74
+PC-> 72.09%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 1, orientación Espalda
+(VP)= 9
+(FP)= 9
+(PI)= 18
+Resultados de Precisión de Identificación (PI) + (VP)= 27
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 2, orientación Espalda
+(VP)= 14
+(FP)= 18
+(PI)= 32
+Resultados de Precisión de Identificación (PI) + (VP)= 46
+PC-> 43.75%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 3, orientación Espalda
+(VP)= 18
+(FP)= 23
+(PI)= 41
+Resultados de Precisión de Identificación (PI) + (VP)= 59
+PC-> 43.90%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 1, orientación Lateral
+(VP)= 8
+(FP)= 17
+(PI)= 18
+Resultados de Precisión de Identificación (PI) + (VP)= 26
+PC-> 32.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 2, orientación Lateral
+(VP)= 15
+(FP)= 28
+(PI)= 27
+Resultados de Precisión de Identificación (PI) + (VP)= 42
+PC-> 34.88%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 3, orientación Lateral
+(VP)= 21
+(FP)= 34
+(PI)= 39
+Resultados de Precisión de Identificación (PI) + (VP)= 60
+PC-> 38.18%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Frontal
+(VP)= 20
+(FP)= 0
+(PI)= 18
+Resultados de Precisión de Identificación (PI) + (VP)= 38
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Frontal
+(VP)= 31
+(FP)= 0
+(PI)= 29
+Resultados de Precisión de Identificación (PI) + (VP)= 60
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Frontal
+(VP)= 39
+(FP)= 0
+(PI)= 37
+Resultados de Precisión de Identificación (PI) + (VP)= 76
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Espalda
+(VP)= 19
+(FP)= 1
+(PI)= 20
+Resultados de Precisión de Identificación (PI) + (VP)= 39
+PC-> 95.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Espalda
+(VP)= 32
+(FP)= 1
+(PI)= 33
+Resultados de Precisión de Identificación (PI) + (VP)= 65
+PC-> 96.97%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Espalda
+(VP)= 38
+(FP)= 3
+(PI)= 37
+Resultados de Precisión de Identificación (PI) + (VP)= 75
+PC-> 92.68%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Lateral
+(VP)= 18
+(FP)= 6
+(PI)= 22
+Resultados de Precisión de Identificación (PI) + (VP)= 40
+PC-> 75.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Lateral
+(VP)= 28
+(FP)= 14
+(PI)= 38
+Resultados de Precisión de Identificación (PI) + (VP)= 66
+PC-> 66.67%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Lateral
+(VP)= 36
+(FP)= 18
+(PI)= 48
+Resultados de Precisión de Identificación (PI) + (VP)= 84
+PC-> 66.67%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Frontal
+(VP)= 17
+(FP)= 2
+(PI)= 16
+Resultados de Precisión de Identificación (PI) + (VP)= 33
+PC-> 89.47%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Frontal
+(VP)= 31
+(FP)= 2
+(PI)= 30
+Resultados de Precisión de Identificación (PI) + (VP)= 61
+PC-> 93.94%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Frontal
+(VP)= 37
+(FP)= 4
+(PI)= 38
+Resultados de Precisión de Identificación (PI) + (VP)= 75
+PC-> 90.24%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Espalda
+(VP)= 20
+(FP)= 5
+(PI)= 25
+Resultados de Precisión de Identificación (PI) + (VP)= 45
+PC-> 80.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Espalda
+(VP)= 36
+(FP)= 6
+(PI)= 42
+Resultados de Precisión de Identificación (PI) + (VP)= 78
+PC-> 85.71%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Espalda
+(VP)= 43
+(FP)= 11
+(PI)= 54
+Resultados de Precisión de Identificación (PI) + (VP)= 97
+PC-> 79.63%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Lateral
+(VP)= 15
+(FP)= 15
+(PI)= 25
+Resultados de Precisión de Identificación (PI) + (VP)= 40
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Lateral
+(VP)= 18
+(FP)= 16
+(PI)= 28
+Resultados de Precisión de Identificación (PI) + (VP)= 46
+PC-> 52.94%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Lateral
+(VP)= 27
+(FP)= 20
+(PI)= 31
+Resultados de Precisión de Identificación (PI) + (VP)= 58
+PC-> 57.45%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Frontal
+(VP)= 4
+(FP)= 2
+(PI)= 3
+Resultados de Precisión de Identificación (PI) + (VP)= 7
+PC-> 66.67%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Frontal
+(VP)= 13
+(FP)= 6
+(PI)= 12
+Resultados de Precisión de Identificación (PI) + (VP)= 25
+PC-> 68.42%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Frontal
+(VP)= 21
+(FP)= 7
+(PI)= 21
+Resultados de Precisión de Identificación (PI) + (VP)= 42
+PC-> 75.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Espalda
+(VP)= 2
+(FP)= 4
+(PI)= 6
+Resultados de Precisión de Identificación (PI) + (VP)= 8
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Espalda
+(VP)= 6
+(FP)= 8
+(PI)= 14
+Resultados de Precisión de Identificación (PI) + (VP)= 20
+PC-> 42.86%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Espalda
+(VP)= 9
+(FP)= 19
+(PI)= 28
+Resultados de Precisión de Identificación (PI) + (VP)= 37
+PC-> 32.14%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Lateral
+(VP)= 5
+(FP)= 6
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 16
+PC-> 45.45%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Lateral
+(VP)= 14
+(FP)= 14
+(PI)= 28
+Resultados de Precisión de Identificación (PI) + (VP)= 42
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Lateral
+(VP)= 23
+(FP)= 31
+(PI)= 54
+Resultados de Precisión de Identificación (PI) + (VP)= 77
+PC-> 42.59%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 1, orientación Frontal
+(VP)= 1
+(FP)= 5
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 16.67%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 2, orientación Frontal
+(VP)= 2
+(FP)= 9
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 2
+PC-> 18.18%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 3, orientación Frontal
+(VP)= 3
+(FP)= 12
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 7
+PC-> 20.00%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 1, orientación Espalda
+(VP)= 18
+(FP)= 3
+(PI)= 17
+Resultados de Precisión de Identificación (PI) + (VP)= 35
+PC-> 85.71%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 2, orientación Espalda
+(VP)= 34
+(FP)= 6
+(PI)= 35
+Resultados de Precisión de Identificación (PI) + (VP)= 69
+PC-> 85.00%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 3, orientación Espalda
+(VP)= 42
+(FP)= 15
+(PI)= 47
+Resultados de Precisión de Identificación (PI) + (VP)= 89
+PC-> 73.68%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 1, orientación Lateral
+(VP)= 7
+(FP)= 16
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 18
+PC-> 30.43%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 2, orientación Lateral
+(VP)= 19
+(FP)= 25
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 30
+PC-> 43.18%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 3, orientación Lateral
+(VP)= 26
+(FP)= 36
+(PI)= 21
+Resultados de Precisión de Identificación (PI) + (VP)= 47
+PC-> 41.94%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Frontal
+(VP)= 17
+(FP)= 8
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 36
+PC-> 68.00%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Frontal
+(VP)= 25
+(FP)= 13
+(PI)= 28
+Resultados de Precisión de Identificación (PI) + (VP)= 53
+PC-> 65.79%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Frontal
+(VP)= 27
+(FP)= 17
+(PI)= 28
+Resultados de Precisión de Identificación (PI) + (VP)= 55
+PC-> 61.36%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Espalda
+(VP)= 20
+(FP)= 8
+(PI)= 17
+Resultados de Precisión de Identificación (PI) + (VP)= 37
+PC-> 71.43%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Espalda
+(VP)= 40
+(FP)= 12
+(PI)= 41
+Resultados de Precisión de Identificación (PI) + (VP)= 81
+PC-> 76.92%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Espalda
+(VP)= 55
+(FP)= 18
+(PI)= 61
+Resultados de Precisión de Identificación (PI) + (VP)= 116
+PC-> 75.34%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Lateral
+(VP)= 13
+(FP)= 14
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 17
+PC-> 48.15%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Lateral
+(VP)= 28
+(FP)= 23
+(PI)= 28
+Resultados de Precisión de Identificación (PI) + (VP)= 56
+PC-> 54.90%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Lateral
+(VP)= 38
+(FP)= 33
+(PI)= 28
+Resultados de Precisión de Identificación (PI) + (VP)= 66
+PC-> 53.52%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 1, orientación Frontal
+(VP)= 3
+(FP)= 3
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 3
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 2, orientación Frontal
+(VP)= 10
+(FP)= 3
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 10
+PC-> 76.92%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 3, orientación Frontal
+(VP)= 16
+(FP)= 8
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 16
+PC-> 66.67%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 1, orientación Espalda
+(VP)= 3
+(FP)= 4
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 3
+PC-> 42.86%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 2, orientación Espalda
+(VP)= 6
+(FP)= 8
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 6
+PC-> 42.86%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 3, orientación Espalda
+(VP)= 8
+(FP)= 10
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 8
+PC-> 44.44%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 1, orientación Lateral
+(VP)= 2
+(FP)= 4
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 2
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 2, orientación Lateral
+(VP)= 6
+(FP)= 8
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 6
+PC-> 42.86%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 3, orientación Lateral
+(VP)= 8
+(FP)= 13
+(PI)= 7
+Resultados de Precisión de Identificación (PI) + (VP)= 15
+PC-> 38.10%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Frontal
+(VP)= 10
+(FP)= 0
+(PI)= 8
+Resultados de Precisión de Identificación (PI) + (VP)= 18
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Frontal
+(VP)= 19
+(FP)= 0
+(PI)= 17
+Resultados de Precisión de Identificación (PI) + (VP)= 36
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Frontal
+(VP)= 26
+(FP)= 1
+(PI)= 24
+Resultados de Precisión de Identificación (PI) + (VP)= 50
+PC-> 96.30%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Espalda
+(VP)= 1
+(FP)= 7
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 12.50%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Espalda
+(VP)= 1
+(FP)= 15
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 6.25%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Espalda
+(VP)= 2
+(FP)= 23
+(PI)= 2
+Resultados de Precisión de Identificación (PI) + (VP)= 4
+PC-> 8.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Lateral
+(VP)= 2
+(FP)= 9
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 13
+PC-> 18.18%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Lateral
+(VP)= 8
+(FP)= 13
+(PI)= 21
+Resultados de Precisión de Identificación (PI) + (VP)= 29
+PC-> 38.10%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Lateral
+(VP)= 14
+(FP)= 16
+(PI)= 30
+Resultados de Precisión de Identificación (PI) + (VP)= 44
+PC-> 46.67%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 1, orientación Frontal
+(VP)= 8
+(FP)= 0
+(PI)= 5
+Resultados de Precisión de Identificación (PI) + (VP)= 13
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 2, orientación Frontal
+(VP)= 16
+(FP)= 0
+(PI)= 13
+Resultados de Precisión de Identificación (PI) + (VP)= 29
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 3, orientación Frontal
+(VP)= 27
+(FP)= 1
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 46
+PC-> 96.43%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 1, orientación Espalda
+(VP)= 2
+(FP)= 6
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 2
+PC-> 25.00%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 2, orientación Espalda
+(VP)= 5
+(FP)= 10
+(PI)= 7
+Resultados de Precisión de Identificación (PI) + (VP)= 12
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 3, orientación Espalda
+(VP)= 10
+(FP)= 13
+(PI)= 7
+Resultados de Precisión de Identificación (PI) + (VP)= 17
+PC-> 43.48%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 1, orientación Lateral
+(VP)= 3
+(FP)= 6
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 3
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 2, orientación Lateral
+(VP)= 6
+(FP)= 13
+(PI)= 10
+Resultados de Precisión de Identificación (PI) + (VP)= 16
+PC-> 31.58%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 3, orientación Lateral
+(VP)= 11
+(FP)= 17
+(PI)= 10
+Resultados de Precisión de Identificación (PI) + (VP)= 21
+PC-> 39.29%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Frontal
+(VP)= 5
+(FP)= 1
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 83.33%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Frontal
+(VP)= 14
+(FP)= 1
+(PI)= 12
+Resultados de Precisión de Identificación (PI) + (VP)= 26
+PC-> 93.33%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Frontal
+(VP)= 20
+(FP)= 1
+(PI)= 18
+Resultados de Precisión de Identificación (PI) + (VP)= 38
+PC-> 95.24%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Espalda
+(VP)= 1
+(FP)= 7
+(PI)= 8
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 12.50%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Espalda
+(VP)= 2
+(FP)= 15
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 13
+PC-> 11.76%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Espalda
+(VP)= 3
+(FP)= 21
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 14
+PC-> 12.50%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Lateral
+(VP)= 2
+(FP)= 2
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 6
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Lateral
+(VP)= 7
+(FP)= 5
+(PI)= 12
+Resultados de Precisión de Identificación (PI) + (VP)= 19
+PC-> 58.33%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Lateral
+(VP)= 9
+(FP)= 10
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 28
+PC-> 47.37%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 1, orientación Frontal
+(VP)= 7
+(FP)= 13
+(PI)= 10
+Resultados de Precisión de Identificación (PI) + (VP)= 17
+PC-> 35.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 2, orientación Frontal
+(VP)= 15
+(FP)= 19
+(PI)= 24
+Resultados de Precisión de Identificación (PI) + (VP)= 39
+PC-> 44.12%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 3, orientación Frontal
+(VP)= 19
+(FP)= 24
+(PI)= 33
+Resultados de Precisión de Identificación (PI) + (VP)= 52
+PC-> 44.19%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 1, orientación Espalda
+(VP)= 0
+(FP)= 18
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 2, orientación Espalda
+(VP)= 2
+(FP)= 30
+(PI)= 3
+Resultados de Precisión de Identificación (PI) + (VP)= 5
+PC-> 6.25%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 3, orientación Espalda
+(VP)= 5
+(FP)= 36
+(PI)= 5
+Resultados de Precisión de Identificación (PI) + (VP)= 10
+PC-> 12.20%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 1, orientación Lateral
+(VP)= 3
+(FP)= 22
+(PI)= 3
+Resultados de Precisión de Identificación (PI) + (VP)= 6
+PC-> 12.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 2, orientación Lateral
+(VP)= 7
+(FP)= 36
+(PI)= 6
+Resultados de Precisión de Identificación (PI) + (VP)= 13
+PC-> 16.28%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ, escenario Controlado, video 3, orientación Lateral
+(VP)= 13
+(FP)= 42
+(PI)= 13
+Resultados de Precisión de Identificación (PI) + (VP)= 26
+PC-> 23.64%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Frontal
+(VP)= 20
+(FP)= 0
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 39
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Frontal
+(VP)= 31
+(FP)= 0
+(PI)= 30
+Resultados de Precisión de Identificación (PI) + (VP)= 61
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Frontal
+(VP)= 39
+(FP)= 0
+(PI)= 38
+Resultados de Precisión de Identificación (PI) + (VP)= 77
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Espalda
+(VP)= 19
+(FP)= 1
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 38
+PC-> 95.00%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Espalda
+(VP)= 29
+(FP)= 4
+(PI)= 30
+Resultados de Precisión de Identificación (PI) + (VP)= 59
+PC-> 87.88%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Espalda
+(VP)= 33
+(FP)= 8
+(PI)= 34
+Resultados de Precisión de Identificación (PI) + (VP)= 67
+PC-> 80.49%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 1, orientación Lateral
+(VP)= 8
+(FP)= 16
+(PI)= 9
+Resultados de Precisión de Identificación (PI) + (VP)= 17
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 2, orientación Lateral
+(VP)= 19
+(FP)= 23
+(PI)= 22
+Resultados de Precisión de Identificación (PI) + (VP)= 41
+PC-> 45.24%
+-----------------------------------
+Resultados de la predicción para el participante AdrianJ2, escenario Controlado, video 3, orientación Lateral
+(VP)= 25
+(FP)= 29
+(PI)= 30
+Resultados de Precisión de Identificación (PI) + (VP)= 55
+PC-> 46.30%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Frontal
+(VP)= 8
+(FP)= 11
+(PI)= 3
+Resultados de Precisión de Identificación (PI) + (VP)= 11
+PC-> 42.11%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Frontal
+(VP)= 10
+(FP)= 23
+(PI)= 3
+Resultados de Precisión de Identificación (PI) + (VP)= 13
+PC-> 30.30%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Frontal
+(VP)= 12
+(FP)= 29
+(PI)= 3
+Resultados de Precisión de Identificación (PI) + (VP)= 15
+PC-> 29.27%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Espalda
+(VP)= 20
+(FP)= 5
+(PI)= 22
+Resultados de Precisión de Identificación (PI) + (VP)= 42
+PC-> 80.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Espalda
+(VP)= 36
+(FP)= 6
+(PI)= 39
+Resultados de Precisión de Identificación (PI) + (VP)= 75
+PC-> 85.71%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Espalda
+(VP)= 43
+(FP)= 11
+(PI)= 46
+Resultados de Precisión de Identificación (PI) + (VP)= 89
+PC-> 79.63%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 1, orientación Lateral
+(VP)= 7
+(FP)= 23
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 11
+PC-> 23.33%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 2, orientación Lateral
+(VP)= 8
+(FP)= 26
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 12
+PC-> 23.53%
+-----------------------------------
+Resultados de la predicción para el participante AlexanderG, escenario Controlado, video 3, orientación Lateral
+(VP)= 12
+(FP)= 35
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 16
+PC-> 25.53%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Frontal
+(VP)= 3
+(FP)= 3
+(PI)= 3
+Resultados de Precisión de Identificación (PI) + (VP)= 6
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Frontal
+(VP)= 12
+(FP)= 7
+(PI)= 9
+Resultados de Precisión de Identificación (PI) + (VP)= 21
+PC-> 63.16%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Frontal
+(VP)= 20
+(FP)= 8
+(PI)= 18
+Resultados de Precisión de Identificación (PI) + (VP)= 38
+PC-> 71.43%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Espalda
+(VP)= 2
+(FP)= 4
+(PI)= 1
+Resultados de Precisión de Identificación (PI) + (VP)= 3
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Espalda
+(VP)= 6
+(FP)= 8
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 10
+PC-> 42.86%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Espalda
+(VP)= 8
+(FP)= 20
+(PI)= 7
+Resultados de Precisión de Identificación (PI) + (VP)= 15
+PC-> 28.57%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 1, orientación Lateral
+(VP)= 2
+(FP)= 9
+(PI)= 1
+Resultados de Precisión de Identificación (PI) + (VP)= 3
+PC-> 18.18%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 2, orientación Lateral
+(VP)= 7
+(FP)= 21
+(PI)= 5
+Resultados de Precisión de Identificación (PI) + (VP)= 12
+PC-> 25.00%
+-----------------------------------
+Resultados de la predicción para el participante AlexisB, escenario Controlado, video 3, orientación Lateral
+(VP)= 16
+(FP)= 38
+(PI)= 16
+Resultados de Precisión de Identificación (PI) + (VP)= 32
+PC-> 29.63%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 1, orientación Frontal
+(VP)= 0
+(FP)= 6
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 2, orientación Frontal
+(VP)= 4
+(FP)= 7
+(PI)= 5
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 36.36%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 3, orientación Frontal
+(VP)= 5
+(FP)= 10
+(PI)= 6
+Resultados de Precisión de Identificación (PI) + (VP)= 11
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 1, orientación Espalda
+(VP)= 6
+(FP)= 15
+(PI)= 5
+Resultados de Precisión de Identificación (PI) + (VP)= 11
+PC-> 28.57%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 2, orientación Espalda
+(VP)= 7
+(FP)= 33
+(PI)= 5
+Resultados de Precisión de Identificación (PI) + (VP)= 12
+PC-> 17.50%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 3, orientación Espalda
+(VP)= 13
+(FP)= 44
+(PI)= 10
+Resultados de Precisión de Identificación (PI) + (VP)= 23
+PC-> 22.81%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 1, orientación Lateral
+(VP)= 7
+(FP)= 16
+(PI)= 6
+Resultados de Precisión de Identificación (PI) + (VP)= 13
+PC-> 30.43%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 2, orientación Lateral
+(VP)= 19
+(FP)= 25
+(PI)= 19
+Resultados de Precisión de Identificación (PI) + (VP)= 38
+PC-> 43.18%
+-----------------------------------
+Resultados de la predicción para el participante AlmagroI, escenario Controlado, video 3, orientación Lateral
+(VP)= 29
+(FP)= 33
+(PI)= 25
+Resultados de Precisión de Identificación (PI) + (VP)= 54
+PC-> 46.77%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Frontal
+(VP)= 14
+(FP)= 11
+(PI)= 17
+Resultados de Precisión de Identificación (PI) + (VP)= 31
+PC-> 56.00%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Frontal
+(VP)= 23
+(FP)= 15
+(PI)= 27
+Resultados de Precisión de Identificación (PI) + (VP)= 50
+PC-> 60.53%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Frontal
+(VP)= 25
+(FP)= 19
+(PI)= 29
+Resultados de Precisión de Identificación (PI) + (VP)= 54
+PC-> 56.82%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Espalda
+(VP)= 21
+(FP)= 7
+(PI)= 20
+Resultados de Precisión de Identificación (PI) + (VP)= 41
+PC-> 75.00%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Espalda
+(VP)= 39
+(FP)= 13
+(PI)= 41
+Resultados de Precisión de Identificación (PI) + (VP)= 80
+PC-> 75.00%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Espalda
+(VP)= 54
+(FP)= 19
+(PI)= 56
+Resultados de Precisión de Identificación (PI) + (VP)= 110
+PC-> 73.97%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 1, orientación Lateral
+(VP)= 7
+(FP)= 20
+(PI)= 6
+Resultados de Precisión de Identificación (PI) + (VP)= 13
+PC-> 25.93%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 2, orientación Lateral
+(VP)= 17
+(FP)= 34
+(PI)= 17
+Resultados de Precisión de Identificación (PI) + (VP)= 34
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante GamarraA, escenario Controlado, video 3, orientación Lateral
+(VP)= 25
+(FP)= 46
+(PI)= 27
+Resultados de Precisión de Identificación (PI) + (VP)= 52
+PC-> 35.21%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 1, orientación Frontal
+(VP)= 1
+(FP)= 5
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 16.67%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 2, orientación Frontal
+(VP)= 3
+(FP)= 10
+(PI)= 1
+Resultados de Precisión de Identificación (PI) + (VP)= 4
+PC-> 23.08%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 3, orientación Frontal
+(VP)= 6
+(FP)= 18
+(PI)= 3
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 25.00%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 1, orientación Espalda
+(VP)= 1
+(FP)= 6
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 5
+PC-> 14.29%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 2, orientación Espalda
+(VP)= 7
+(FP)= 7
+(PI)= 10
+Resultados de Precisión de Identificación (PI) + (VP)= 17
+PC-> 50.00%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 3, orientación Espalda
+(VP)= 10
+(FP)= 8
+(PI)= 13
+Resultados de Precisión de Identificación (PI) + (VP)= 23
+PC-> 55.56%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 1, orientación Lateral
+(VP)= 0
+(FP)= 6
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 2, orientación Lateral
+(VP)= 0
+(FP)= 14
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante JoseA, escenario Controlado, video 3, orientación Lateral
+(VP)= 1
+(FP)= 20
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 4.76%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Frontal
+(VP)= 10
+(FP)= 0
+(PI)= 10
+Resultados de Precisión de Identificación (PI) + (VP)= 20
+PC-> 100.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Frontal
+(VP)= 17
+(FP)= 2
+(PI)= 17
+Resultados de Precisión de Identificación (PI) + (VP)= 34
+PC-> 89.47%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Frontal
+(VP)= 24
+(FP)= 3
+(PI)= 24
+Resultados de Precisión de Identificación (PI) + (VP)= 48
+PC-> 88.89%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Espalda
+(VP)= 0
+(FP)= 8
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Espalda
+(VP)= 0
+(FP)= 16
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Espalda
+(VP)= 0
+(FP)= 25
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 1, orientación Lateral
+(VP)= 3
+(FP)= 8
+(PI)= 11
+Resultados de Precisión de Identificación (PI) + (VP)= 14
+PC-> 27.27%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 2, orientación Lateral
+(VP)= 8
+(FP)= 13
+(PI)= 21
+Resultados de Precisión de Identificación (PI) + (VP)= 29
+PC-> 38.10%
+-----------------------------------
+Resultados de la predicción para el participante JosselynV, escenario Controlado, video 3, orientación Lateral
+(VP)= 12
+(FP)= 18
+(PI)= 25
+Resultados de Precisión de Identificación (PI) + (VP)= 37
+PC-> 40.00%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 1, orientación Frontal
+(VP)= 2
+(FP)= 6
+(PI)= 2
+Resultados de Precisión de Identificación (PI) + (VP)= 4
+PC-> 25.00%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 2, orientación Frontal
+(VP)= 3
+(FP)= 13
+(PI)= 7
+Resultados de Precisión de Identificación (PI) + (VP)= 10
+PC-> 18.75%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 3, orientación Frontal
+(VP)= 3
+(FP)= 25
+(PI)= 7
+Resultados de Precisión de Identificación (PI) + (VP)= 10
+PC-> 10.71%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 1, orientación Espalda
+(VP)= 0
+(FP)= 8
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 2, orientación Espalda
+(VP)= 5
+(FP)= 10
+(PI)= 5
+Resultados de Precisión de Identificación (PI) + (VP)= 10
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 3, orientación Espalda
+(VP)= 6
+(FP)= 17
+(PI)= 6
+Resultados de Precisión de Identificación (PI) + (VP)= 12
+PC-> 26.09%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 1, orientación Lateral
+(VP)= 1
+(FP)= 8
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 11.11%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 2, orientación Lateral
+(VP)= 2
+(FP)= 17
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 2
+PC-> 10.53%
+-----------------------------------
+Resultados de la predicción para el participante NavasR, escenario Controlado, video 3, orientación Lateral
+(VP)= 5
+(FP)= 23
+(PI)= 2
+Resultados de Precisión de Identificación (PI) + (VP)= 7
+PC-> 17.86%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Frontal
+(VP)= 1
+(FP)= 5
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 16.67%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Frontal
+(VP)= 5
+(FP)= 10
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 9
+PC-> 33.33%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Frontal
+(VP)= 8
+(FP)= 13
+(PI)= 4
+Resultados de Precisión de Identificación (PI) + (VP)= 12
+PC-> 38.10%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Espalda
+(VP)= 1
+(FP)= 7
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 12.50%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Espalda
+(VP)= 2
+(FP)= 15
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 2
+PC-> 11.76%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Espalda
+(VP)= 3
+(FP)= 21
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 3
+PC-> 12.50%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 1, orientación Lateral
+(VP)= 0
+(FP)= 4
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 0
+PC-> 0.00%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 2, orientación Lateral
+(VP)= 1
+(FP)= 11
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 8.33%
+-----------------------------------
+Resultados de la predicción para el participante ValeskaC, escenario Controlado, video 3, orientación Lateral
+(VP)= 1
+(FP)= 18
+(PI)= 0
+Resultados de Precisión de Identificación (PI) + (VP)= 1
+PC-> 5.26%
