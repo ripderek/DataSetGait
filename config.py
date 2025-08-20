@@ -5,7 +5,7 @@ from collections import defaultdict, deque
 import math
 import os
 import cv2
-from saveBD import CrearGuardarNuevaEv,RegistrarParticipanteEv,InsertarResultadosVideos
+from controllers.EvaluacionesController import InsertarResultadosVideos
 from joblib import load
 from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
@@ -179,7 +179,7 @@ def GuardarResultados(participante,escenario,numero,orientacion,evaluacionID,eva
     #AbrirArchivoResultados(param6)
 
     #guardar el registro en la base de datos
-    #InsertarResultadosVideos(numero,orientacion,    escenario,   VP['contador'],FP['contador'],PI['contador'],suma,   pc,   PC_I,     evaluacionID, evaluacionID2)
+    InsertarResultadosVideos(numero,orientacion,    escenario,   VP_Contador,FP_Contador,PI_Contador,suma,   pc,   PC_I,     evaluacionID, evaluacionID2)
 
 
 def predecir_persona_desde_vectores(vectores_distancia: dict, orientacion):
@@ -274,10 +274,67 @@ def predecir_persona_desde_vectores_tf(vectores_distancia: dict, orientacion):
     return prediccion, probabilidad_predicha, probabilidades_dict
     
 
+#el modelo MLP pero todo en uno ALL
+def predecir_persona_desde_vectores_tf_all(vectores_distancia: dict, orientacion):
+    """
+    Realiza una predicción de persona usando el modelo entrenado en TensorFlow.
+    vectores_distancia: diccionario con claves tipo "32_31" y valores tipo lista con las 25 distancias
+    """
+
+    # Rutas de los modelos
+    model_path =   f"MODELOS/MLP/mlp_model_ALL.h5"
+    encoder_path = f"MODELOS/MLP/label_encoder_All.joblib"
+    
+    if not os.path.exists(model_path) or not os.path.exists(encoder_path):
+        raise FileNotFoundError("No se encontró el modelo o el encoder. Entrena el modelo primero.")
+
+    # Cargar modelo y encoder
+    modelo = tf.keras.models.load_model(model_path)
+    label_encoder = load(encoder_path)
+
+    # Construir el vector de entrada ordenadamente
+    vector = []
+    for clave in sorted(vectores_distancia.keys()):
+        distancias = vectores_distancia[clave]
+        promedio = obtener_promedio(distancias)
+        desviacion = obtener_desviacion(distancias)
+        vector.extend([promedio, desviacion])
+
+    # Convertir a forma que TensorFlow entienda
+    vector = np.array(vector, dtype="float32").reshape(1, -1)
+
+    # Realizar la predicción
+    probabilidades = modelo.predict(vector)[0]
+
+    # Índice con mayor probabilidad
+    indice_predicho = np.argmax(probabilidades)
+    prediccion = label_encoder.inverse_transform([indice_predicho])[0]
+
+    # Probabilidad asociada a la predicción
+    probabilidad_predicha = round(probabilidades[indice_predicho] * 100, 2)
+
+    # Diccionario con todas las probabilidades
+    #probabilidades_dict = dict(zip(label_encoder.classes_, [round(p * 100, 2) for p in probabilidades]))
+    probabilidades_dict = {
+    persona: float(f"{prob*100:.2f}") 
+        for persona, prob in zip(label_encoder.classes_, probabilidades)
+    }
+    # Mostrar resultados
+    #for persona, prob in probabilidades_dict.items():
+        #print(f"- {persona}: {prob:.2f}%")
+
+    return prediccion, probabilidad_predicha, probabilidades_dict
+    
+
+
 def RealizarPrediccion(vectores,orientacion,opcion):
     if opcion == "RF":
         #llamar a la funcion que tiene el modelo RF
         prediccion,probabilidad_predicha, probabilidades = predecir_persona_desde_vectores(vectores,orientacion)
+        return  prediccion,probabilidad_predicha, probabilidades
+    elif opcion == "MLP_ALL":
+         #llamar a la funcion que tiene el modelo MLP_ALL
+        prediccion,probabilidad_predicha, probabilidades = predecir_persona_desde_vectores_tf_all(vectores,orientacion)
         return  prediccion,probabilidad_predicha, probabilidades
     else:
         #llamar a la funcion que tiene el modelo MLP

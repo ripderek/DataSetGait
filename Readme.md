@@ -4,4 +4,4 @@ python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
 
-#streamlit run prediccion.py
+#streamlit run Inicio.py

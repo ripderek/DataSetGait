@@ -20,7 +20,6 @@ def CrearGuardarNuevaEv(nombreEv):
     finally:
         cursor.close()
         conn.close()
-      
 
 def RegistrarParticipanteEv(participante, evaluacionID):
     try:
@@ -42,7 +41,6 @@ def RegistrarParticipanteEv(participante, evaluacionID):
     finally:
         cursor.close()
         conn.close()
-
 
 def InsertarResultadosVideos( n_video_p,orientacion_p,escenario_p,vp_p,fp_p,pi_p,pi_vp_p,pc_p,pc_i_p,evaluacionpid_p,evaluacionID):
     try:
@@ -74,13 +72,3 @@ def InsertarResultadosVideos( n_video_p,orientacion_p,escenario_p,vp_p,fp_p,pi_p
     finally:
         cursor.close()
         conn.close()
-
-
-
-if __name__ == "__main__":
-    evaluacionID= CrearGuardarNuevaEv("Hola mundo23")
-    print(evaluacionID)
-    fruits = ["AdrianJ2", "AlexanderG", "AlexisB","GamarraA","JosselynV","ValeskaC"]
-    for x in fruits:
-        participanteID = RegistrarParticipanteEv(x,evaluacionID)
-        print(participanteID)

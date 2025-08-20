@@ -1,4 +1,4 @@
-#streamlit run prediccion.py
+#streamlit run obtenciondatos.py
 import time
 import streamlit as st
 import os
@@ -6,7 +6,9 @@ import cv2
 import mediapipe as mp
 import config
 import pandas as pd
-import estilos
+import Styles.estilos as estilos
+import numpy as np
+import controllers.MuestrasController as sv
 
 # Inicializar MediaPipe
 mp_pose = mp.solutions.pose
@@ -14,43 +16,26 @@ pose = mp_pose.Pose()
 mp_drawing = mp.solutions.drawing_utils
 
 
-#estado para contar los VP -> Verdaderos Positivos
-VP = {"contador": 0}
-#estado para contar los FP -> Falso
-# Positivos
-FP = {"contador": 0}
-#estado para contrar los PI -> precision_identificacion
-PI = {"contador": 0}
-
-
+    
 #STREAMLIT
 # Set the title for the Streamlit app
 st.set_page_config(
-    page_title="Gait Recognition",
+    page_title="Muestras",
     layout="wide",  # <--- esto hace que el contenedor ocupe todo el ancho
     initial_sidebar_state="auto"
 )
 # Título de la app
-st.title("Gait recognition with Streamlit and OpenCV")
-
-# Selección de modelo
+st.title("Obtener muestras de la marcha")
 
 
-# Crear dos columnas: izquierda y derecha
+
+# Crear tres columnas: izquierda, centro y derecha
 col_izq, col_der = st.columns(2)
 
 # ----- CONTENIDO IZQUIERDO -----
 with col_izq:
-   
-    identificacion_stream = st.empty()  # Esto va al lado izquierdo
-    identificacion_stream.markdown(
-                                estilos.subtitulo_centrado(f"Identificación ->"),
-                                unsafe_allow_html=True
-                            )
-    frame_placeholder = st.empty()      # Aquí se muestra el video
     reproducir = st.button("Reproducir")
-    # pausar = st.button("Pausar")
-    
+    frame_placeholder = st.empty()      # Aquí se muestra el video
     #3 columnas
     col_izq_1, col_med_1,col_der_1 = st.columns(3)
     with col_izq_1:
@@ -59,22 +44,15 @@ with col_izq:
         orientacion_stream = st.empty()
     with col_der_1:
         marcha_fuera = st.empty()
-    modelo_seleccionado = st.selectbox("Seleccione un modelo", ["RF", "MLP"])
 
-
-
-# ----- CONTENIDO DERECHO -----
 with col_der:
-    dic_prob_stream = st.empty()
-    dic_prob_stream.markdown(
-                             estilos.subtitulo_centrado(f"Probabilidades:"),
-                                unsafe_allow_html=True
-                            )
-    diccionario_stream = st.empty()     # Esta tabla va al lado derech
+    normalizacion = st.empty()  # Aquí se muestra la normalización
 
 
+reproducir_flag = {"estado": False}
 
-def visualizar_todo(video_path,participante):
+
+def visualizar_todo(video_path,muestraid,videoid):
     cap = cv2.VideoCapture(video_path)
     contador = 0
     #vectores de distancias
@@ -97,19 +75,19 @@ def visualizar_todo(video_path,participante):
     orientacion=1 #por defecto se inicia frontal
     #orientacion 1= frontal, 2= espalda, 3= lateral
 
-    reproducir_flag = False
-    pausado_flag = False
+    #reproducir_flag = False
+    #pausado_flag = False
 
     while cap.isOpened():
         if reproducir:
-            reproducir_flag = True
-            pausado_flag = False
+            reproducir_flag["estado"] = True
+            #pausado_flag = False
         #if pausar:
             #pausado_flag = True
             #reproducir_flag = False
 
 
-        if reproducir_flag:
+        if reproducir_flag["estado"]:
             ret, frame = cap.read()
             if not ret:
                 break
@@ -120,6 +98,7 @@ def visualizar_todo(video_path,participante):
             frame_mejorado, scale  = config.mejorar_frame(frame)
             #frame_mejorado = frame
 
+            
             #image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image_rgb = cv2.cvtColor(frame_mejorado, cv2.COLOR_BGR2RGB)
 
@@ -156,27 +135,37 @@ def visualizar_todo(video_path,participante):
 
                 # Dibujar recuadro
                 cv2.rectangle(frame_mejorado, (min_x, min_y), (max_x, max_y), (0, 0, 255), 2)
+                # Display the frame using Streamlit's st.image
+                frame_placeholder.image(frame_mejorado, channels="BGR")
 
-                # Dibujar esqueleto omitiendo puntos del rostro
-                for connection in mp_pose.POSE_CONNECTIONS:
-                    start_idx, end_idx = connection
-                    if start_idx not in config.puntos_rostro and end_idx not in config.puntos_rostro:
-                        x1, y1 = int(xs[start_idx]), int(ys[start_idx])
-                        x2, y2 = int(xs[end_idx]), int(ys[end_idx])
-                        cv2.line(frame_mejorado, (x1, y1), (x2, y2), (0, 0, 255), 2)
-
-                for idx, (x, y) in enumerate(zip(xs, ys)):
-                    if idx not in config.puntos_rostro:
-                        cv2.circle(frame_mejorado, (int(x), int(y)), 3, (0, 255, 0), -1)
-
-                # Normalización (solo para cálculos)
-                #persona_recortada = frame[min_y:max_y, min_x:max_x]
-                #persona_normalizada = cv2.resize(persona_recortada, (NORMALIZADO_ANCHO, NORMALIZADO_ALTO))
+                # Normalización
+                persona_recortada = frame[min_y:max_y, min_x:max_x]
+                persona_normalizada = cv2.resize(persona_recortada, (config.NORMALIZADO_ANCHO, config.NORMALIZADO_ALTO))
+                fondo_negro = np.zeros_like(persona_normalizada)
 
                 nueva_w, nueva_h = config.NORMALIZADO_ANCHO, config.NORMALIZADO_ALTO
                 escala_x = nueva_w / (max_x - min_x)
                 escala_y = nueva_h / (max_y - min_y)
-
+                
+                # Dibujar conexiones suavizadas
+                for connection in mp_pose.POSE_CONNECTIONS:
+                    start_idx, end_idx = connection
+                    if start_idx not in config.puntos_rostro and end_idx not in config.puntos_rostro:
+                        x1 = int((xs[start_idx] - min_x) * escala_x)
+                        y1 = int((ys[start_idx] - min_y) * escala_y)
+                        x2 = int((xs[end_idx] - min_x) * escala_x)
+                        y2 = int((ys[end_idx] - min_y) * escala_y)
+                        cv2.line(fondo_negro, (x1, y1), (x2, y2), (0, 0, 255), 2)
+                # Dibujar puntos suavizados
+                for idx in range(len(xs)):
+                    if idx not in config.puntos_rostro:
+                        x = int((xs[idx] - min_x) * escala_x)
+                        y = int((ys[idx] - min_y) * escala_y)
+                        cv2.circle(fondo_negro, (x, y), 3, (0, 255, 0), -1)
+                        cv2.putText(fondo_negro, f'p{idx} ({x},{y})', (x + 5, y - 5),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
+                        
+                
                 # Medidas y orientación
                 x_23, x_24 = xs[23] * escala_x, xs[24] * escala_x
                 x_11, x_12 = xs[11] * escala_x, xs[12] * escala_x
@@ -324,127 +313,110 @@ def visualizar_todo(video_path,participante):
                     #persona_identificada = "No identificada"
                     marcha_fuera.write(f"Marcha fuera de rango")
                 else:
-                    tamano_texto = 0.5
                     marcha_fuera.write(f"")
-                    cv2.putText(frame_mejorado, f'{persona_identificada}', (int(xs[0]-40), int(ys[0])-30),
-                            cv2.FONT_HERSHEY_SIMPLEX, tamano_texto, (255, 255, 255), 2)
-
                     #reiniciar el contador cuando se considere que hubo una marcha completa de 25s
                     if (contador>=25):
                         #llamar a la funcion de prediccion
-                        vectores = {
-                        "26_25": vector_distancia_26_25,
-                        "28_27": vector_distancia_28_27,
-                        "31_23": vector_distancia_31_23,
-                        "32_24": vector_distancia_32_24,
-                        "32_31": vector_distancia_32_31,
-                        "16_12": vector_distancia_16_12,
-                        "15_11": vector_distancia_15_11,
-                        "32_16": vector_distancia_32_16,
-                        "31_15": vector_distancia_31_15
-                        }
-
-
-                        prediccion,probabilidad_predicha, probabilidades = config.RealizarPrediccion(vectores,orientacion,modelo_seleccionado)
-                        #diccionario_stream.write(f"{probabilidades}")
-                        df = pd.DataFrame(list(probabilidades.items()), columns=["Nombre", "Valor"])
-                        diccionario_stream.table(df)
-                        #print(f"prediccion=>{prediccion}")
-                        #si la probabilidad es igual o mas alta que la precision de probabilidad entonces alli si afirmar a la persona identificada
-
-                        if probabilidad_predicha >= config.precision_identificacion: 
-                            persona_identificada = f"{prediccion}"
-                            #identificacion_stream.write(f"Identificación -> {persona_identificada}   {probabilidad_predicha:.2f} %")
-                            identificacion_stream.markdown(
-                                estilos.subtitulo_centrado(f"Identificación -> {persona_identificada}   {probabilidad_predicha:.2f} %"),
-                                unsafe_allow_html=True
-                            )
-                            persona_identificada2 = prediccion
-                            #print(f"Persona identificada > {config.precision_identificacion} >: {prediccion}")
-                            #Calcular el PI    
-                            #if prediccion == participante:
-                                #PI["contador"] += 1
-                                #print(f"(PI)=+1")
+                        #vectores = {
+                        #"26_25": vector_distancia_26_25,
+                        #"28_27": vector_distancia_28_27,
+                        #"31_23": vector_distancia_31_23,
+                        #"32_24": vector_distancia_32_24,
+                        #"32_31": vector_distancia_32_31,
+                        #"16_12": vector_distancia_16_12,
+                        #"15_11": vector_distancia_15_11,
+                        #"32_16": vector_distancia_32_16,
+                        #"31_15": vector_distancia_31_15
+                        #}
+                        #calcular la desviacion y el promedio para poder guardar como muestra    
+                        promedio_32_31 = config.obtener_promedio(vector_distancia_32_31)
+                        desviacion_32_31 = config.obtener_desviacion(vector_distancia_32_31)
+                        promedio_28_27 = config.obtener_promedio(vector_distancia_28_27)
+                        desviacion_28_27 = config.obtener_desviacion(vector_distancia_28_27)
+                        promedio_26_25 = config.obtener_promedio(vector_distancia_26_25)
+                        desviacion_26_25 = config.obtener_desviacion(vector_distancia_26_25)
+                        promedio_31_23 = config.obtener_promedio(vector_distancia_31_23)
+                        desviacion_31_23 = config.obtener_desviacion(vector_distancia_31_23)
+                        promedio_32_24 = config.obtener_promedio(vector_distancia_32_24)
+                        desviacion_32_24 = config.obtener_desviacion(vector_distancia_32_24)
+                        # NUEVOS PUNTOS PARA REALIZAR MAS PRUEBAS
+                        promedio_16_12 = config.obtener_promedio(vector_distancia_16_12)
+                        desviacion_16_12 = config.obtener_desviacion(vector_distancia_16_12)
+                        promedio_15_11 = config.obtener_promedio(vector_distancia_15_11)
+                        desviacion_15_11 = config.obtener_desviacion(vector_distancia_15_11)
+                        promedio_32_16 = config.obtener_promedio(vector_distancia_32_16)
+                        desviacion_32_16 = config.obtener_desviacion(vector_distancia_32_16)
+                        promedio_31_15 = config.obtener_promedio(vector_distancia_31_15)
+                        desviacion_31_15 = config.obtener_desviacion(vector_distancia_31_15)
                     
-                        #Calcular el PI    
-                        if persona_identificada2 == participante:
-                            PI["contador"] += 1
-                            print(f"Se mantiene el (PI)=+1")
 
-                        #Calcular los VP, FP    
-                        if prediccion == participante:
-                            VP["contador"] += 1
-                            #PI["contador"] += 1
-                            print(f"(VP)=+1")
-                            #print(f"(PI)=+1")
-                        else:
-                            FP["contador"] += 1
-                            print(f"(FP)=+1")
+                        #guardar las muestras en la BD
+                        sv.registrar_puntos_muestra(videoid,muestraid,promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15,orientacion)
 
                         #limpiar los vectores
-                        vector_distancia_32_31.clear()
-                        vector_distancia_28_27.clear()
                         vector_distancia_26_25.clear()
+                        vector_distancia_28_27.clear()
                         vector_distancia_31_23.clear()
                         vector_distancia_32_24.clear()
+                        vector_distancia_32_31.clear()
+                        vector_distancia_16_12.clear()
+                        vector_distancia_15_11.clear()
+                        vector_distancia_32_16.clear()
+                        vector_distancia_31_15.clear()
+
                         cruce_rodillas_indicador= False
                         contador=0
 
                 # Incrementar contador
                 contador += 1
-         
-                #STREAMLIT
-                # Display the frame using Streamlit's st.image
-                frame_placeholder.image(frame_mejorado, channels="BGR") 
+                 
                 contador_stream.write(f"Fotograma: {contador}")
                 orientacionString = "Frontal" if orientacion == 1 else "Espalda" if orientacion == 2 else "Lateral"
                 orientacion_stream.write(f"Orientacion: {orientacionString}")
+                cv2.line(fondo_negro, (nueva_w // 2, 0), (nueva_w // 2, nueva_h), (255, 255, 0), 2)
+                cv2.line(fondo_negro, (0, nueva_h // 2), (nueva_w, nueva_h // 2), (255, 0, 0), 2)
+
+                #linea limite para los pies, si se pasa de esta linea entonces no tomar datos
+                y_linea = int(nueva_h * 0.96)
+                cv2.line(fondo_negro, (0, y_linea), (nueva_w, y_linea), (255, 0, 0), 2)
+                
+                normalizacion.image(fondo_negro, channels="BGR")
 
                 # Mostrar imagen final directamente
-                #cv2.imshow('Visualizacion Completa', frame_mejorado)
+                #cv2.imshow('Visualizacion Completa', frame_mejorado)                
 
             #else:
                 #cv2.imshow('Visualizacion Completa', frame_mejorado)
 
             if cv2.waitKey(config.delay) & 0xFF == ord('q'):
                 break
-        else:
-            time.sleep(0.1)  # espera mientras está pausado
+        #else:
+            #time.sleep(0.1)  # espera mientras está pausado
 
     cap.release()
     cv2.destroyAllWindows()
 
 
 
-def Reiniciar_indicadores():
-    FP["contador"] =0
-    VP['contador'] =0
-    PI['contador'] =0
-
-
 if __name__ == "__main__":
     #NoControlado
     #Controlado
     escenario = "Controlado"
-    #1 primero crear la evaluacion en la bd y guardar el id de la evaluacion
-    
-    #evaluacionID = CrearGuardarNuevaEv("ModeloMLP_2_10p")  #IMPORTANTE CAMBIAR EL NOMBRE PARA QUE SE PUEDA GUARDAR LA EVALUACION
-
-    #2 ahora registrar a los participantes que se van a evaluar en el modelo con el id de la evaluacion
-    participantes = ["GamarraA"]
-    #participantes = ["GamarraA","JosselynV"] #para hacer las primeras pruebas automatizadas se las realiza solo con 3 participantes para supervisarlas
-
-    #se obtiene la lista de carpetas de los participantes para que este paso se realize automaticamente
-    #participantes=obtener_participantes("Participantes")
+    #participantes = ["JosselynV"]
     Orientacion = ["Frontal", "Espalda", "Lateral"]
+    #se obtiene la lista de carpetas de los participantes para que este paso se realize automaticamente
+    participantes=config.obtener_participantes()
+   
     participantesID =[]
     for p in participantes:
-        #participanteID = RegistrarParticipanteEv(p,evaluacionID)
-        #participantesID.append(participanteID)
-        #print (f"evaluacionID -> {evaluacionID}")
-        #print (f"participanteID -> {participanteID}")
+        #1 primero registrar al participante, si no existe crearlo y devolver el id
+        participanteID = sv.regitrarParticipante(p)
+        print(f"Participante {p} ID: {participanteID}")
+        #2 crear una muestra del participante y devolver el id de la muestra
+        muestraid = sv.regitrarMuestra(participanteID)
+        print(f"Muestra {muestraid} registrada para el participante {p}")
+        
         for x in Orientacion:
-            Reiniciar_indicadores()
             for j in range(3):
                 print("-------------------------------------------------------------------------------------" )
                 print(f"Participante = {p} Escenario ={escenario} Video ={j+1}" )
@@ -462,10 +434,12 @@ if __name__ == "__main__":
                     print(f"⚠ No se encontró el video {j+1} en formato mp4 ni mov.")
                     continue
 
-                visualizar_todo(ruta_video,p)
-                #print (f"participanteID -> {participanteID}")
-                #GuardarResultados(p,escenario,j+1,x,participanteID,evaluacionID)
+                #3 registrar el video y devolver el id del video para que se guarden los datos en la funcion siguiente
+                videoID = sv.registrarVideo(muestraid)
+                print(f"Video {videoID} registrado para la muestra {muestraid} del participante {p}")
+                visualizar_todo(ruta_video,muestraid,videoID)
     #print (f"PROCESO FINALIZADO REVISAR LAS CONSULTAS DE LA BD CON evaluacionID -> {evaluacionID}")
+    print(f"OBTENCION DE MUESTRAS FINALIZADO, ENTRENAR LOS MODELOS ES EL SIGUIENTE PASO")
 
 
 
