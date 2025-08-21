@@ -1,18 +1,25 @@
-#streamlit run obtenciondatos.py
-#18 videos por participantes
-# 12 videos para entrenamiento 
-# 6 para pruebas
-
-import time
+#similar al de ver muestra pero este hace la prediccion skere modo diablo
 import streamlit as st
-import os
+import urllib.parse
 import cv2
 import mediapipe as mp
 import config
 import pandas as pd
 import Styles.estilos as estilos
-import numpy as np
-import controllers.MuestrasController as sv
+import os
+
+
+
+#Iniciar Steamlit
+st.set_page_config(page_title="Visualizador de Identificación", layout="wide")
+st.title("Visualizador de Identificación")
+
+# Leer parámetros de la URL
+video_ruta = st.query_params.get("video", [None])
+video_ruta = urllib.parse.unquote(video_ruta)
+st.write(f"Video seleccionado: `{video_ruta}`")
+
+
 
 # Inicializar MediaPipe
 mp_pose = mp.solutions.pose
@@ -20,43 +27,73 @@ pose = mp_pose.Pose()
 mp_drawing = mp.solutions.drawing_utils
 
 
-    
-#STREAMLIT
-# Set the title for the Streamlit app
-st.set_page_config(
-    page_title="Muestras",
-    layout="wide",  # <--- esto hace que el contenedor ocupe todo el ancho
-    initial_sidebar_state="auto"
-)
-# Título de la app
-st.title("Obtener muestras de la marcha")
 
-
-
-# Crear tres columnas: izquierda, centro y derecha
-col_izq, col_der = st.columns(2)
-
-# ----- CONTENIDO IZQUIERDO -----
-#with col_izq:
-reproducir = st.button("Iniciar")
-frame_placeholder = st.empty()      # Aquí se muestra el video
-#3 columnas
-col_izq_1, col_med_1,col_der_1 = st.columns(3)
-with col_izq_1:
-        contador_stream = st.empty()
-with col_med_1:
-        orientacion_stream = st.empty()
-with col_der_1:
-        marcha_fuera = st.empty()
-
-#with col_der:
-    #normalizacion = st.empty()  # Aquí se muestra la normalización
-
+#estado para contar los VP -> Verdaderos Positivos
+VP = {"contador": 0}
+#estado para contar los FP -> Falso
+# Positivos
+FP = {"contador": 0}
+#estado para contrar los PI -> precision_identificacion
+PI = {"contador": 0}
 
 reproducir_flag = {"estado": False}
 
 
-def visualizar_todo(video_path,muestraid,videoid):
+reproducir_flag = {"estado": False}
+#STREAMLIT
+# Set the title for the Streamlit app
+st.set_page_config(
+    page_title="Identificacion",
+    layout="wide",  # <--- esto hace que el contenedor ocupe todo el ancho
+    initial_sidebar_state="auto"
+)
+
+# Selección de modelo
+
+# Crear dos columnas: izquierda y derecha
+col_izq, col_der = st.columns(2)
+
+# ----- CONTENIDO IZQUIERDO -----
+with col_izq:
+   
+    identificacion_stream = st.empty()  # Esto va al lado izquierdo
+    identificacion_stream.markdown(
+                                estilos.subtitulo_centrado(f"Identificación ->"),
+                                unsafe_allow_html=True
+                            )
+    frame_placeholder = st.empty()      # Aquí se muestra el video
+    reproducir = st.button("Iniciar identificación")
+    # pausar = st.button("Pausar")
+    
+    #3 columnas
+    col_izq_1, col_med_1,col_der_1 = st.columns(3)
+    with col_izq_1:
+        contador_stream = st.empty()
+    with col_med_1:
+        orientacion_stream = st.empty()
+    with col_der_1:
+        marcha_fuera = st.empty()
+    modelo_seleccionado = st.selectbox("Seleccione un modelo", ["RF", "MLP"])
+
+
+
+# ----- CONTENIDO DERECHO -----
+with col_der:
+    dic_prob_stream = st.empty()
+    dic_prob_stream.markdown(
+                             estilos.subtitulo_centrado(f"Probabilidades:"),
+                                unsafe_allow_html=True
+                            )
+    diccionario_stream = st.empty()     # Esta tabla va al lado derech
+    tit = st.empty()
+    tit.markdown(
+                             estilos.subtitulo_centrado(f"Resultados:"),
+                                unsafe_allow_html=True
+                            )
+    tablaresultados = st.empty()
+
+
+def visualizar_todo(video_path,participante):
     cap = cv2.VideoCapture(video_path)
     contador = 0
     #vectores de distancias
@@ -84,7 +121,8 @@ def visualizar_todo(video_path,muestraid,videoid):
 
     while cap.isOpened():
         if reproducir:
-            reproducir_flag["estado"] = True
+            reproducir_flag["estado"] =True
+            #reproducir_flag = True
             #pausado_flag = False
         #if pausar:
             #pausado_flag = True
@@ -102,7 +140,6 @@ def visualizar_todo(video_path,muestraid,videoid):
             frame_mejorado, scale  = config.mejorar_frame(frame)
             #frame_mejorado = frame
 
-            
             #image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image_rgb = cv2.cvtColor(frame_mejorado, cv2.COLOR_BGR2RGB)
 
@@ -139,39 +176,29 @@ def visualizar_todo(video_path,muestraid,videoid):
 
                 # Dibujar recuadro
                 cv2.rectangle(frame_mejorado, (min_x, min_y), (max_x, max_y), (0, 0, 255), 2)
-                # Display the frame using Streamlit's st.image
-                frame_placeholder.image(frame_mejorado, channels="BGR")
 
-                # Normalización
-                persona_recortada = frame[min_y:max_y, min_x:max_x]
-                persona_normalizada = cv2.resize(persona_recortada, (config.NORMALIZADO_ANCHO, config.NORMALIZADO_ALTO))
-                #fondo_negro = np.zeros_like(persona_normalizada)
-                gris_claro = 250
-                fondo_negro = np.full_like(persona_normalizada, fill_value=gris_claro)
+                # Normalización (solo para cálculos)
+                #persona_recortada = frame[min_y:max_y, min_x:max_x]
+                #persona_normalizada = cv2.resize(persona_recortada, (NORMALIZADO_ANCHO, NORMALIZADO_ALTO))
 
                 nueva_w, nueva_h = config.NORMALIZADO_ANCHO, config.NORMALIZADO_ALTO
                 escala_x = nueva_w / (max_x - min_x)
                 escala_y = nueva_h / (max_y - min_y)
+
                 
                 # Dibujar conexiones suavizadas
                 for connection in mp_pose.POSE_CONNECTIONS:
                     start_idx, end_idx = connection
                     if start_idx not in config.puntos_rostro and end_idx not in config.puntos_rostro:
-                        x1 = int((xs[start_idx] - min_x) * escala_x)
-                        y1 = int((ys[start_idx] - min_y) * escala_y)
-                        x2 = int((xs[end_idx] - min_x) * escala_x)
-                        y2 = int((ys[end_idx] - min_y) * escala_y)
-                        cv2.line(fondo_negro, (x1, y1), (x2, y2), (0, 0, 255), 2)
+                        x1, y1 = int(xs[start_idx]), int(ys[start_idx])
+                        x2, y2 = int(xs[end_idx]), int(ys[end_idx])
+                        cv2.line(frame_mejorado, (x1, y1), (x2, y2), (0, 0, 255), 2)
+
                 # Dibujar puntos suavizados
-                for idx in range(len(xs)):
+                for idx, (x, y) in enumerate(zip(xs, ys)):
                     if idx not in config.puntos_rostro:
-                        x = int((xs[idx] - min_x) * escala_x)
-                        y = int((ys[idx] - min_y) * escala_y)
-                        cv2.circle(fondo_negro, (x, y), 3, (0, 113, 0), -1)
-                        cv2.putText(fondo_negro, f'p{idx} ({x},{y})', (x + 5, y - 5),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 0), 1)
-                        
-                
+                        cv2.circle(frame_mejorado, (int(x), int(y)), 3, (0, 255, 0), -1)
+
                 # Medidas y orientación
                 x_23, x_24 = xs[23] * escala_x, xs[24] * escala_x
                 x_11, x_12 = xs[11] * escala_x, xs[12] * escala_x
@@ -319,45 +346,63 @@ def visualizar_todo(video_path,muestraid,videoid):
                     #persona_identificada = "No identificada"
                     marcha_fuera.write(f"Marcha fuera de rango")
                 else:
+                    tamano_texto = 0.5
                     marcha_fuera.write(f"")
+                    cv2.putText(frame_mejorado, f'{persona_identificada}', (int(xs[0]-40), int(ys[0])-30),
+                            cv2.FONT_HERSHEY_SIMPLEX, tamano_texto, (255, 255, 255), 2)
+
                     #reiniciar el contador cuando se considere que hubo una marcha completa de 25s
                     if (contador>=25):
                         #llamar a la funcion de prediccion
-                        #vectores = {
-                        #"26_25": vector_distancia_26_25,
-                        #"28_27": vector_distancia_28_27,
-                        #"31_23": vector_distancia_31_23,
-                        #"32_24": vector_distancia_32_24,
-                        #"32_31": vector_distancia_32_31,
-                        #"16_12": vector_distancia_16_12,
-                        #"15_11": vector_distancia_15_11,
-                        #"32_16": vector_distancia_32_16,
-                        #"31_15": vector_distancia_31_15
-                        #}
-                        #calcular la desviacion y el promedio para poder guardar como muestra    
-                        promedio_32_31 = config.obtener_promedio(vector_distancia_32_31)
-                        desviacion_32_31 = config.obtener_desviacion(vector_distancia_32_31)
-                        promedio_28_27 = config.obtener_promedio(vector_distancia_28_27)
-                        desviacion_28_27 = config.obtener_desviacion(vector_distancia_28_27)
-                        promedio_26_25 = config.obtener_promedio(vector_distancia_26_25)
-                        desviacion_26_25 = config.obtener_desviacion(vector_distancia_26_25)
-                        promedio_31_23 = config.obtener_promedio(vector_distancia_31_23)
-                        desviacion_31_23 = config.obtener_desviacion(vector_distancia_31_23)
-                        promedio_32_24 = config.obtener_promedio(vector_distancia_32_24)
-                        desviacion_32_24 = config.obtener_desviacion(vector_distancia_32_24)
-                        # NUEVOS PUNTOS PARA REALIZAR MAS PRUEBAS
-                        promedio_16_12 = config.obtener_promedio(vector_distancia_16_12)
-                        desviacion_16_12 = config.obtener_desviacion(vector_distancia_16_12)
-                        promedio_15_11 = config.obtener_promedio(vector_distancia_15_11)
-                        desviacion_15_11 = config.obtener_desviacion(vector_distancia_15_11)
-                        promedio_32_16 = config.obtener_promedio(vector_distancia_32_16)
-                        desviacion_32_16 = config.obtener_desviacion(vector_distancia_32_16)
-                        promedio_31_15 = config.obtener_promedio(vector_distancia_31_15)
-                        desviacion_31_15 = config.obtener_desviacion(vector_distancia_31_15)
-                    
+                        vectores = {
+                        "26_25": vector_distancia_26_25,
+                        "28_27": vector_distancia_28_27,
+                        "31_23": vector_distancia_31_23,
+                        "32_24": vector_distancia_32_24,
+                        "32_31": vector_distancia_32_31,
+                        "16_12": vector_distancia_16_12,
+                        "15_11": vector_distancia_15_11,
+                        "32_16": vector_distancia_32_16,
+                        "31_15": vector_distancia_31_15
+                        }
 
-                        #guardar las muestras en la BD
-                        sv.registrar_puntos_muestra(videoid,muestraid,promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15,orientacion)
+
+                        prediccion,probabilidad_predicha, probabilidades = config.RealizarPrediccion(vectores,orientacion,modelo_seleccionado)#modelo_seleccionado
+                        #diccionario_stream.write(f"{probabilidades}")
+                        df = pd.DataFrame(list(probabilidades.items()), columns=["Nombre", "Valor"])
+                        diccionario_stream.table(df)
+                        
+                        #print(f"prediccion=>{prediccion}")
+                        #si la probabilidad es igual o mas alta que la precision de probabilidad entonces alli si afirmar a la persona identificada
+
+                        if probabilidad_predicha >= config.precision_identificacion: 
+                            persona_identificada = f"{prediccion}"
+                            #identificacion_stream.write(f"Identificación -> {persona_identificada}   {probabilidad_predicha:.2f} %")
+                            identificacion_stream.markdown(
+                                estilos.subtitulo_centrado(f"Identificación -> {persona_identificada}   {probabilidad_predicha:.2f} %"),
+                                unsafe_allow_html=True
+                            )
+                            persona_identificada2 = prediccion
+                            #print(f"Persona identificada > {config.precision_identificacion} >: {prediccion}")
+                            #Calcular el PI    
+                            #if prediccion == participante:
+                                #PI["contador"] += 1
+                                #print(f"(PI)=+1")
+                    
+                        #Calcular el PI    
+                        if persona_identificada2 == participante:
+                            PI["contador"] += 1
+                            print(f"Se mantiene el (PI)=+1")
+
+                        #Calcular los VP, FP    
+                        if prediccion == participante:
+                            VP["contador"] += 1
+                            #PI["contador"] += 1
+                            print(f"(VP)=+1")
+                            #print(f"(PI)=+1")
+                        else:
+                            FP["contador"] += 1
+                            print(f"(FP)=+1")
 
                         #limpiar los vectores
                         vector_distancia_26_25.clear()
@@ -370,27 +415,22 @@ def visualizar_todo(video_path,muestraid,videoid):
                         vector_distancia_32_16.clear()
                         vector_distancia_31_15.clear()
 
+
                         cruce_rodillas_indicador= False
                         contador=0
 
                 # Incrementar contador
                 contador += 1
-                 
+         
+                #STREAMLIT
+                # Display the frame using Streamlit's st.image
+                frame_placeholder.image(frame_mejorado, channels="BGR") 
                 contador_stream.write(f"Fotograma: {contador}")
                 orientacionString = "Frontal" if orientacion == 1 else "Espalda" if orientacion == 2 else "Lateral"
-                orientacion_stream.write(f"Orientacion: {orientacionString}")
-                cv2.line(fondo_negro, (nueva_w // 2, 0), (nueva_w // 2, nueva_h), (255, 255, 0), 2)
-                cv2.line(fondo_negro, (0, nueva_h // 2), (nueva_w, nueva_h // 2), (255, 0, 0), 2)
-
-                #linea limite para los pies, si se pasa de esta linea entonces no tomar datos
-                y_linea = int(nueva_h * 0.96)
-                cv2.line(fondo_negro, (0, y_linea), (nueva_w, y_linea), (255, 0, 0), 2)
-                
-                #comentado para que no relantize el proceso de obtencion de muestras
-                #normalizacion.image(fondo_negro, channels="BGR")
+                orientacion_stream.write(f"Orientación: {orientacionString}")
 
                 # Mostrar imagen final directamente
-                #cv2.imshow('Visualizacion Completa', frame_mejorado)                
+                #cv2.imshow('Visualizacion Completa', frame_mejorado)
 
             #else:
                 #cv2.imshow('Visualizacion Completa', frame_mejorado)
@@ -403,63 +443,63 @@ def visualizar_todo(video_path,muestraid,videoid):
     cap.release()
     cv2.destroyAllWindows()
 
+def GuardarResultados():
+    #mostrar los resultados en base los VP y FP
 
-
-if __name__ == "__main__":
-
-    escenarios = ["Controlado", "NoControlado"]
-    #participantes = ["JosselynV"]
-    Orientacion = ["Frontal", "Espalda", "Lateral"]
-    #se obtiene la lista de carpetas de los participantes para que este paso se realize automaticamente
-    participantes=config.obtener_participantes()
+    param1 = VP["contador"]
+    param2 = FP["contador"]
+    suma = PI["contador"] + VP["contador"]
+    
+    #PRECISION GENERAL
+    pc = VP["contador"] / (VP["contador"] + FP["contador"]) * 100
    
-    participantesID =[]
-    for p in participantes:
-        #1 primero registrar al participante, si no existe crearlo y devolver el id
-        participanteID = sv.regitrarParticipante(p)
-        print(f"Participante {p} ID: {participanteID}")
-        #2 crear una muestra del participante y devolver el id de la muestra
-        muestraid = sv.regitrarMuestra(participanteID)
-        print(f"Muestra {muestraid} registrada para el participante {p}")
+    #PRECISION GENERAL CON PI
+    PC_I = suma / (suma + FP["contador"]) * 100
+
+    # Crear diccionario para mostrar
+    tabla = {
+        "Parámetro": [
+            "VP",
+            "FP",
+            "PI",
+            "Precisión General",
+            "Precisión General con PI"
+            ],
+        "Valor": [
+            param1,
+            param2,
+            suma,
+            f"{pc:.2f} %",
+            f"{PC_I:.2f} %"
+            ]
+        }
+    
+    df = pd.DataFrame(tabla)
+    tablaresultados.table(df)
+
+#FUCION PRINCIPAL
+if __name__ == "__main__":
+    if video_ruta:
+        # Decode URL
+        #con un length obtener el nombre del participante de la URL
+        #Participantes\JosselynV\Controlado\Frontal\1.mov
+        # Normalizar separadores de carpeta
+        video_ruta = os.path.normpath(video_ruta)
+        nombre_participante =""
+        # Separar en partes
+        partes = video_ruta.split(os.sep)
+
+        # Buscar la posición de "Participantes"
+        try:
+            idx = partes.index("Participantes")
+            nombre_participante = partes[idx + 1]  # carpeta siguiente
+        except ValueError:
+            nombre_participante = "Desconocido" 
         
-        #recorrer los escenarios
-        for escenario in escenarios:
-            num = 3
-            if escenario == "NoControlado":
-                num=1
-
-            for x in Orientacion:
-                for j in range(num):
-                    print("-------------------------------------------------------------------------------------" )
-                    print(f"Participante = {p} Escenario ={escenario} Video ={j+1}" )
-
-                    # primero intenta con mp4
-                    ruta_video =""
-                    ruta_video_mp4 = f"Participantes/{p}/{escenario}/{x}/{j+1}.mp4"
-                    ruta_video_mov = f"Participantes/{p}/{escenario}/{x}/{j+1}.mov"
-
-                    if os.path.exists(ruta_video_mp4):
-                        ruta_video = ruta_video_mp4
-                    elif os.path.exists(ruta_video_mov):
-                        ruta_video = ruta_video_mov
-                    else:
-                        print(f"⚠ No se encontró el video {j+1} en formato mp4 ni mov.")
-                        continue
-
-                    #3 registrar el video y devolver el id del video para que se guarden los datos en la funcion siguiente
-                    videoID = sv.registrarVideo(muestraid)
-                    print(f"Video {videoID} registrado para la muestra {muestraid} del participante {p}")
-                    visualizar_todo(ruta_video,muestraid,videoID)
-
-
-    #print (f"PROCESO FINALIZADO REVISAR LAS CONSULTAS DE LA BD CON evaluacionID -> {evaluacionID}")
-    print(f"OBTENCION DE MUESTRAS FINALIZADO, ENTRENAR LOS MODELOS ES EL SIGUIENTE PASO")
-
-
-
-
-
-
-
-
-
+        print(f"Nombre del participante: {nombre_participante}")
+        visualizar_todo(video_ruta, nombre_participante)
+        
+        GuardarResultados()
+        
+    else:
+        st.warning("No se ha seleccionado ningún video. Ve a la página principal para elegir uno.")

@@ -1,5 +1,4 @@
 #streamlit run prediccion.py
-import time
 import streamlit as st
 import os
 import cv2
@@ -61,7 +60,7 @@ with col_izq:
         orientacion_stream = st.empty()
     with col_der_1:
         marcha_fuera = st.empty()
-    modelo_seleccionado = st.selectbox("Seleccione un modelo", ["RF", "MLP","MLP_ALL"])
+    modelo_seleccionado = st.selectbox("Seleccione un modelo", ["RF", "MLP"])
 
 
 
@@ -103,8 +102,8 @@ def visualizar_todo(video_path,participante):
     #pausado_flag = False
 
     while cap.isOpened():
-        if reproducir:
-            reproducir_flag["estado"] =True
+        #if reproducir:
+            #reproducir_flag["estado"] =True
             #reproducir_flag = True
             #pausado_flag = False
         #if pausar:
@@ -112,7 +111,7 @@ def visualizar_todo(video_path,participante):
             #reproducir_flag = False
 
 
-        if reproducir_flag["estado"]:
+        #if reproducir_flag["estado"]:
             ret, frame = cap.read()
             if not ret:
                 break
@@ -350,7 +349,7 @@ def visualizar_todo(video_path,participante):
                         }
 
 
-                        prediccion,probabilidad_predicha, probabilidades = config.RealizarPrediccion(vectores,orientacion,"MLP_ALL")#modelo_seleccionado
+                        prediccion,probabilidad_predicha, probabilidades = config.RealizarPrediccion(vectores,orientacion,"RF")#modelo_seleccionado
                         #diccionario_stream.write(f"{probabilidades}")
                         df = pd.DataFrame(list(probabilidades.items()), columns=["Nombre", "Valor"])
                         diccionario_stream.table(df)
@@ -374,17 +373,17 @@ def visualizar_todo(video_path,participante):
                         #Calcular el PI    
                         if persona_identificada2 == participante:
                             PI["contador"] += 1
-                            print(f"Se mantiene el (PI)=+1")
+                            print(f"Se mantiene el (PI)=+1 {PI['contador']}")
 
                         #Calcular los VP, FP    
                         if prediccion == participante:
                             VP["contador"] += 1
                             #PI["contador"] += 1
-                            print(f"(VP)=+1")
+                            print(f"(VP)=+1 {VP['contador']}")
                             #print(f"(PI)=+1")
                         else:
                             FP["contador"] += 1
-                            print(f"(FP)=+1")
+                            print(f"(FP)=+1 {FP['contador']}")
 
                         #limpiar los vectores
                         vector_distancia_26_25.clear()
@@ -439,8 +438,8 @@ if __name__ == "__main__":
     escenario = "NoControlado"
     #1 primero crear la evaluacion en la bd y guardar el id de la evaluacion
     
-    evaluacionID = sv.CrearGuardarNuevaEv("ModeloMLPNC_Ev2_10p")  #IMPORTANTE CAMBIAR EL NOMBRE PARA QUE SE PUEDA GUARDAR LA EVALUACION
-    #evaluacionID=28
+    #evaluacionID = sv.CrearGuardarNuevaEv("ModeloRFNC_Ev1_7p1")  #IMPORTANTE CAMBIAR EL NOMBRE PARA QUE SE PUEDA GUARDAR LA EVALUACION
+    evaluacionID=38
 
     #2 ahora registrar a los participantes que se van a evaluar en el modelo con el id de la evaluacion
     #participantes = ["JosselynV"]
@@ -456,7 +455,7 @@ if __name__ == "__main__":
         print (f"evaluacionID -> {evaluacionID}")
         print (f"participanteID -> {participanteID}")
         for x in Orientacion:
-            Reiniciar_indicadores()
+            #Reiniciar_indicadores()
             for j in range(3):
                 print("-------------------------------------------------------------------------------------" )
                 print(f"Participante = {p} Escenario ={escenario} Video ={j+1}" )
@@ -476,12 +475,14 @@ if __name__ == "__main__":
 
                 visualizar_todo(ruta_video,p)
                 print (f"participanteID -> {participanteID}")
-                """
-                  FP["contador"] =0
-                    VP['contador'] =0
-                    PI['contador'] =0
-                """
-                #config.GuardarResultados(p,escenario,j+1,x,participanteID,evaluacionID,VP['contador'],FP['contador'],PI['contador'])
+                config.GuardarResultados(p,escenario,j+1,x,participanteID,evaluacionID,VP['contador'],FP['contador'],PI['contador'])
+
+                FP["contador"] =0
+                VP['contador'] =0
+                PI['contador'] =0
+                
+                #Reiniciar_indicadores()
+
     print (f"PROCESO FINALIZADO REVISAR LAS CONSULTAS DE LA BD CON evaluacionID -> {evaluacionID}")
 
 

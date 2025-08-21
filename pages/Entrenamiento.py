@@ -47,7 +47,7 @@ def EntrenamientoMLP_f(numero):
     #if iniciar_entrenamiento:
         tiempo_MLP.write(f"MLP-> Iniciando entrenamiento {numero}")
         # Paso 1: Obtener JSON desde PostgreSQL
-        resultado = ec.ObtenerDatosEntrenamiento()  # El JSON como dict/list
+        resultado = ec.ObtenerDatosEntrenamiento(numero)  # El JSON como dict/list
         datos = resultado
 
         X = []
@@ -132,7 +132,7 @@ def EntrenamientoMLP_f(numero):
 #funcion para el entrenamiento de RF -> random forest
 def EntrenamientoRF(numero):
     # Paso 1: Obtener JSON desde PostgreSQL
-    resultado = ec.ObtenerDatosEntrenamiento()  # El JSON como dict/list
+    resultado = ec.ObtenerDatosEntrenamiento(numero)  # El JSON como dict/list
     datos = resultado
 
     X = []

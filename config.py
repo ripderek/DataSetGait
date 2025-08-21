@@ -142,44 +142,44 @@ def mejorar_frame_solo_filtro(frame):
     return frame
 
 #primero guardar en la base de datos y luego guardar en un archivo txt para visualizacion
-def GuardarResultados(participante,escenario,numero,orientacion,evaluacionID,evaluacionID2,VP_Contador,FP_Contador,PI_Contador):
-    #mostrar los resultados en base los VP y FP
+def GuardarResultados(participante, escenario, numero, orientacion, evaluacionID, evaluacionID2,
+                      VP_Contador, FP_Contador, PI_Contador):
     print(f"\n ---------------------Resultados de la predicción-----------------------------------------")
     delimitador = "-----------------------------------"
-    AbrirArchivoResultados(delimitador)
+    
     encabezado = f"Resultados de la predicción para el participante {participante}, escenario {escenario}, video {numero}, orientación {orientacion}"
-    AbrirArchivoResultados(encabezado)
+    print(encabezado)
 
-    param1 = f"(VP)= {VP_Contador}"
-    print(param1)
-    AbrirArchivoResultados(param1)
-
-    param2 = f"(FP)= {FP_Contador}"
-    print(param2)
-    AbrirArchivoResultados(param2)
-
-    param3= f"(PI)= {PI_Contador}"
-    print(param3)
-    AbrirArchivoResultados(param3)
-
+    print(f"(VP)= {VP_Contador}")
+    print(f"(FP)= {FP_Contador}")
+    print(f"(PI)= {PI_Contador}")
 
     suma = PI_Contador + VP_Contador
-    param4 = f"Resultados de Precisión de Identificación (PI) + (VP)= {suma}"
-    print(param4)
-    AbrirArchivoResultados(param4)
+    print(f"Resultados de Precisión de Identificación (PI) + (VP)= {suma}")
 
-    param5 =f"PC-> {VP_Contador / (VP_Contador + FP_Contador) * 100:.2f}%" 
-    pc = VP_Contador / (VP_Contador + FP_Contador) * 100
-    print(param5)
-    AbrirArchivoResultados(param5)
+    try:
+        # cálculos que pueden fallar por división entre 0
+        pc = VP_Contador / (VP_Contador + FP_Contador) * 100
+        PC_I = suma / (suma + FP_Contador) * 100
 
-    param6 =f"PC_I-> {suma / (suma + FP_Contador) * 100:.2f}%" 
-    PC_I = suma / (suma + FP_Contador) * 100
-    print(param6)
-    #AbrirArchivoResultados(param6)
+        print(f"PC-> {pc:.2f}%")
+        print(f"PC_I-> {PC_I:.2f}%")
 
-    #guardar el registro en la base de datos
-    InsertarResultadosVideos(numero,orientacion,    escenario,   VP_Contador,FP_Contador,PI_Contador,suma,   pc,   PC_I,     evaluacionID, evaluacionID2)
+        # guardar el registro en la base de datos solo si todo salió bien
+        InsertarResultadosVideos(
+            numero, orientacion, escenario,
+            VP_Contador, FP_Contador, PI_Contador,
+            suma, pc, PC_I,
+            evaluacionID, evaluacionID2
+        )
+    
+    except ZeroDivisionError:
+        print("⚠️ Error de cálculo: división por cero. No se guardará el resultado en la BD.")
+    except Exception as e:
+        print(f"⚠️ Ocurrió un error inesperado durante el cálculo: {e}. No se guardará el resultado en la BD.")
+
+
+
 
 
 def predecir_persona_desde_vectores(vectores_distancia: dict, orientacion):

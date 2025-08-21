@@ -1309,7 +1309,7 @@ $function$
 
 -
 
---select * from obtener_datos_entrenamiento(1,1)
+--select * from obtener_datos_entrenamiento(0,3)
 CREATE OR REPLACE FUNCTION public.obtener_datos_entrenamiento(modeloid_p bigint, orientacion_p integer)
  RETURNS json
  LANGUAGE plpgsql
@@ -1404,7 +1404,7 @@ END;
 $function$
 ;
 
---select * from entrenamiento
+--select COUNT(*) from entrenamiento
 
 --select orientacion from entrenamiento 
 
@@ -1442,8 +1442,9 @@ $function$
 
 
 --select * from Evualuaciones
+--insert into Evualuaciones(evaluacion) values ('MODELO_RF2_C_7P')
 --select * from evualuacion_participante
---select COUNT(*) from videos_evaluaciones
+--select * from videos_evaluaciones where evaluacionid = 36 order by evaluacionpid,orientacion, n_video desc
 
 --------------------------------------------------------[RESULTADO EVALUACION MODELOS]------------------------------------
 --Evaluacion ID -> 26 --> random forest dividio
@@ -1459,7 +1460,7 @@ SELECT
 FROM videos_evaluaciones ve
 INNER JOIN evualuacion_participante ep 
     ON ve.evaluacionpid = ep.evaluacionpid 
-WHERE ve.evaluacionid = 31
+WHERE ve.evaluacionid = 38
 GROUP BY ep.participante, ve.evaluacionpid
 ORDER BY pg_pi_porcentaje DESC;
 
@@ -1473,7 +1474,7 @@ SELECT
     ROUND( (SUM(ve.vp)::numeric / NULLIF(SUM(ve.vp) + SUM(ve.fp),0)) * 100, 2) AS pg_porcentaje,
     ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje
 FROM videos_evaluaciones ve
-WHERE ve.evaluacionid = 27
+WHERE ve.evaluacionid = 38
 GROUP BY ve.escenario, ve.orientacion
 ORDER BY pg_pi_porcentaje desc;
 
@@ -1487,7 +1488,7 @@ SELECT
     ROUND( (SUM(ve.vp)::numeric / NULLIF(SUM(ve.vp) + SUM(ve.fp),0)) * 100, 2) AS pg_porcentaje,
     ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje
 FROM videos_evaluaciones ve
-WHERE ve.evaluacionid = 27
+WHERE ve.evaluacionid = 38
 GROUP BY ve.escenario
 ORDER BY pg_pi_porcentaje desc;
 
@@ -1500,6 +1501,6 @@ SELECT
     ROUND( (SUM(ve.vp)::numeric / NULLIF(SUM(ve.vp) + SUM(ve.fp),0)) * 100, 2) AS pg_porcentaje,
     ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje
 FROM videos_evaluaciones ve
-WHERE ve.evaluacionid = 27;
+WHERE ve.evaluacionid = 34;
 
 

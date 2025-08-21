@@ -1,62 +1,70 @@
-#streamlit run obtenciondatos.py
-#18 videos por participantes
-# 12 videos para entrenamiento 
-# 6 para pruebas
-
-import time
 import streamlit as st
-import os
+import urllib.parse
+import streamlit as st
 import cv2
 import mediapipe as mp
 import config
-import pandas as pd
-import Styles.estilos as estilos
 import numpy as np
-import controllers.MuestrasController as sv
+import pandas as pd
 
 # Inicializar MediaPipe
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 mp_drawing = mp.solutions.drawing_utils
 
+#Iniciar Steamlit
+st.set_page_config(page_title="Visualizador de muestras", layout="wide")
+st.title("Visualizador de muestras")
 
-    
-#STREAMLIT
-# Set the title for the Streamlit app
-st.set_page_config(
-    page_title="Muestras",
-    layout="wide",  # <--- esto hace que el contenedor ocupe todo el ancho
-    initial_sidebar_state="auto"
-)
-# Título de la app
-st.title("Obtener muestras de la marcha")
+# Leer parámetros de la URL
+#query_params = st.experimental_get_query_params()
+#video_ruta = query_params.get("video", [None])[0]
+video_ruta = st.query_params.get("video", [None])
 
 
+video_ruta = urllib.parse.unquote(video_ruta)
+st.write(f"Video seleccionado: `{video_ruta}`")
 
 # Crear tres columnas: izquierda, centro y derecha
 col_izq, col_der = st.columns(2)
 
 # ----- CONTENIDO IZQUIERDO -----
-#with col_izq:
-reproducir = st.button("Iniciar")
-frame_placeholder = st.empty()      # Aquí se muestra el video
-#3 columnas
-col_izq_1, col_med_1,col_der_1 = st.columns(3)
-with col_izq_1:
+with col_izq:
+    reproducir = st.button("Reproducir")
+    frame_placeholder = st.empty()      # Aquí se muestra el video
+    #3 columnas
+    col_izq_1, col_med_1,col_der_1 = st.columns(3)
+    with col_izq_1:
         contador_stream = st.empty()
-with col_med_1:
+    with col_med_1:
         orientacion_stream = st.empty()
-with col_der_1:
+    with col_der_1:
         marcha_fuera = st.empty()
 
-#with col_der:
-    #normalizacion = st.empty()  # Aquí se muestra la normalización
+with col_der:
+    normalizacion = st.empty()  # Aquí se muestra la normalización
+
+
+#columnas para graficar las secuencias de los vectores
+col_1,col_2,col_3 = st.columns(3)
+
+ #aqui van las graficas de los vectores:
+with col_1:
+    st.subheader("p32 --> p31")
+    vector_distancia_32_31_placeholder = st.empty()
+    
+with col_2:
+    st.subheader("p28 --> p27")
+    vector_distancia_28_27_placeholder = st.empty()
+
+with col_3:
+    st.subheader("p26 --> p25")
+    vector_distancia_26_25_placeholder = st.empty()
 
 
 reproducir_flag = {"estado": False}
 
-
-def visualizar_todo(video_path,muestraid,videoid):
+def visualizar_todo(video_path):
     cap = cv2.VideoCapture(video_path)
     contador = 0
     #vectores de distancias
@@ -71,8 +79,6 @@ def visualizar_todo(video_path,muestraid,videoid):
     vector_distancia_32_16 =[]
     vector_distancia_31_15 =[]
 
-    persona_identificada = "No identificada"
-    persona_identificada2 = "No identificada"
 
     #cruce de rodillas 
     cruce_rodillas_indicador = False
@@ -316,59 +322,34 @@ def visualizar_todo(video_path,muestraid,videoid):
                     #print(f"no se realizan calculos")
                     contador=0
                     vector_distancia_32_31.clear()
-                    #persona_identificada = "No identificada"
+                    
                     marcha_fuera.write(f"Marcha fuera de rango")
                 else:
                     marcha_fuera.write(f"")
+
+                    #actualizar las graficas de la caminatas por puntos
+                    #df_32_31 = pd.DataFrame({"y": vector_distancia_32_31})
+                    #vector_distancia_32_31_placeholder.line_chart(df_32_31)
+
+                    #df_28_27 = pd.DataFrame({"y": vector_distancia_28_27})
+                    #vector_distancia_28_27_placeholder.line_chart(df_28_27)
+
+                    #df_26_25 = pd.DataFrame({"y": vector_distancia_26_25})
+                    #vector_distancia_26_25_placeholder.line_chart(df_26_25)
+
                     #reiniciar el contador cuando se considere que hubo una marcha completa de 25s
                     if (contador>=25):
-                        #llamar a la funcion de prediccion
-                        #vectores = {
-                        #"26_25": vector_distancia_26_25,
-                        #"28_27": vector_distancia_28_27,
-                        #"31_23": vector_distancia_31_23,
-                        #"32_24": vector_distancia_32_24,
-                        #"32_31": vector_distancia_32_31,
-                        #"16_12": vector_distancia_16_12,
-                        #"15_11": vector_distancia_15_11,
-                        #"32_16": vector_distancia_32_16,
-                        #"31_15": vector_distancia_31_15
-                        #}
-                        #calcular la desviacion y el promedio para poder guardar como muestra    
-                        promedio_32_31 = config.obtener_promedio(vector_distancia_32_31)
-                        desviacion_32_31 = config.obtener_desviacion(vector_distancia_32_31)
-                        promedio_28_27 = config.obtener_promedio(vector_distancia_28_27)
-                        desviacion_28_27 = config.obtener_desviacion(vector_distancia_28_27)
-                        promedio_26_25 = config.obtener_promedio(vector_distancia_26_25)
-                        desviacion_26_25 = config.obtener_desviacion(vector_distancia_26_25)
-                        promedio_31_23 = config.obtener_promedio(vector_distancia_31_23)
-                        desviacion_31_23 = config.obtener_desviacion(vector_distancia_31_23)
-                        promedio_32_24 = config.obtener_promedio(vector_distancia_32_24)
-                        desviacion_32_24 = config.obtener_desviacion(vector_distancia_32_24)
-                        # NUEVOS PUNTOS PARA REALIZAR MAS PRUEBAS
-                        promedio_16_12 = config.obtener_promedio(vector_distancia_16_12)
-                        desviacion_16_12 = config.obtener_desviacion(vector_distancia_16_12)
-                        promedio_15_11 = config.obtener_promedio(vector_distancia_15_11)
-                        desviacion_15_11 = config.obtener_desviacion(vector_distancia_15_11)
-                        promedio_32_16 = config.obtener_promedio(vector_distancia_32_16)
-                        desviacion_32_16 = config.obtener_desviacion(vector_distancia_32_16)
-                        promedio_31_15 = config.obtener_promedio(vector_distancia_31_15)
-                        desviacion_31_15 = config.obtener_desviacion(vector_distancia_31_15)
-                    
-
-                        #guardar las muestras en la BD
-                        sv.registrar_puntos_muestra(videoid,muestraid,promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15,orientacion)
 
                         #limpiar los vectores
-                        vector_distancia_26_25.clear()
-                        vector_distancia_28_27.clear()
-                        vector_distancia_31_23.clear()
-                        vector_distancia_32_24.clear()
-                        vector_distancia_32_31.clear()
-                        vector_distancia_16_12.clear()
-                        vector_distancia_15_11.clear()
-                        vector_distancia_32_16.clear()
-                        vector_distancia_31_15.clear()
+                        #vector_distancia_26_25.clear()
+                        #vector_distancia_28_27.clear()
+                        #vector_distancia_31_23.clear()
+                        #vector_distancia_32_24.clear()
+                        #vector_distancia_32_31.clear()
+                        #vector_distancia_16_12.clear()
+                        #vector_distancia_15_11.clear()
+                        #vector_distancia_32_16.clear()
+                        #vector_distancia_31_15.clear()
 
                         cruce_rodillas_indicador= False
                         contador=0
@@ -386,8 +367,7 @@ def visualizar_todo(video_path,muestraid,videoid):
                 y_linea = int(nueva_h * 0.96)
                 cv2.line(fondo_negro, (0, y_linea), (nueva_w, y_linea), (255, 0, 0), 2)
                 
-                #comentado para que no relantize el proceso de obtencion de muestras
-                #normalizacion.image(fondo_negro, channels="BGR")
+                normalizacion.image(fondo_negro, channels="BGR")
 
                 # Mostrar imagen final directamente
                 #cv2.imshow('Visualizacion Completa', frame_mejorado)                
@@ -404,62 +384,14 @@ def visualizar_todo(video_path,muestraid,videoid):
     cv2.destroyAllWindows()
 
 
-
+#Participantes\AlmagroI\NoControlado\Lateral\3.mp4
 if __name__ == "__main__":
-
-    escenarios = ["Controlado", "NoControlado"]
-    #participantes = ["JosselynV"]
-    Orientacion = ["Frontal", "Espalda", "Lateral"]
-    #se obtiene la lista de carpetas de los participantes para que este paso se realize automaticamente
-    participantes=config.obtener_participantes()
-   
-    participantesID =[]
-    for p in participantes:
-        #1 primero registrar al participante, si no existe crearlo y devolver el id
-        participanteID = sv.regitrarParticipante(p)
-        print(f"Participante {p} ID: {participanteID}")
-        #2 crear una muestra del participante y devolver el id de la muestra
-        muestraid = sv.regitrarMuestra(participanteID)
-        print(f"Muestra {muestraid} registrada para el participante {p}")
-        
-        #recorrer los escenarios
-        for escenario in escenarios:
-            num = 3
-            if escenario == "NoControlado":
-                num=1
-
-            for x in Orientacion:
-                for j in range(num):
-                    print("-------------------------------------------------------------------------------------" )
-                    print(f"Participante = {p} Escenario ={escenario} Video ={j+1}" )
-
-                    # primero intenta con mp4
-                    ruta_video =""
-                    ruta_video_mp4 = f"Participantes/{p}/{escenario}/{x}/{j+1}.mp4"
-                    ruta_video_mov = f"Participantes/{p}/{escenario}/{x}/{j+1}.mov"
-
-                    if os.path.exists(ruta_video_mp4):
-                        ruta_video = ruta_video_mp4
-                    elif os.path.exists(ruta_video_mov):
-                        ruta_video = ruta_video_mov
-                    else:
-                        print(f"⚠ No se encontró el video {j+1} en formato mp4 ni mov.")
-                        continue
-
-                    #3 registrar el video y devolver el id del video para que se guarden los datos en la funcion siguiente
-                    videoID = sv.registrarVideo(muestraid)
-                    print(f"Video {videoID} registrado para la muestra {muestraid} del participante {p}")
-                    visualizar_todo(ruta_video,muestraid,videoID)
+    if video_ruta:
+        # Decode URL
+        visualizar_todo(video_ruta)
+    else:
+        st.warning("No se ha seleccionado ningún video. Ve a la página principal para elegir uno.")
 
 
-    #print (f"PROCESO FINALIZADO REVISAR LAS CONSULTAS DE LA BD CON evaluacionID -> {evaluacionID}")
-    print(f"OBTENCION DE MUESTRAS FINALIZADO, ENTRENAR LOS MODELOS ES EL SIGUIENTE PASO")
-
-
-
-
-
-
-
-
-
+    
+    
