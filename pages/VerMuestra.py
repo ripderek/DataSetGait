@@ -328,14 +328,14 @@ def visualizar_todo(video_path):
                     marcha_fuera.write(f"")
 
                     #actualizar las graficas de la caminatas por puntos
-                    #df_32_31 = pd.DataFrame({"y": vector_distancia_32_31})
-                    #vector_distancia_32_31_placeholder.line_chart(df_32_31)
+                    df_32_31 = pd.DataFrame({"y": vector_distancia_32_31})
+                    vector_distancia_32_31_placeholder.line_chart(df_32_31)
 
-                    #df_28_27 = pd.DataFrame({"y": vector_distancia_28_27})
-                    #vector_distancia_28_27_placeholder.line_chart(df_28_27)
+                    df_28_27 = pd.DataFrame({"y": vector_distancia_28_27})
+                    vector_distancia_28_27_placeholder.line_chart(df_28_27)
 
-                    #df_26_25 = pd.DataFrame({"y": vector_distancia_26_25})
-                    #vector_distancia_26_25_placeholder.line_chart(df_26_25)
+                    df_26_25 = pd.DataFrame({"y": vector_distancia_26_25})
+                    vector_distancia_26_25_placeholder.line_chart(df_26_25)
 
                     #reiniciar el contador cuando se considere que hubo una marcha completa de 25s
                     if (contador>=25):

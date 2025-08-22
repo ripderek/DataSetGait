@@ -1309,7 +1309,7 @@ $function$
 
 -
 
---select * from obtener_datos_entrenamiento(0,3)
+--select * from obtener_datos_entrenamiento(0,1)
 CREATE OR REPLACE FUNCTION public.obtener_datos_entrenamiento(modeloid_p bigint, orientacion_p integer)
  RETURNS json
  LANGUAGE plpgsql
