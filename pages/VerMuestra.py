@@ -46,20 +46,20 @@ with col_der:
 
 
 #columnas para graficar las secuencias de los vectores
-col_1,col_2,col_3 = st.columns(3)
+#col_1,col_2,col_3 = st.columns(3)
 
  #aqui van las graficas de los vectores:
-with col_1:
-    st.subheader("p32 --> p31")
-    vector_distancia_32_31_placeholder = st.empty()
+#with col_1:
+    #st.subheader("p32 --> p31")
+    #vector_distancia_32_31_placeholder = st.empty()
     
-with col_2:
-    st.subheader("p28 --> p27")
-    vector_distancia_28_27_placeholder = st.empty()
+#with col_2:
+    #st.subheader("p28 --> p27")
+    #vector_distancia_28_27_placeholder = st.empty()
 
-with col_3:
-    st.subheader("p26 --> p25")
-    vector_distancia_26_25_placeholder = st.empty()
+#with col_3:
+    #st.subheader("p26 --> p25")
+    #vector_distancia_26_25_placeholder = st.empty()
 
 
 reproducir_flag = {"estado": False}
@@ -328,14 +328,14 @@ def visualizar_todo(video_path):
                     marcha_fuera.write(f"")
 
                     #actualizar las graficas de la caminatas por puntos
-                    df_32_31 = pd.DataFrame({"y": vector_distancia_32_31})
-                    vector_distancia_32_31_placeholder.line_chart(df_32_31)
+                    #df_32_31 = pd.DataFrame({"y": vector_distancia_32_31})
+                    #vector_distancia_32_31_placeholder.line_chart(df_32_31)
 
-                    df_28_27 = pd.DataFrame({"y": vector_distancia_28_27})
-                    vector_distancia_28_27_placeholder.line_chart(df_28_27)
+                    #df_28_27 = pd.DataFrame({"y": vector_distancia_28_27})
+                    #vector_distancia_28_27_placeholder.line_chart(df_28_27)
 
-                    df_26_25 = pd.DataFrame({"y": vector_distancia_26_25})
-                    vector_distancia_26_25_placeholder.line_chart(df_26_25)
+                    #df_26_25 = pd.DataFrame({"y": vector_distancia_26_25})
+                    #vector_distancia_26_25_placeholder.line_chart(df_26_25)
 
                     #reiniciar el contador cuando se considere que hubo una marcha completa de 25s
                     if (contador>=25):

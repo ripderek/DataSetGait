@@ -86,4 +86,5 @@ def registrar_puntos_muestra(param1, param2, param3, param4, param5, param6,
         print("Puntos registrados")
 
     except Exception as e:
-        print(f"Error al registrar los puntos de la muestra en la bd: {e}")
+        print(f"Error al registrar los puntos de la muestra en la bd")
+        print(f"{e}")

@@ -6,7 +6,8 @@ import streamlit as st
 import os
 import urllib.parse
 
-BASE_PATH = "Participantes"
+#BASE_PATH = "Participantes"
+BASE_PATH = "Nuevos"
 
 def mostrar_treeview(ruta):
     elementos = sorted(os.listdir(ruta))

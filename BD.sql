@@ -1441,10 +1441,13 @@ $function$
 
 
 
---select * from Evualuaciones
---insert into Evualuaciones(evaluacion) values ('MODELO_RF2_C_7P')
+--select * from Evualuaciones order by evaluacionid desc limit 1
+--insert into Evualuaciones(evaluacion) values ('MODELO_RF_CNC_10P')
 --select * from evualuacion_participante
 --select * from videos_evaluaciones where evaluacionid = 36 order by evaluacionpid,orientacion, n_video desc
+
+--select * from evualuacion_participante where evaluacionid = 40
+--select * from videos_evaluaciones where evaluacionid = 40
 
 --------------------------------------------------------[RESULTADO EVALUACION MODELOS]------------------------------------
 --Evaluacion ID -> 26 --> random forest dividio
@@ -1456,12 +1459,13 @@ SELECT
     SUM(ve.fp) AS total_fp,
     SUM(ve.pi_vp) AS total_pi_vp,
     ROUND( (SUM(ve.vp)::numeric / NULLIF(SUM(ve.vp) + SUM(ve.fp),0)) * 100, 2) AS pg_porcentaje,
-    ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje
+    ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje,
+    ve.escenario 
 FROM videos_evaluaciones ve
 INNER JOIN evualuacion_participante ep 
     ON ve.evaluacionpid = ep.evaluacionpid 
-WHERE ve.evaluacionid = 38
-GROUP BY ep.participante, ve.evaluacionpid
+WHERE ve.evaluacionid = 41
+GROUP BY ep.participante, ve.evaluacionpid, ve.escenario  
 ORDER BY pg_pi_porcentaje DESC;
 
 --hacer una consulta que devuelva los porcentajes de precision general por cada orientacion por escenario de una evaluacion
@@ -1474,7 +1478,7 @@ SELECT
     ROUND( (SUM(ve.vp)::numeric / NULLIF(SUM(ve.vp) + SUM(ve.fp),0)) * 100, 2) AS pg_porcentaje,
     ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje
 FROM videos_evaluaciones ve
-WHERE ve.evaluacionid = 38
+WHERE ve.evaluacionid = 41
 GROUP BY ve.escenario, ve.orientacion
 ORDER BY pg_pi_porcentaje desc;
 
@@ -1488,7 +1492,7 @@ SELECT
     ROUND( (SUM(ve.vp)::numeric / NULLIF(SUM(ve.vp) + SUM(ve.fp),0)) * 100, 2) AS pg_porcentaje,
     ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje
 FROM videos_evaluaciones ve
-WHERE ve.evaluacionid = 38
+WHERE ve.evaluacionid = 41
 GROUP BY ve.escenario
 ORDER BY pg_pi_porcentaje desc;
 
@@ -1501,6 +1505,128 @@ SELECT
     ROUND( (SUM(ve.vp)::numeric / NULLIF(SUM(ve.vp) + SUM(ve.fp),0)) * 100, 2) AS pg_porcentaje,
     ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje
 FROM videos_evaluaciones ve
-WHERE ve.evaluacionid = 34;
+WHERE ve.evaluacionid = 40;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--select * from muestras  order by muestraid desc
+--select * from videos_muestras order by videoid desc
+--select * from personas
+--select COUNT(*) from entrenamiento
+--select * from entrenamiento
+
+
+
+videoid = 
+muestraid = 
+promedio_32_31 = 
+desviacion_32_31 = 
+promedio_28_27 = 
+desviacion_28_27 = 
+promedio_26_25 = 
+desviacion_26_25 = 
+promedio_31_23 = 
+desviacion_31_23 = 
+promedio_32_24 = 
+desviacion_32_24 = 
+promedio_16_12 = 
+desviacion_16_12 = 
+promedio_15_11 = 
+desviacion_15_11 = 
+promedio_32_16 = 
+desviacion_32_16 = 
+promedio_31_15 = 
+desviacion_31_15 = 
+orientacion = 3
+Funcion registrar puntos
+registrando puntos
+Error al registrar los puntos de la muestra en la bd
+invalid transaction termination
+CONTEXT:  PL/pgSQL function registrar_puntos_muestra(bigint,bigint,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,numeric,integer) line 53 at rollback
+
+
+--call registrar_puntos_muestra(74,507,94.16639949453881,28.289655191435386,85.83261390626663,24.757145153906755,132.06728998001844,40.299362397454985,274.8414824847183,88.48253785692565,268.61758965827,
+						73.14431301325658,150.27102680991715,15.661173252569608,157.940149854166,6.550501052865236,308.39784840300837,28.32975101730999,254.71687135377294,24.55151698382403,3)
+
+
+						-- DROP PROCEDURE public.registrar_puntos_muestra(int8, int8, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, numeric, int4);
+
+CREATE OR REPLACE PROCEDURE public.registrar_puntos_muestra(IN videoid_p bigint, IN muestraid_p bigint, IN p_32_31_promedio_p numeric, IN p_32_31_desviacion_p numeric, IN p_28_27_promedio_p numeric, IN p_28_27_desviacion_p numeric, IN p_26_25_promedio_p numeric, IN p_26_25_desviacion_p numeric, IN p_31_23_promedio_p numeric, IN p_31_23_desviacion_p numeric, IN p_32_24_promedio_p numeric, IN p_32_24_desviacion_p numeric, IN p_16_12_promedio_p numeric, IN p_16_12_desviacion_p numeric, IN p_15_11_promedio_p numeric, IN p_15_11_desviacion_p numeric, IN p_32_16_promedio_p numeric, IN p_32_16_desviacion_p numeric, IN p_31_15_promedio_p numeric, IN p_31_15_desviacion_p numeric, IN orientacion_p integer)
+ LANGUAGE plpgsql
+AS $procedure$
+Begin
+	insert into entrenamiento(
+		videoid,
+		muestraid,
+		p_32_31_promedio,
+		p_32_31_desviacion,
+		p_28_27_promedio,
+		p_28_27_desviacion,
+		p_26_25_promedio,
+		p_26_25_desviacion,
+		p_31_23_promedio,
+		p_31_23_desviacion,
+		p_32_24_promedio,
+		p_32_24_desviacion,
+		p_16_12_promedio,
+		p_16_12_desviacion,
+		p_15_11_promedio,
+		p_15_11_desviacion,
+		p_32_16_promedio,
+		p_32_16_desviacion,
+		p_31_15_promedio,
+		p_31_15_desviacion,
+		orientacion
+		)
+	values (
+		videoid_p,
+		muestraid_p,
+		p_32_31_promedio_p,
+		p_32_31_desviacion_p,
+		p_28_27_promedio_p,
+		p_28_27_desviacion_p,
+		p_26_25_promedio_p,
+		p_26_25_desviacion_p,
+		p_31_23_promedio_p,
+		p_31_23_desviacion_p,
+		p_32_24_promedio_p,
+		p_32_24_desviacion_p,
+		p_16_12_promedio_p,
+		p_16_12_desviacion_p,
+		p_15_11_promedio_p,
+		p_15_11_desviacion_p,
+		p_32_16_promedio_p,
+		p_32_16_desviacion_p,
+		p_31_15_promedio_p,
+		p_31_15_desviacion_p,
+		orientacion_p
+		);	
+
+EXCEPTION
+        -- Si ocurre un error en la transacción principal, revertir
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE EXCEPTION 'Error transaccional: %', SQLERRM;	
+END;
+$procedure$
+;
 
 

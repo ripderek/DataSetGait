@@ -9,6 +9,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 import config
+import controllers.MuestrasController as sv
 import numpy as np
 import pandas as pd
 
@@ -71,7 +72,7 @@ with col_3:
 
 reproducir_flag = {"estado": True}
 
-def visualizar_todo(video_path):
+def visualizar_todo(video_path,muestraid,videoid):
     cap = cv2.VideoCapture(video_path)
     contador = 0
     #vectores de distancias
@@ -167,23 +168,36 @@ def visualizar_todo(video_path):
                 escala_y = nueva_h / (max_y - min_y)
                 
                 # Dibujar conexiones suavizadas
+                #for connection in mp_pose.POSE_CONNECTIONS:
+                    #start_idx, end_idx = connection
+                    #if start_idx not in config.puntos_rostro and end_idx not in config.puntos_rostro:
+                        #x1 = int((xs[start_idx] - min_x) * escala_x)
+                        #y1 = int((ys[start_idx] - min_y) * escala_y)
+                        #x2 = int((xs[end_idx] - min_x) * escala_x)
+                        #y2 = int((ys[end_idx] - min_y) * escala_y)
+                        #cv2.line(fondo_negro, (x1, y1), (x2, y2), (0, 0, 255), 2)
+                # Dibujar puntos suavizados
+                #for idx in range(len(xs)):
+                    #if idx not in config.puntos_rostro:
+                        #x = int((xs[idx] - min_x) * escala_x)
+                        #y = int((ys[idx] - min_y) * escala_y)
+                        #cv2.circle(fondo_negro, (x, y), 3, (0, 113, 0), -1)
+                        #cv2.putText(fondo_negro, f'p{idx} ({x},{y})', (x + 5, y - 5),
+                                #cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 0), 1)
+                
+
+                # Dibujar conexiones suavizadas
                 for connection in mp_pose.POSE_CONNECTIONS:
                     start_idx, end_idx = connection
                     if start_idx not in config.puntos_rostro and end_idx not in config.puntos_rostro:
-                        x1 = int((xs[start_idx] - min_x) * escala_x)
-                        y1 = int((ys[start_idx] - min_y) * escala_y)
-                        x2 = int((xs[end_idx] - min_x) * escala_x)
-                        y2 = int((ys[end_idx] - min_y) * escala_y)
-                        cv2.line(fondo_negro, (x1, y1), (x2, y2), (0, 0, 255), 2)
+                        x1, y1 = int(xs[start_idx]), int(ys[start_idx])
+                        x2, y2 = int(xs[end_idx]), int(ys[end_idx])
+                        cv2.line(frame_mejorado, (x1, y1), (x2, y2), (0, 0, 255), 2)
+
                 # Dibujar puntos suavizados
-                for idx in range(len(xs)):
+                for idx, (x, y) in enumerate(zip(xs, ys)):
                     if idx not in config.puntos_rostro:
-                        x = int((xs[idx] - min_x) * escala_x)
-                        y = int((ys[idx] - min_y) * escala_y)
-                        cv2.circle(fondo_negro, (x, y), 3, (0, 113, 0), -1)
-                        cv2.putText(fondo_negro, f'p{idx} ({x},{y})', (x + 5, y - 5),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 0), 1)
-                        
+                        cv2.circle(frame_mejorado, (int(x), int(y)), 3, (0, 255, 0), -1)
                 
                 # Medidas y orientación
                 x_23, x_24 = xs[23] * escala_x, xs[24] * escala_x
@@ -347,16 +361,75 @@ def visualizar_todo(video_path):
                     #reiniciar el contador cuando se considere que hubo una marcha completa de 25s
                     if (contador>=25):
 
+                        #llamar a la funcion de prediccion
+                        #vectores = {
+                        #"26_25": vector_distancia_26_25,
+                        #"28_27": vector_distancia_28_27,
+                        #"31_23": vector_distancia_31_23,
+                        #"32_24": vector_distancia_32_24,
+                        #"32_31": vector_distancia_32_31,
+                        #"16_12": vector_distancia_16_12,
+                        #"15_11": vector_distancia_15_11,
+                        #"32_16": vector_distancia_32_16,
+                        #"31_15": vector_distancia_31_15
+                        #}
+                        #calcular la desviacion y el promedio para poder guardar como muestra    
+                        promedio_32_31 = config.obtener_promedio(vector_distancia_32_31)
+                        desviacion_32_31 = config.obtener_desviacion(vector_distancia_32_31)
+                        promedio_28_27 = config.obtener_promedio(vector_distancia_28_27)
+                        desviacion_28_27 = config.obtener_desviacion(vector_distancia_28_27)
+                        promedio_26_25 = config.obtener_promedio(vector_distancia_26_25)
+                        desviacion_26_25 = config.obtener_desviacion(vector_distancia_26_25)
+                        promedio_31_23 = config.obtener_promedio(vector_distancia_31_23)
+                        desviacion_31_23 = config.obtener_desviacion(vector_distancia_31_23)
+                        promedio_32_24 = config.obtener_promedio(vector_distancia_32_24)
+                        desviacion_32_24 = config.obtener_desviacion(vector_distancia_32_24)
+                        # NUEVOS PUNTOS PARA REALIZAR MAS PRUEBAS
+                        promedio_16_12 = config.obtener_promedio(vector_distancia_16_12)
+                        desviacion_16_12 = config.obtener_desviacion(vector_distancia_16_12)
+                        promedio_15_11 = config.obtener_promedio(vector_distancia_15_11)
+                        desviacion_15_11 = config.obtener_desviacion(vector_distancia_15_11)
+                        promedio_32_16 = config.obtener_promedio(vector_distancia_32_16)
+                        desviacion_32_16 = config.obtener_desviacion(vector_distancia_32_16)
+                        promedio_31_15 = config.obtener_promedio(vector_distancia_31_15)
+                        desviacion_31_15 = config.obtener_desviacion(vector_distancia_31_15)
+                    
+
+                        #print(f"videoid = {videoid}")
+                        #print(f"muestraid = {muestraid}")
+                        #print(f"promedio_32_31 = {promedio_32_31}")
+                        #print(f"desviacion_32_31 = {desviacion_32_31}")
+                        #print(f"promedio_28_27 = {promedio_28_27}")
+                        #print(f"desviacion_28_27 = {desviacion_28_27}")
+                        #print(f"promedio_26_25 = {promedio_26_25}")
+                        #print(f"desviacion_26_25 = {desviacion_26_25}")
+                        #print(f"promedio_31_23 = {promedio_31_23}")
+                        #print(f"desviacion_31_23 = {desviacion_31_23}")
+                        #print(f"promedio_32_24 = {promedio_32_24}")
+                        #print(f"desviacion_32_24 = {desviacion_32_24}")
+                        #print(f"promedio_16_12 = {promedio_16_12}")
+                        #print(f"desviacion_16_12 = {desviacion_16_12}")
+                        #print(f"promedio_15_11 = {promedio_15_11}")
+                        #print(f"desviacion_15_11 = {desviacion_15_11}")
+                        #print(f"promedio_32_16 = {promedio_32_16}")
+                        #print(f"desviacion_32_16 = {desviacion_32_16}")
+                        #print(f"promedio_31_15 = {promedio_31_15}")
+                        #print(f"desviacion_31_15 = {desviacion_31_15}")
+                        #print(f"orientacion = {orientacion}")
+
+                        #guardar las muestras en la BD
+                        sv.registrar_puntos_muestra(videoid,muestraid,promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15,orientacion)
+
                         #limpiar los vectores
-                        #vector_distancia_26_25.clear()
-                        #vector_distancia_28_27.clear()
-                        #vector_distancia_31_23.clear()
-                        #vector_distancia_32_24.clear()
-                        #vector_distancia_32_31.clear()
-                        #vector_distancia_16_12.clear()
-                        #vector_distancia_15_11.clear()
-                        #vector_distancia_32_16.clear()
-                        #vector_distancia_31_15.clear()
+                        vector_distancia_26_25.clear()
+                        vector_distancia_28_27.clear()
+                        vector_distancia_31_23.clear()
+                        vector_distancia_32_24.clear()
+                        vector_distancia_32_31.clear()
+                        vector_distancia_16_12.clear()
+                        vector_distancia_15_11.clear()
+                        vector_distancia_32_16.clear()
+                        vector_distancia_31_15.clear()
 
                         cruce_rodillas_indicador= False
                         contador=0
@@ -366,6 +439,7 @@ def visualizar_todo(video_path):
                  
                 #contador_stream.write(f"Fotograma: {contador}")
                 orientacionString = "Frontal" if orientacion == 1 else "Espalda" if orientacion == 2 else "Lateral"
+                print(orientacionString)
                 #orientacion_stream.write(f"Orientacion: {orientacionString}")
                 cv2.line(fondo_negro, (nueva_w // 2, 0), (nueva_w // 2, nueva_h), (255, 255, 0), 2)
                 cv2.line(fondo_negro, (0, nueva_h // 2), (nueva_w, nueva_h // 2), (255, 0, 0), 2)
@@ -379,8 +453,8 @@ def visualizar_todo(video_path):
                 # Mostrar imagen final directamente
                 cv2.imshow('Visualizacion Completa', frame_mejorado)                
 
-            #else:
-                #cv2.imshow('Visualizacion Completa', frame_mejorado)
+            else:
+                cv2.imshow('Visualizacion Completa', frame_mejorado)
 
             if cv2.waitKey(config.delay) & 0xFF == ord('q'):
                 break
@@ -391,13 +465,65 @@ def visualizar_todo(video_path):
     cv2.destroyAllWindows()
 
 
+"""
+if __name__ == "__main__":
+    video_ruta="Nuevos/MendozaA/NoControlado/Espalda/2.mp4"
+    visualizar_todo(video_ruta,1,1)
+"""
+
+
+#"""
 
 if __name__ == "__main__":
 
-    video_ruta="Participantes/GamarraA/Controlado/Frontal/2.mp4"
-    visualizar_todo(video_ruta)
+    escenarios = ["Controlado", "NoControlado"]
+    participantes = ["MendozaA"]
+    Orientacion = ["Frontal", "Espalda", "Lateral"]
+    #se obtiene la lista de carpetas de los participantes para que este paso se realize automaticamente
+    #participantes=config.obtener_participantes()
    
+    participantesID =[]
+    for p in participantes:
+        #1 primero registrar al participante, si no existe crearlo y devolver el id
+        participanteID = sv.regitrarParticipante(p)
+        print(f"Participante {p} ID: {participanteID}")
+        #2 crear una muestra del participante y devolver el id de la muestra
+        muestraid = sv.regitrarMuestra(participanteID)
+        print(f"Muestra {muestraid} registrada para el participante {p}")
+        
+        #recorrer los escenarios
+        for escenario in escenarios:
+            num = 3
+            if escenario == "NoControlado":
+                num=1
+
+            for x in Orientacion:
+                for j in range(num):
+                    print("-------------------------------------------------------------------------------------" )
+                    print(f"Participante = {p} Escenario ={escenario} Video ={j+1}" )
+
+                    # primero intenta con mp4
+                    ruta_video =""
+                    ruta_video_mp4 = f"Nuevos/{p}/{escenario}/{x}/{j+1}.mp4"
+                    ruta_video_mov = f"Nuevos/{p}/{escenario}/{x}/{j+1}.mov"
+
+                    if os.path.exists(ruta_video_mp4):
+                        ruta_video = ruta_video_mp4
+                    elif os.path.exists(ruta_video_mov):
+                        ruta_video = ruta_video_mov
+                    else:
+                        print(f"⚠ No se encontró el video {j+1} en formato mp4 ni mov.")
+                        continue
+
+                    #3 registrar el video y devolver el id del video para que se guarden los datos en la funcion siguiente
+                    videoID = sv.registrarVideo(muestraid)
+                    print(f"Video {videoID} registrado para la muestra {muestraid} del participante {p}")
+                    visualizar_todo(ruta_video,muestraid,videoID)
 
 
-    
-    
+    #print (f"PROCESO FINALIZADO REVISAR LAS CONSULTAS DE LA BD CON evaluacionID -> {evaluacionID}")
+    print(f"OBTENCION DE MUESTRAS FINALIZADO, ENTRENAR LOS MODELOS ES EL SIGUIENTE PASO")
+
+
+
+#"""
