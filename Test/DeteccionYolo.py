@@ -2,7 +2,7 @@ import cv2
 from ultralytics import YOLO
 
 #VIDEO_SOURCE = "Nuevos/ZamoraA/NoControlado/Lateral/1.mp4"
-VIDEO_SOURCE = "Nuevos/YeranickM/Controlado/Frontal/1.mp4"
+VIDEO_SOURCE = "Participantes/JosselynV/NoControlado/Frontal/1.mov"
 CONF_THRES = 0.35
 
 WIN_NAME = "YOLO Tracking"

@@ -27,13 +27,13 @@ ALTO = 540
 #NORMALIZADO_ANCHO = 256
 #NORMALIZADO_ALTO = 256
 
-NORMALIZADO_ANCHO = 600
-NORMALIZADO_ALTO = 600
+NORMALIZADO_ANCHO = 200  #600
+NORMALIZADO_ALTO = 400
 
 # Historial para suavizado
 history = defaultdict(lambda: deque(maxlen=10))  # Últimos 5 frames
 
-padding = 0.2 #margen del cuadro con respecto a la persona identificada
+padding = 0.3 #margen del cuadro con respecto a la persona identificada
 
 #DELAY PARA VER LOS VIDEOS
 delay =1
@@ -119,7 +119,7 @@ def mejorar_frame_solo_filtro(frame):
     small = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
 
     # 2. Reducción de ruido más rápida que bilateral
-    small = cv2.GaussianBlur(small, (3, 3), 0)
+    #small = cv2.GaussianBlur(small, (3, 3), 0)
 
     # 3. Mejorar contraste con CLAHE ligero
     lab = cv2.cvtColor(small, cv2.COLOR_BGR2LAB)
@@ -135,7 +135,7 @@ def mejorar_frame_solo_filtro(frame):
         [-0.25, 2, -0.25],
         [0, -0.25, 0]
     ])
-    small = cv2.filter2D(small, -1, kernel_sharpening)
+    #small = cv2.filter2D(small, -1, kernel_sharpening)
 
     # 5. Volver al tamaño original
     frame = cv2.resize(small, (frame.shape[1], frame.shape[0]))

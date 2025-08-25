@@ -1531,7 +1531,7 @@ WHERE ve.evaluacionid = 40;
 --select * from videos_muestras order by videoid desc
 --select * from personas
 --select COUNT(*) from entrenamiento
---select * from entrenamiento
+--delete from entrenamiento
 
 
 

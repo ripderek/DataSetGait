@@ -1,6 +1,3 @@
-#import streamlit as st
-import urllib.parse
-import streamlit as st
 import cv2
 import mediapipe as mp
 import sys
@@ -18,56 +15,6 @@ mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 mp_drawing = mp.solutions.drawing_utils
 
-#Iniciar Steamlit
-#st.set_page_config(page_title="Visualizador de muestras", layout="wide")
-#st.title("Visualizador de muestras")
-
-# Leer parámetros de la URL
-#query_params = st.experimental_get_query_params()
-#video_ruta = query_params.get("video", [None])[0]
-#video_ruta = st.query_params.get("video", [None])
-
-
-#video_ruta = urllib.parse.unquote(video_ruta)
-#st.write(f"Video seleccionado: `{video_ruta}`")
-
-# Crear tres columnas: izquierda, centro y derecha
-#col_izq, col_der = st.columns(2)
-
-# ----- CONTENIDO IZQUIERDO -----
-"""
-with col_izq:
-    reproducir = st.button("Reproducir")
-    frame_placeholder = st.empty()      # Aquí se muestra el video
-    #3 columnas
-    col_izq_1, col_med_1,col_der_1 = st.columns(3)
-    with col_izq_1:
-        contador_stream = st.empty()
-    with col_med_1:
-        orientacion_stream = st.empty()
-    with col_der_1:
-        marcha_fuera = st.empty()
-
-with col_der:
-    normalizacion = st.empty()  # Aquí se muestra la normalización
-
-
-#columnas para graficar las secuencias de los vectores
-col_1,col_2,col_3 = st.columns(3)
-
- #aqui van las graficas de los vectores:
-with col_1:
-    st.subheader("p32 --> p31")
-    vector_distancia_32_31_placeholder = st.empty()
-    
-with col_2:
-    st.subheader("p28 --> p27")
-    vector_distancia_28_27_placeholder = st.empty()
-
-with col_3:
-    st.subheader("p26 --> p25")
-    vector_distancia_26_25_placeholder = st.empty()
-"""
 
 
 reproducir_flag = {"estado": True}
@@ -395,30 +342,8 @@ def visualizar_todo(video_path,muestraid,videoid):
                         desviacion_31_15 = config.obtener_desviacion(vector_distancia_31_15)
                     
 
-                        #print(f"videoid = {videoid}")
-                        #print(f"muestraid = {muestraid}")
-                        #print(f"promedio_32_31 = {promedio_32_31}")
-                        #print(f"desviacion_32_31 = {desviacion_32_31}")
-                        #print(f"promedio_28_27 = {promedio_28_27}")
-                        #print(f"desviacion_28_27 = {desviacion_28_27}")
-                        #print(f"promedio_26_25 = {promedio_26_25}")
-                        #print(f"desviacion_26_25 = {desviacion_26_25}")
-                        #print(f"promedio_31_23 = {promedio_31_23}")
-                        #print(f"desviacion_31_23 = {desviacion_31_23}")
-                        #print(f"promedio_32_24 = {promedio_32_24}")
-                        #print(f"desviacion_32_24 = {desviacion_32_24}")
-                        #print(f"promedio_16_12 = {promedio_16_12}")
-                        #print(f"desviacion_16_12 = {desviacion_16_12}")
-                        #print(f"promedio_15_11 = {promedio_15_11}")
-                        #print(f"desviacion_15_11 = {desviacion_15_11}")
-                        #print(f"promedio_32_16 = {promedio_32_16}")
-                        #print(f"desviacion_32_16 = {desviacion_32_16}")
-                        #print(f"promedio_31_15 = {promedio_31_15}")
-                        #print(f"desviacion_31_15 = {desviacion_31_15}")
-                        #print(f"orientacion = {orientacion}")
-
                         #guardar las muestras en la BD
-                        sv.registrar_puntos_muestra(videoid,muestraid,promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15,orientacion)
+                        #sv.registrar_puntos_muestra(videoid,muestraid,promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15,orientacion)
 
                         #limpiar los vectores
                         vector_distancia_26_25.clear()
@@ -465,14 +390,14 @@ def visualizar_todo(video_path,muestraid,videoid):
     cv2.destroyAllWindows()
 
 
-"""
-if __name__ == "__main__":
-    video_ruta="Nuevos/MendozaA/NoControlado/Espalda/2.mp4"
-    visualizar_todo(video_ruta,1,1)
-"""
-
-
 #"""
+if __name__ == "__main__":
+    video_ruta="Nuevos/VelezV/Controlado/Frontal/1.mp4"
+    visualizar_todo(video_ruta,1,1)
+#"""
+
+
+"""
 
 if __name__ == "__main__":
 
@@ -526,4 +451,4 @@ if __name__ == "__main__":
 
 
 
-#"""
+"""
