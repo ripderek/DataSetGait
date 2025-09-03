@@ -7,7 +7,8 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import config
 import mediapipe as mp
-import controllers.MuestrasController as sv
+#import controllers.MuestrasController as sv
+import controllers.EvaluacionesController as sv
 import numpy as np
 import pandas as pd
 
@@ -31,8 +32,25 @@ FP = {"contador": 0}
 PI = {"contador": 0}
 
 
+selected_id = None  # ID de la persona seleccionada
+last_detections = []  # [(id, (x1,y1,x2,y2)), ...]
+CONF_THRES = 0.35
+contador = 0
+label = ""
+#vectores de distancias
+vector_distancia_32_31 = []
+vector_distancia_28_27 =[]
+vector_distancia_26_25 =[]
+vector_distancia_31_23 =[]
+vector_distancia_32_24 =[]
+#nuevos vectores 
+vector_distancia_16_12 =[]
+vector_distancia_15_11 =[]
+vector_distancia_32_16 =[]
+vector_distancia_31_15 =[]
 
 def RecorteNormalizacion(frame_mejorado, min_y, max_y, min_x, max_x):
+    global contador
     # --- Paso 1: padding sobre el bbox ---
     ancho = max_x - min_x
     alto = max_y - min_y
@@ -97,8 +115,10 @@ def RecorteNormalizacion(frame_mejorado, min_y, max_y, min_x, max_x):
                 x1, y1 = int(xs[start_idx]), int(ys[start_idx])
                 x2, y2 = int(xs[end_idx]), int(ys[end_idx])
                 cv2.line(fondo_negro, (x1, y1), (x2, y2), (0, 0, 255), 2)
-                
-
+    else: 
+        contador = 0
+        
+    
     return fondo_negro, xs, ys, escala_x, escala_y, min_x_, max_x_, min_y_, max_y_
 
 
@@ -115,23 +135,34 @@ def distancia_puntos(min_x,escala_x,min_y,escala_y,xs1,xs2,ys1,ys2):
 
 
                        
-selected_id = None  # ID de la persona seleccionada
-last_detections = []  # [(id, (x1,y1,x2,y2)), ...]
-CONF_THRES = 0.35
+
 
 def on_mouse(event, x, y, flags, userdata):
-    global selected_id, last_detections
+    global selected_id, last_detections,contador, label
     if event == cv2.EVENT_LBUTTONDOWN:
         for tid, (x1, y1, x2, y2) in last_detections:
             if x1 <= x <= x2 and y1 <= y <= y2:
                 selected_id = tid
                 print(f"[INFO] Persona seleccionada con ID {tid}")
+                contador = 0
+                label = f""
+                vector_distancia_32_31.clear()
+                vector_distancia_28_27.clear()
+                vector_distancia_26_25.clear()
+                vector_distancia_31_23.clear()
+                vector_distancia_32_24.clear()
+                #nuevos vectores
+                vector_distancia_16_12.clear()
+                vector_distancia_15_11.clear()
+                vector_distancia_32_16.clear()
+                vector_distancia_31_15.clear()
                 break
 
 
 def main(VIDEO_SOURCE,participante):
     WIN_NAME = "YOLO Tracking"
-    global last_detections, selected_id
+    global label,last_detections, selected_id,contador,vector_distancia_32_31,vector_distancia_28_27,vector_distancia_26_25,vector_distancia_31_23,vector_distancia_32_24,vector_distancia_16_12,vector_distancia_15_11,vector_distancia_32_16,vector_distancia_31_15
+    selected_id= None
 
     cap = cv2.VideoCapture(VIDEO_SOURCE)
     if not cap.isOpened():
@@ -146,23 +177,24 @@ def main(VIDEO_SOURCE,participante):
     frame_count = 0  # Contador de frames
 
     #variables globales de los videos
-    contador = 0
+    
     #vectores de distancias
-    vector_distancia_32_31 = []
-    vector_distancia_28_27 =[]
-    vector_distancia_26_25 =[]
-    vector_distancia_31_23 =[]
-    vector_distancia_32_24 =[]
-    #nuevos vectores 
-    vector_distancia_16_12 =[]
-    vector_distancia_15_11 =[]
-    vector_distancia_32_16 =[]
-    vector_distancia_31_15 =[]
+    #vectores de distancias
+    vector_distancia_32_31.clear()
+    vector_distancia_28_27.clear()
+    vector_distancia_26_25.clear()
+    vector_distancia_31_23.clear()
+    vector_distancia_32_24.clear()
+    #nuevos vectores
+    vector_distancia_16_12.clear()
+    vector_distancia_15_11.clear()
+    vector_distancia_32_16.clear()
+    vector_distancia_31_15.clear()
 
 
     persona_identificada = "No identificada"
     persona_identificada2 = "No identificada"
-    label = f""
+    
     #cruce de rodillas 
     cruce_rodillas_indicador = False
     orientacion=1 #por defecto se inicia frontal
@@ -294,8 +326,8 @@ def main(VIDEO_SOURCE,participante):
 
                         #si los pies estan fuera de rango se omite el analisis
                         if pie_xd >= 380 or pie_xd_2>=380:
-                            cv2.putText(frame_mejorado, f'Marcha Fuera de Rango:', (30, 75),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+                            cv2.putText(frame_mejorado, f'Marcha Fuera de Rango', (30, 520),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1.1, (255, 255, 255), 2)
 
                             contador=0
                             vector_distancia_26_25.clear()
@@ -314,7 +346,7 @@ def main(VIDEO_SOURCE,participante):
                             #cv2.FONT_HERSHEY_SIMPLEX, tamano_texto, (255, 255, 255), 2)
                             cv2.putText(frame_mejorado, label, (x1, y1 - 10),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
-                            if (contador>=45):
+                            if (contador>=35):
                                 vectores = {
                                 "26_25": vector_distancia_26_25,
                                 "28_27": vector_distancia_28_27,
@@ -326,7 +358,6 @@ def main(VIDEO_SOURCE,participante):
                                 "32_16": vector_distancia_32_16,
                                 "31_15": vector_distancia_31_15
                                     }
-
 
                                 prediccion,probabilidad_predicha, probabilidades = config.RealizarPrediccion(vectores,orientacion,"RF")#modelo_seleccionado
                                 #diccionario_stream.write(f"{probabilidades}")
@@ -396,6 +427,9 @@ def main(VIDEO_SOURCE,participante):
                         cv2.putText(frame_mejorado, f'{cont1}', (120, 400),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
+                        #cv2.putText(frame_mejorado, f'{VIDEO_SOURCE}', (120, 490),
+                        #cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
+
                         cv2.putText(normalizacion, f'Contador: {contador}', (30, 20),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
                     
@@ -419,6 +453,9 @@ def main(VIDEO_SOURCE,participante):
 
         last_detections = detections
 
+        cv2.putText(frame_mejorado, f'{VIDEO_SOURCE}', (30, 490),
+            cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
+        
         cv2.imshow(WIN_NAME, frame_mejorado)
         key = cv2.waitKey(30) & 0xFF
         if key == 27:  # ESC
@@ -427,34 +464,32 @@ def main(VIDEO_SOURCE,participante):
         frame_count += 1
 
         # Congelar si ya pasaron 10 frames pero no se ha seleccionado a nadie
-        if frame_count > 10 and selected_id is None:
-            cv2.putText(frame_mejorado, f'Seleccione una persona', (20, 20),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
-            cv2.imshow(WIN_NAME, frame_mejorado)
-            print("[INFO] Esperando a que selecciones una persona...")
+        #if frame_count > 10 and selected_id is None:
+            #cv2.putText(frame_mejorado, f'Seleccione una persona', (20, 20),
+                        #cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+            #cv2.imshow(WIN_NAME, frame_mejorado)
+            #print("[INFO] Esperando a que selecciones una persona...")
             #imprimir el mensaje en opeven
-            while selected_id is None:
-                key = cv2.waitKey(30) & 0xFF
-                if key == 27:
-                    cap.release()
-                    cv2.destroyAllWindows()
-                    return
+            #while selected_id is None:
+                #key = cv2.waitKey(30) & 0xFF
+                #if key == 27:
+                    #cap.release()
+                    #cv2.destroyAllWindows()
+                    #return
                 
         #cv2.imshow(WIN_NAME, frame_mejorado)
 
     cap.release()
     cv2.destroyAllWindows()
 
-#"""
-if __name__ == "__main__":
-    #rutavideo= "Nuevos/VelezV/Controlado/Espalda/1.mp4"
-    rutavideo= "Participantes/AlexanderG/NoControlado/Espalda/2.mp4"
-    #Visualizar(rutavideo)
-    main(rutavideo,"AlexanderG")
-#"""
-
-
 """
+if __name__ == "__main__":
+    rutavideo= "Participantes/NavasR/NoControlado/Espalda/1.mp4"
+    main(rutavideo,"NavasR")
+"""
+
+
+#"""
 
 if __name__ == "__main__":
     #NoControlado
@@ -463,15 +498,16 @@ if __name__ == "__main__":
     #1 primero crear la evaluacion en la bd y guardar el id de la evaluacion
     
     #evaluacionID = sv.CrearGuardarNuevaEv("ModeloRFNC_Ev1_7p1")  #IMPORTANTE CAMBIAR EL NOMBRE PARA QUE SE PUEDA GUARDAR LA EVALUACION
-    evaluacionID=41
+    evaluacionID=42
 
     #2 ahora registrar a los participantes que se van a evaluar en el modelo con el id de la evaluacion
-    #participantes = ["JosselynV"]
+    participantes = ["RoselynS"]
     #participantes = ["GamarraA","JosselynV"] #para hacer las primeras pruebas automatizadas se las realiza solo con 3 participantes para supervisarlas
 
     #se obtiene la lista de carpetas de los participantes para que este paso se realize automaticamente
-    participantes=config.obtener_participantes()
-    Orientacion = ["Frontal", "Espalda", "Lateral"]
+    #participantes=config.obtener_participantes()
+                 #["Frontal", "Espalda", "Lateral"]
+    Orientacion = ["Lateral"]
     participantesID =[]
     for p in participantes:
         participanteID = sv.RegistrarParticipanteEv(p,evaluacionID)
@@ -480,14 +516,15 @@ if __name__ == "__main__":
         print (f"participanteID -> {participanteID}")
         for x in Orientacion:
             #Reiniciar_indicadores()
-            for j in range(3):
+            #for j in range(3):
+                j=2
                 print("-------------------------------------------------------------------------------------" )
                 print(f"Participante = {p} Escenario ={escenario} Video ={j+1}" )
 
                 # primero intenta con mp4
                 ruta_video =""
-                ruta_video_mp4 = f"Participantes/{p}/{escenario}/{x}/{j+1}.mp4"
-                ruta_video_mov = f"Participantes/{p}/{escenario}/{x}/{j+1}.mov"
+                ruta_video_mp4 = f"Muestras/{p}/{escenario}/{x}/{j+1}.mp4"
+                ruta_video_mov = f"Muestras/{p}/{escenario}/{x}/{j+1}.mov"
 
                 if os.path.exists(ruta_video_mp4):
                     ruta_video = ruta_video_mp4
@@ -511,4 +548,4 @@ if __name__ == "__main__":
 
 
 
-"""
+#"""

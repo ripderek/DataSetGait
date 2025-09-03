@@ -1,0 +1,133 @@
+RESULTADOS:
+-13 participantes
+-1565 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,098   |64      |2,196      |94.49        |97.17           |
+|NoControlado|782     |273     |1,564      |74.12        |85.14           |
+
+
+
+-14 participantes
+-1709 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,205   |65      |2,410      |94.88        |97.37           |
+|NoControlado|862     |281     |1,724      |75.42        |85.99           |
+
+
+
+-15 participantes
+-1829 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,298   |72      |2,596      |94.74        |97.3            |
+|NoControlado|896     |306     |1,792      |74.54        |85.41           |
+
+
+-16 participantes
+-1929 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,372   |73      |2,744      |94.95        |97.41           |
+|NoControlado|941     |338     |1,882      |73.57        |84.77           |
+
+
+-17 participantes
+-2035 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,476   |73      |2,952      |95.29        |97.59           |
+|NoControlado|1,018   |373     |2,036      |73.18        |84.52           |
+
+
+-18 participantes
+-2140 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,554   |75      |3,108      |95.4         |97.64           |
+|NoControlado|1,056   |403     |2,112      |72.38        |83.98           |
+
+
+-19 participantes
+-2258 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,646   |75      |3,292      |95.64        |97.77           |
+|NoControlado|1,101   |432     |2,202      |71.82        |83.6            |
+
+
+-20 participantes
+-2400 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,744   |78      |3,488      |95.72        |97.81           |
+|NoControlado|1,165   |463     |2,330      |71.56        |83.42           |
+
+
+-21 participantes
+-2531 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,829   |88      |3,658      |95.41        |97.65           |
+|NoControlado|1,220   |503     |2,440      |70.81        |82.91           |
+
+
+-22 participantes
+-2600 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,884   |104     |3,768      |94.77        |97.31           |
+|NoControlado|1,248   |528     |2,496      |70.27        |82.54           |
+
+
+-23 participantes
+-2686 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |1,953   |108     |3,906      |94.76        |97.31           |
+|NoControlado|1,275   |555     |2,550      |69.67        |82.13           |
+
+
+-24 participantes
+-2838 Muestras
+
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |2,073   |108     |4,146      |95.05        |97.46           |
+|NoControlado|1,345   |582     |2,690      |69.8         |82.21           |
+
+
+-25 participantes
+-2963 Muestras
+
+|escenario   |total_vp|total_fp|total_pi_vp|pg_porcentaje|pg_pi_porcentaje|
+|------------|--------|--------|-----------|-------------|----------------|
+|Controlado  |2,180   |113     |4,360      |95.07        |97.47           |
+|NoControlado|1,390   |585     |2,780      |70.38        |82.62           |
+
+
+
+
+
+Redaccion de la evaluacion del modelo
+1. Explicar los resultados que daba al entrenar el modelo en python, es decir, interpretar el accuray etc.
+2. Explicar como se evaluo el modelo..se daba click en la persona que se necesitaba identificar, etc.
+3. Mediante un grafico en R mostrar como fue evolucioandndo el modelo de reconocimiento en base a los resultados de la evaluaciones
+4. Explicar cuales fueron las clases y personas que mas tuvieron precision en el modelo y cuales fueron las que no
+5. (OPCIONAL) Tratar de que mediante un grafico en R se puedan observar como estan distribuidas las muestras de los participantes para que cuales tienen un tendencia X como por ejemplo mediante "HJ-Biplot@
+
+En la discusion hacer una redaccion de porque este metodo tuvo mejor precision que los anteriores, en que ha estado avanzado,
+etc.

@@ -1439,10 +1439,10 @@ $function$
 
 
 
-
+--select COUNT(*) from entrenamiento
 
 --select * from Evualuaciones order by evaluacionid desc limit 1
---insert into Evualuaciones(evaluacion) values ('MODELO_RF_CNC_10P')
+--insert into Evualuaciones(evaluacion) values ('MODELO_RF_C_11P_YOLO')
 --select * from evualuacion_participante
 --select * from videos_evaluaciones where evaluacionid = 36 order by evaluacionpid,orientacion, n_video desc
 
@@ -1452,6 +1452,23 @@ $function$
 --------------------------------------------------------[RESULTADO EVALUACION MODELOS]------------------------------------
 --Evaluacion ID -> 26 --> random forest dividio
 --Evaluacion ID -> 27 --> MLP dividio
+
+--select * from videos_evaluaciones ve inner join evualuacion_participante ep on ve.evaluacionpid = ep.evaluacionpid  WHERE ve.evaluacionid = 42 and ep.participante ='CornejoC'
+
+
+
+
+
+--select * from videos_evaluaciones where evaluacionid = 42 and escenario ='NoControlado' order by evaluacionpid desc
+--select * from evualuacion_participante where evaluacionpid = 256
+
+--numero de participantes de la ev
+select ep.participante  from videos_evaluaciones ve inner join evualuacion_participante ep on ve.evaluacionpid = ep.evaluacionpid  
+ WHERE ve.evaluacionid = 42 group by ep.participante
+
+--numero de muestras 
+--select COUNT(*) from entrenamiento
+
 --hacer una consulta que devuelva los porcentajes de precision general por cada participante
 SELECT 
     ep.participante,
@@ -1464,8 +1481,8 @@ SELECT
 FROM videos_evaluaciones ve
 INNER JOIN evualuacion_participante ep 
     ON ve.evaluacionpid = ep.evaluacionpid 
-WHERE ve.evaluacionid = 41
-GROUP BY ep.participante, ve.evaluacionpid, ve.escenario  
+WHERE ve.evaluacionid = 42 and ve.escenario ='NoControlado'
+GROUP BY ep.participante, /*ve.evaluacionpid,*/ ve.escenario  
 ORDER BY pg_pi_porcentaje DESC;
 
 --hacer una consulta que devuelva los porcentajes de precision general por cada orientacion por escenario de una evaluacion
@@ -1478,7 +1495,7 @@ SELECT
     ROUND( (SUM(ve.vp)::numeric / NULLIF(SUM(ve.vp) + SUM(ve.fp),0)) * 100, 2) AS pg_porcentaje,
     ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje
 FROM videos_evaluaciones ve
-WHERE ve.evaluacionid = 41
+WHERE ve.evaluacionid = 42
 GROUP BY ve.escenario, ve.orientacion
 ORDER BY pg_pi_porcentaje desc;
 
@@ -1492,10 +1509,14 @@ SELECT
     ROUND( (SUM(ve.vp)::numeric / NULLIF(SUM(ve.vp) + SUM(ve.fp),0)) * 100, 2) AS pg_porcentaje,
     ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje
 FROM videos_evaluaciones ve
-WHERE ve.evaluacionid = 41
+WHERE ve.evaluacionid = 42
 GROUP BY ve.escenario
 ORDER BY pg_pi_porcentaje desc;
 
+/*
+94.49	97.17
+75.07	85.76
+ * */
 
 --hacer una consulta que devuelva la precision general de toda la evaluacion
 SELECT 
@@ -1505,7 +1526,11 @@ SELECT
     ROUND( (SUM(ve.vp)::numeric / NULLIF(SUM(ve.vp) + SUM(ve.fp),0)) * 100, 2) AS pg_porcentaje,
     ROUND( (SUM(ve.pi_vp)::numeric / NULLIF(SUM(ve.pi_vp) + SUM(ve.fp),0)) * 100, 2) AS pg_pi_porcentaje
 FROM videos_evaluaciones ve
-WHERE ve.evaluacionid = 40;
+WHERE ve.evaluacionid = 42;
+
+
+
+--select * from obtener_datos_entrenamiento(1,1)
 
 
 
@@ -1520,11 +1545,16 @@ WHERE ve.evaluacionid = 40;
 
 
 
+--select * from personas p order by p.personaid desc
+
+--select * from muestras where personaid = 40 order by fecha desc
+
+--select orientacion,* from entrenamiento where muestraid = 165
 
 
 
 
-
+--delete  from entrenamiento where muestraid = 131
 
 
 --select * from muestras  order by muestraid desc
@@ -1628,5 +1658,76 @@ EXCEPTION
 END;
 $procedure$
 ;
+
+
+
+
+
+
+--consulta para hacer el HJBiplot en R
+
+select 
+--e.videoid,
+--e.muestraid,
+m.personaid ,
+e.p_32_31_promedio,
+e.p_32_31_desviacion,
+e.p_28_27_promedio,
+e.p_28_27_desviacion,
+e.p_26_25_promedio,
+e.p_26_25_desviacion,
+e.p_31_23_promedio,
+e.p_31_23_desviacion,
+e.p_32_24_promedio,
+e.p_32_24_desviacion,
+e.p_16_12_promedio,
+e.p_16_12_desviacion,
+e.p_15_11_promedio,
+e.p_15_11_desviacion,
+e.p_32_16_promedio,
+e.p_32_16_desviacion,
+e.p_31_15_promedio,
+e.p_31_15_desviacion--,
+--orientacion
+from entrenamiento e
+inner join muestras m on e.muestraid =m.muestraid 
+where e.orientacion =1 and m.personaid =19 
+
+
+
+
+
+select 
+    m.personaid,
+    avg(e.p_32_31_promedio) as "32_31",
+    --avg(e.p_32_31_desviacion) as p_32_31_desviacion_avg,
+    avg(e.p_28_27_promedio) as "28_27",
+    --avg(e.p_28_27_desviacion) as p_28_27_desviacion_avg,
+    avg(e.p_26_25_promedio) as "26_25",
+    --avg(e.p_26_25_desviacion) as p_26_25_desviacion_avg,
+    avg(e.p_31_23_promedio) as "31_23",
+    --avg(e.p_31_23_desviacion) as p_31_23_desviacion_avg,
+    avg(e.p_32_24_promedio) as "32_24",
+    --avg(e.p_32_24_desviacion) as p_32_24_desviacion_avg,
+    avg(e.p_16_12_promedio) as "16_12",
+    --avg(e.p_16_12_desviacion) as p_16_12_desviacion_avg,
+    avg(e.p_15_11_promedio) as "15_11",
+    --avg(e.p_15_11_desviacion) as p_15_11_desviacion_avg,
+    avg(e.p_32_16_promedio) as "32_16",
+    --avg(e.p_32_16_desviacion) as p_32_16_desviacion_avg,
+    avg(e.p_31_15_promedio) as "31_15"
+    --avg(e.p_31_15_desviacion) as p_31_15_desviacion_avg
+from entrenamiento e
+inner join muestras m on e.muestraid = m.muestraid 
+where e.orientacion = 3
+group by m.personaid
+order by m.personaid;
+
+
+
+
+
+
+
 
 

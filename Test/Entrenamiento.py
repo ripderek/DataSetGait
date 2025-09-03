@@ -8,6 +8,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score
 from joblib import dump, load
+import pandas as pd
 
 import sys
 import os
@@ -19,6 +20,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import RandomizedSearchCV
 from scipy.stats import randint
+from sklearn.metrics import make_scorer, f1_score, precision_score, recall_score, balanced_accuracy_score
 
 # Modelos
 Sequential = tf.keras.Sequential
@@ -38,6 +40,7 @@ log_texto_RF = ""
 
 
 #funcion para el entrenamiento de RF -> random forest
+"""
 def EntrenamientoRF(numero):
     # Paso 1: Obtener JSON desde PostgreSQL
     resultado = ec.ObtenerDatosEntrenamiento(numero)  # El JSON como dict/list
@@ -111,11 +114,199 @@ def EntrenamientoRF(numero):
     print(f"Modelo entrenado y guardado exitosamente como: {nombre_archivo}")
     print(f"Tiempo de entrenamiento: {duracion:.2f} segundos")
     print(f"Mejores parámetros: {mejor_params}")
+"""
+    
+def EntrenamientoRF(numero):
+    # Paso 1: Obtener JSON desde PostgreSQL
+    resultado = ec.ObtenerDatosEntrenamiento(numero)  # El JSON como dict/list
+    datos = resultado
+    X = []
+    y = []
 
+    print(f"RF -> Iniciando entrenamiento Modelo_{numero}")
+    # Paso 2: Convertir muestras en vectores
+    for muestra in datos:
+        vector = []
+        puntos = muestra["puntos"]
+
+        for clave in sorted(puntos.keys()):
+            vector.append(puntos[clave]["promedio"])
+            vector.append(puntos[clave]["desviacion"])
+
+        X.append(vector)
+        y.append(muestra["persona"])
+
+    # Definir Random Forest y parámetros a optimizar
+    modelo = RandomForestClassifier(random_state=42)
+
+    valores, cuentas = np.unique(y, return_counts=True)
+    print(pd.DataFrame({"Clase": valores, "Cantidad": cuentas}))
+    
+    # Definir el espacio de búsqueda de hiperparámetros
+    param_dist = {
+        "n_estimators": randint(50, 500),
+        "max_depth": [None, 10, 20, 30, 40],
+        "min_samples_split": randint(2, 20),
+        "min_samples_leaf": randint(1, 10),
+        "max_features": ["sqrt", "log2", None],
+        "bootstrap": [True, False],
+    }
+
+    # Definir métricas personalizadas
+    scoring = {
+        "accuracy": "accuracy",
+        "f1_macro": "f1_macro",
+        "precision_macro": "precision_macro",
+        "recall_macro": "recall_macro",
+        "balanced_accuracy": "balanced_accuracy"
+    }
+
+
+    # RandomizedSearchCV en lugar de GridSearchCV
+    random_search = RandomizedSearchCV(
+        estimator=modelo,
+        param_distributions=param_dist,
+        n_iter=50,
+        cv=8, #numero de fols para entrenar y evaluar 3-> 2 de entrenamiento 1 prueba 
+        verbose=2,
+        random_state=42,
+        n_jobs=-1,
+        scoring=scoring,
+        refit="f1_macro"
+    )
+
+    # Paso 3: Entrenar modelo
+    inicio = time.time()
+    random_search.fit(X, y)
+    fin = time.time()
+
+    mejor_modelo = random_search.best_estimator_
+    mejor_params = random_search.best_params_
+    mejor_score = random_search.best_score_  # accuracy promedio con validación cruzada
+    resultados = pd.DataFrame(random_search.cv_results_)  # todos los resultados
+
+    duracion = fin - inicio
+
+    # Paso 4: Crear carpeta si no existe
+    os.makedirs("MODELOS/RF", exist_ok=True)
+
+    # Paso 5: Guardar modelo con timestamp único
+    nombre_archivo = f"MODELOS/RF/modelo_{numero}.joblib"
+    dump(mejor_modelo, nombre_archivo)
+
+    # Logs
+    print(f"Modelo entrenado y guardado exitosamente como: {nombre_archivo}")
+    print(f"Tiempo de entrenamiento: {duracion:.2f} segundos")
+    print(f"Mejores parámetros: {mejor_params}")
+    print(f"Mejor accuracy promedio (cv=3): {mejor_score:.4f}")
+
+    # Mostrar un resumen de todas las combinaciones evaluadas
+    print("\nResumen de combinaciones probadas (Top 5 ordenadas por F1-macro):")
+    print(resultados[["params", "mean_test_accuracy", "mean_test_f1_macro",
+                  "mean_test_precision_macro", "mean_test_recall_macro",
+                  "mean_test_balanced_accuracy"]]
+      .sort_values(by="mean_test_f1_macro", ascending=False)
+      .head())
+
+
+
+def EntrenamientoMLP_f(numero):
+    #if iniciar_entrenamiento:
+        #tiempo_MLP.write(f"MLP-> Iniciando entrenamiento {numero}")
+        # Paso 1: Obtener JSON desde PostgreSQL
+        resultado = ec.ObtenerDatosEntrenamiento(numero)  # El JSON como dict/list
+        datos = resultado
+
+        X = []
+        y = []
+
+        # Paso 2: Convertir muestras en vectores
+        for muestra in datos:
+            vector = []
+            puntos = muestra["puntos"]
+
+            for clave in sorted(puntos.keys()):
+                vector.append(puntos[clave]["promedio"])
+                vector.append(puntos[clave]["desviacion"])
+
+            X.append(vector)
+            y.append(muestra["persona"])
+
+        X = np.array(X)
+        y = np.array(y)
+
+        # Paso 3: Codificar etiquetas
+        os.makedirs("MODELOS", exist_ok=True)
+        #encoder_path = f"MODELOS/MLP/label_encoder_All.joblib"
+        #model_path = f"MODELOS/MLP/mlp_model_ALL.h5"
+        encoder_path = f"MODELOS/MLP/label_encoder_{numero}.joblib"
+        model_path = f"MODELOS/MLP/mlp_model_{numero}.h5"
+
+        #if os.path.exists(encoder_path):
+            # Cargar encoder existente
+            #label_encoder = load(encoder_path)
+            #y_encoded = label_encoder.transform(y)
+            #print("Encoder cargado desde archivo existente.")
+            #tiempo_MLP.write(f"Encoder cargado desde archivo existente.")
+        #else:
+        # Crear nuevo encoder
+        label_encoder = LabelEncoder()
+        y_encoded = label_encoder.fit_transform(y)
+        dump(label_encoder, encoder_path)
+        #print("Encoder creado y guardado.")
+        #tiempo_MLP.write(f"MLP-> Encoder creado y guardado {numero}. ")
+
+        y_categorical = to_categorical(y_encoded)
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y_categorical, test_size=0.2, random_state=42
+        )
+
+        # Paso 4: Crear o cargar modelo
+        #if os.path.exists(model_path):
+            #modelo = load_model(model_path)
+            #print("Modelo existente cargado, continuará el entrenamiento.")
+        #else:
+        input_dim = X.shape[1]
+        output_dim = y_categorical.shape[1]
+        modelo = Sequential()
+        modelo.add(Dense(128, input_dim=input_dim, activation='relu'))
+        modelo.add(Dropout(0.3))
+        modelo.add(Dense(64, activation='relu'))
+        modelo.add(Dense(output_dim, activation='softmax'))
+        modelo.compile(loss='categorical_crossentropy',
+                       optimizer='adam',
+                       metrics=['accuracy'])
+        #tiempo_MLP.write(f"MLP-> Nuevo modelo MLP creado {numero}.")
+        # Paso 5: Entrenamiento
+        inicio = time.time()
+        modelo.fit(X_train, y_train, epochs=30, batch_size=16, verbose=1)
+        fin = time.time()
+        duracion = fin - inicio
+
+        # Evaluación
+        y_pred = np.argmax(modelo.predict(X_test), axis=1)
+        y_test_labels = np.argmax(y_test, axis=1)
+        #Accuracy.write(f"Accuracy: {accuracy_score(y_test_labels, y_pred)}")
+        print(f"MLP-> Accuracy: {accuracy_score(y_test_labels, y_pred)}")
+        #Classification_Report.write(f"Classification Report: {classification_report(y_test_labels, y_pred, target_names=label_encoder.classes_)}")
+        print(f"MLP-> Classification Report: {classification_report(y_test_labels, y_pred, target_names=label_encoder.classes_)}")
+
+        # Guardar modelo
+        modelo.save(model_path)
+        dump(label_encoder, encoder_path)
+        #tiempo_MLP.write(f"MLP->Modelo {numero} entrenado y guardado exitosamente. Tiempo de entrenamiento: {duracion:.2f} segundos")
+        #print(f"Modelo entrenado y guardado exitosamente. Tiempo de entrenamiento: {duracion:.2f} segundos")
+        print(f"MLP-> Modelo {numero} entrenado y guardado exitosamente. Tiempo de entrenamiento: {duracion:.2f} segundos")
+        print(f"MLP-> Modelo guardado en: {model_path}")
 
 
 
 if __name__ == "__main__":
-    EntrenamientoRF(1)
-    EntrenamientoRF(2)
-    EntrenamientoRF(3) 
+    #EntrenamientoRF(1)
+    #EntrenamientoRF(2)
+    EntrenamientoRF(3)
+
+    #MLP
+    #EntrenamientoMLP_f(1)
+    #EntrenamientoMLP_f(2)
+    #EntrenamientoMLP_f(3) 

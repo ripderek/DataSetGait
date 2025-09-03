@@ -22,8 +22,26 @@ model = YOLO("yolov8n.pt")
 
 reproducir_flag = {"estado": True}
 
+selected_id = None  # ID de la persona seleccionada
+last_detections = []  # [(id, (x1,y1,x2,y2)), ...]
+CONF_THRES = 0.35
+contador = 0
+
+#vectores de distancias
+vector_distancia_32_31 = []
+vector_distancia_28_27 =[]
+vector_distancia_26_25 =[]
+vector_distancia_31_23 =[]
+vector_distancia_32_24 =[]
+#nuevos vectores 
+vector_distancia_16_12 =[]
+vector_distancia_15_11 =[]
+vector_distancia_32_16 =[]
+vector_distancia_31_15 =[]
+
 
 def RecorteNormalizacion(frame_mejorado, min_y, max_y, min_x, max_x):
+    global contador
     # --- Paso 1: padding sobre el bbox ---
     ancho = max_x - min_x
     alto = max_y - min_y
@@ -88,6 +106,7 @@ def RecorteNormalizacion(frame_mejorado, min_y, max_y, min_x, max_x):
                 x1, y1 = int(xs[start_idx]), int(ys[start_idx])
                 x2, y2 = int(xs[end_idx]), int(ys[end_idx])
                 cv2.line(fondo_negro, (x1, y1), (x2, y2), (0, 0, 255), 2)
+    else: contador = 0 
                 
 
     return fondo_negro, xs, ys, escala_x, escala_y, min_x_, max_x_, min_y_, max_y_
@@ -104,26 +123,31 @@ def distancia_puntos(min_x,escala_x,min_y,escala_y,xs1,xs2,ys1,ys2):
     return config.distancia_euclidiana(x1_2,x1_1,y1_2,y1_1)
                
 
-
-                       
-selected_id = None  # ID de la persona seleccionada
-last_detections = []  # [(id, (x1,y1,x2,y2)), ...]
-CONF_THRES = 0.35
-
 def on_mouse(event, x, y, flags, userdata):
-    global selected_id, last_detections
+    global selected_id, last_detections,contador
     if event == cv2.EVENT_LBUTTONDOWN:
         for tid, (x1, y1, x2, y2) in last_detections:
             if x1 <= x <= x2 and y1 <= y <= y2:
                 selected_id = tid
                 print(f"[INFO] Persona seleccionada con ID {tid}")
+                contador = 0
+                vector_distancia_32_31.clear()
+                vector_distancia_28_27.clear()
+                vector_distancia_26_25.clear()
+                vector_distancia_31_23.clear()
+                vector_distancia_32_24.clear()
+                #nuevos vectores
+                vector_distancia_16_12.clear()
+                vector_distancia_15_11.clear()
+                vector_distancia_32_16.clear()
+                vector_distancia_31_15.clear()
                 break
 
 
-def main(VIDEO_SOURCE,videoid,muestraid):
+def main(VIDEO_SOURCE,videoid,muestraid,save_m):
     WIN_NAME = "YOLO Tracking"
-    global last_detections, selected_id
-
+    global last_detections, selected_id,contador,vector_distancia_32_31,vector_distancia_28_27,vector_distancia_26_25,vector_distancia_31_23,vector_distancia_32_24,vector_distancia_16_12,vector_distancia_15_11,vector_distancia_32_16,vector_distancia_31_15
+    selected_id = None
     cap = cv2.VideoCapture(VIDEO_SOURCE)
     if not cap.isOpened():
         print("[ERROR] No se pudo abrir el video.")
@@ -137,18 +161,18 @@ def main(VIDEO_SOURCE,videoid,muestraid):
     frame_count = 0  # Contador de frames
 
     #variables globales de los videos
-    contador = 0
+    
     #vectores de distancias
-    vector_distancia_32_31 = []
-    vector_distancia_28_27 =[]
-    vector_distancia_26_25 =[]
-    vector_distancia_31_23 =[]
-    vector_distancia_32_24 =[]
-    #nuevos vectores 
-    vector_distancia_16_12 =[]
-    vector_distancia_15_11 =[]
-    vector_distancia_32_16 =[]
-    vector_distancia_31_15 =[]
+    vector_distancia_32_31.clear()
+    vector_distancia_28_27.clear()
+    vector_distancia_26_25.clear()
+    vector_distancia_31_23.clear()
+    vector_distancia_32_24.clear()
+    #nuevos vectores
+    vector_distancia_16_12.clear()
+    vector_distancia_15_11.clear()
+    vector_distancia_32_16.clear()
+    vector_distancia_31_15.clear()
 
 
     #cruce de rodillas 
@@ -282,8 +306,8 @@ def main(VIDEO_SOURCE,videoid,muestraid):
 
                         #si los pies estan fuera de rango se omite el analisis
                         if pie_xd >= 380 or pie_xd_2>=380:
-                            cv2.putText(frame_mejorado, f'Marcha Fuera de Rango:', (30, 75),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+                            cv2.putText(frame_mejorado, f'Marcha Fuera de Rango', (30, 520),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1.1, (255, 255, 255), 2)
 
                             contador=0
                             vector_distancia_26_25.clear()
@@ -297,7 +321,7 @@ def main(VIDEO_SOURCE,videoid,muestraid):
                             vector_distancia_31_15.clear()
                         
                         else:
-                            if (contador>=45):
+                            if (contador>=35):
                                 #calcular la desviacion y el promedio para poder guardar como muestra    
                                 promedio_32_31 = config.obtener_promedio(vector_distancia_32_31)
                                 desviacion_32_31 = config.obtener_desviacion(vector_distancia_32_31)
@@ -333,7 +357,8 @@ def main(VIDEO_SOURCE,videoid,muestraid):
 
                     
                                 #guardar las muestras en la BD
-                                sv.registrar_puntos_muestra(videoid,muestraid,promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15,orientacion)
+                                if save_m == True:
+                                    sv.registrar_puntos_muestra(videoid,muestraid,promedio_32_31,desviacion_32_31,promedio_28_27,desviacion_28_27,promedio_26_25,desviacion_26_25,promedio_31_23,desviacion_31_23,promedio_32_24,desviacion_32_24,promedio_16_12,desviacion_16_12,promedio_15_11,desviacion_15_11,promedio_32_16,desviacion_32_16,promedio_31_15,desviacion_31_15,orientacion)
 
                                 vector_distancia_26_25.clear()
                                 vector_distancia_28_27.clear()
@@ -353,6 +378,8 @@ def main(VIDEO_SOURCE,videoid,muestraid):
                     
                         cv2.putText(normalizacion, f'Contador: {contador}', (30, 20),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+                        
+
                     
                         orientacionString = "Frontal" if orientacion == 1 else "Espalda" if orientacion == 2 else "Lateral"
                         cv2.putText(normalizacion, f': {orientacionString}', (30, 50),
@@ -373,6 +400,8 @@ def main(VIDEO_SOURCE,videoid,muestraid):
                             #cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
         last_detections = detections
+        cv2.putText(frame_mejorado, f'{VIDEO_SOURCE}', (30, 490),
+            cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
 
         cv2.imshow(WIN_NAME, frame_mejorado)
         key = cv2.waitKey(30) & 0xFF
@@ -382,18 +411,18 @@ def main(VIDEO_SOURCE,videoid,muestraid):
         frame_count += 1
 
         # Congelar si ya pasaron 10 frames pero no se ha seleccionado a nadie
-        if frame_count > 10 and selected_id is None:
-            cv2.putText(frame_mejorado, f'Seleccione una persona', (20, 20),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
-            cv2.imshow(WIN_NAME, frame_mejorado)
-            print("[INFO] Esperando a que selecciones una persona...")
+        #if frame_count > 10 and selected_id is None:
+            #cv2.putText(frame_mejorado, f'Seleccione una persona', (20, 20),
+                        #cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+            #cv2.imshow(WIN_NAME, frame_mejorado)
+            #print("[INFO] Esperando a que selecciones una persona...")
             #imprimir el mensaje en opeven
-            while selected_id is None:
-                key = cv2.waitKey(30) & 0xFF
-                if key == 27:
-                    cap.release()
-                    cv2.destroyAllWindows()
-                    return
+            #while selected_id is None:
+                #key = cv2.waitKey(30) & 0xFF
+                #if key == 27:
+                    #cap.release()
+                    #cv2.destroyAllWindows()
+                    #return
                 
         #cv2.imshow(WIN_NAME, frame_mejorado)
 
@@ -402,25 +431,26 @@ def main(VIDEO_SOURCE,videoid,muestraid):
 
 """
 if __name__ == "__main__":
-    #rutavideo= "Nuevos/VelezV/Controlado/Espalda/1.mp4"
-    rutavideo= "Participantes/JosselynV/NoControlado/Lateral/2.mov"
-    #Visualizar(rutavideo)
-    main(rutavideo)
+    rutavideo= "Muestras/CornejoC/Controlado/Frontal/1.mp4"
+    main(rutavideo,1,1,False)
 """
 
 
 #"""
 
 if __name__ == "__main__":
-
-    escenarios = ["Controlado", "NoControlado"]
-    #participantes = ["MendozaA"]
-    Orientacion = ["Frontal", "Espalda", "Lateral"]
+    #global selected_id
+    #,           ["Controlado","NoControlado"]
+    escenarios = ["NoControlado"]
+    participantes = ["RoselynS"]
+                 #["Frontal", "Espalda", "Lateral"]
+    Orientacion = ["Lateral"]
     #se obtiene la lista de carpetas de los participantes para que este paso se realize automaticamente
-    participantes=config.obtener_participantes()
+    #participantes=config.obtener_participantes("Muestras")
    
     participantesID =[]
     for p in participantes:
+        
         #1 primero registrar al participante, si no existe crearlo y devolver el id
         participanteID = sv.regitrarParticipante(p)
         print(f"Participante {p} ID: {participanteID}")
@@ -437,12 +467,12 @@ if __name__ == "__main__":
             for x in Orientacion:
                 for j in range(num):
                     print("-------------------------------------------------------------------------------------" )
-                    print(f"Participante = {p} Escenario ={escenario} Video ={j+1}" )
+                    print(f"Participante = {p} Escenario ={escenario} Orientacion = {x} Video ={j+1}" )
 
                     # primero intenta con mp4
                     ruta_video =""
-                    ruta_video_mp4 = f"Participantes/{p}/{escenario}/{x}/{j+1}.mp4"
-                    ruta_video_mov = f"Participantes/{p}/{escenario}/{x}/{j+1}.mov"
+                    ruta_video_mp4 = f"Muestras/{p}/{escenario}/{x}/{j+1}.mp4"
+                    ruta_video_mov = f"Muestras/{p}/{escenario}/{x}/{j+1}.mov"
 
                     if os.path.exists(ruta_video_mp4):
                         ruta_video = ruta_video_mp4
@@ -455,7 +485,9 @@ if __name__ == "__main__":
                     #3 registrar el video y devolver el id del video para que se guarden los datos en la funcion siguiente
                     videoID = sv.registrarVideo(muestraid)
                     print(f"Video {videoID} registrado para la muestra {muestraid} del participante {p}")
-                    main(ruta_video,videoID,muestraid)
+                    main(ruta_video,videoID,muestraid,True)
+                    print(f"Video procesado: {ruta_video}")
+                    #selected_id=None
 
 
     #print (f"PROCESO FINALIZADO REVISAR LAS CONSULTAS DE LA BD CON evaluacionID -> {evaluacionID}")
